@@ -1,0 +1,34 @@
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 缩略图
+._*
+
+# 可能出现在卷根目录的文件
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# 可能在远程 AFP 共享上创建的目录
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# 静态网页相关
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+node_modules/
+dist/
+build/
+*.log
+.cache
