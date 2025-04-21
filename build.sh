@@ -1,1 +1,1 @@
-kodama c --short-slug --footer-mode embed -o public
+kodama c --short-slug --footer-mode embed -o docs

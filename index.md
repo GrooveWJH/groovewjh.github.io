@@ -19,3 +19,5 @@ link: [links](/links.md)
 [+-](/contents/Cybernetics/index.md#:embed)
 
 [+-](/contents/Math/index.md#:embed)
+
+[+-](/contents/Projects/index.md#:embed)
