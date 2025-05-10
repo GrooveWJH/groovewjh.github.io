@@ -75,7 +75,121 @@
 </script></head><body><div id="grid-wrapper"><article><section class="block" data-taxon="">
       <details id="index" open><summary><header><h1><span class="taxon"></span>Blog-渐入佳境 <a class="slug" href="/index">[index]</a></h1><div class="metadata"><ul><li class="meta-item"><span class="link local"><a href="/groove" title="groove [groove]">groove</a></span></li><li class="meta-item"><span class="link local"><a href="/contact" title="联系 [contact]">contact</a></span></li><li class="meta-item"><span class="link local"><a href="/links" title="链接 [links]">links</a></span></li></ul></div></header></summary><hr />
 <p><section class="block hide-metadata" data-taxon="">
-      <details id="contents-ComputerScience-index" ><summary><header><h1><span class="taxon"> 1. </span>计算机科学 <a class="slug" href="/contents/ComputerScience/index">[ComputerScience]</a></h1><div class="metadata"><ul><li class="meta-item">May 20, 2023</li><li class="meta-item"><span class="link local"><a href="/groove" title="groove [groove]">groove</a></span></li></ul></div></header></summary></details>
+      <details id="contents-ComputerScience-index" ><summary><header><h1><span class="taxon"> 1. </span>计算机科学 <a class="slug" href="/contents/ComputerScience/index">[ComputerScience]</a></h1><div class="metadata"><ul><li class="meta-item">May 20, 2023</li><li class="meta-item"><span class="link local"><a href="/groove" title="groove [groove]">groove</a></span></li></ul></div></header></summary><p><section class="block hide-metadata" data-taxon="">
+      <details id="contents-ComputerScience-TypesettingSystem-index" open><summary><header><h1><span class="taxon"></span>PDF的巧妙运用的探讨 <a class="slug" href="/contents/ComputerScience/TypesettingSystem/index">[TypesettingSystem]</a></h1><div class="metadata"><ul><li class="meta-item">May 8, 2025</li><li class="meta-item"><span class="link local"><a href="/groove" title="groove [groove]">groove</a></span></li></ul></div></header></summary><h1>PDF隐藏互动与动画开发经验总结：深入表单、JS、坐标与平台兼容性</h1>
+<p><span class="link local"><a href="/contents/ComputerScience/TypesettingSystem/pdfMotionCase" title=" [contents/ComputerScience/TypesettingSystem/pdfMotionCase]">下载此文件</a></span>，<strong>并使用Chromium构建的浏览器打开</strong>，以体验本文内容。</p>
+<p>在日常使用中，PDF 通常只是一个静态阅读文档。但实际上，PDF 的标准早已演化为一个功能丰富的<strong>文档交互平台</strong>，内嵌脚本、动态表单、动画控件等功能已支持多年，只是它们被广泛忽略了。</p>
+<p>本篇文章基于一次实际构建“带有滑动按钮动画与彩蛋提示功能的 PDF”的经验，总结了 PDF 的一些鲜为人知的特性、实现路径与浏览器兼容性技巧。</p>
+<hr />
+<h2>🧩 PDF 标准中鲜为人知但强大的特性</h2>
+<p>最新的 PDF（ISO 32000）标准中支持很多超出日常阅读需求的高级能力，例如：</p>
+<ul>
+<li><strong>AcroForm 表单字段</strong>：支持文本框、按钮、复选框等交互输入；</li>
+<li><strong>嵌入 JavaScript</strong>：可运行交互逻辑，如 <code>app.alert()</code>、动画、提交数据等；</li>
+<li><strong>图层 (OCG)</strong>：可控制图纸或地图中的内容显示；</li>
+<li><strong>数字签名</strong>：内嵌 PKCS#7 证书、支持电子公文验证；</li>
+<li><strong>多媒体与3D嵌入</strong>：嵌入视频、音频、甚至可旋转的 3D 模型；</li>
+<li><strong>PDF/A &amp; PDF/X</strong>：为长期存档和出版印刷设计的专用规范子集。</li>
+</ul>
+<p>这些功能构成了 PDF 的“隐性平台能力”，在专业出版、表单采集、建筑制图、档案长期保存中大量使用。</p>
+<hr />
+<h2>🧾 表单与 JavaScript 的结合：更强的交互体验</h2>
+<p>在 PDF 中使用 JavaScript 最常见的用途包括：</p>
+<ul>
+<li>动态验证表单输入；</li>
+<li>自动提交内容至服务器（需用户操作确认）；</li>
+<li>动画控制（如移动按钮、变换颜色）；</li>
+<li>弹窗提示、状态反馈；</li>
+<li>记录页面尺寸、交互状态等持久信息。</li>
+</ul>
+<p>但平台支持度差异极大：</p>
+<table><thead><tr><th>功能</th><th>Acrobat Reader</th><th>Chrome / Edge</th><th>macOS Preview</th><th>移动浏览器</th></tr></thead><tbody>
+<tr><th>表单字段（填写）</th><th>✅</th><th>✅</th><th>✅</th><th>✅</th></tr>
+<tr><th>表单字段动画控制</th><th>✅</th><th>⚠️（部分）</th><th>❌</th><th>❌</th></tr>
+<tr><th>JavaScript 执行</th><th>✅</th><th>⚠️（基础 <code>alert</code>）</th><th>❌</th><th>❌</th></tr>
+<tr><th>提交表单到服务器</th><th>✅</th><th>❌</th><th>❌</th><th>❌</th></tr>
+</tbody></table>
+<hr />
+<h2>🎬 如何制作一个滑动动画控件（按钮）</h2>
+<p>核心思路是使用 <code>setInterval()</code> 启动定时器，不断修改按钮的 <code>field.rect</code> 属性实现动画。
+完整动画控制代码见文末 <span class="link local"><a href="/#slidejs" title=" [#slidejs]">slide.js</a></span>。</p>
+<p>PDF 中动画的实现受到平台限制，但在 Acrobat Reader 中运行顺畅。</p>
+<hr />
+<h2>🧭 PDF 的坐标系统简述</h2>
+<ul>
+<li>PDF 的坐标以页面左下角为原点 (0,0)，单位为“点”（1 pt = 1/72 英寸）；</li>
+<li>页面尺寸通常为 A4 (595x842)、Letter 等；</li>
+<li><code>getPageBox()</code> 返回 <code>[left, bottom, right, top]</code>；</li>
+<li>按钮或元素位置定义为 <code>[x1, y1, x2, y2] = [左, 下, 右, 上]</code>。</li>
+</ul>
+<p>这与 CSS 或浏览器坐标系不同，尤其需要注意“上 = 高”。</p>
+<hr />
+<h2>🧨 Chromium 浏览器的 PDF 渲染器问题</h2>
+<p>Chrome / Edge 内置的 PDF 查看器使用 <strong>PDFium</strong>：</p>
+<ul>
+<li>✅ 能显示表单字段；</li>
+<li>✅ 能执行 <code>app.alert()</code>；</li>
+<li>❌ 无法执行 <code>this.getPageBox()</code>、<code>addAnnot()</code> 等 API；</li>
+<li>❌ 不支持字段移动、动画等复杂 JS；</li>
+<li>⚠️ <code>setInterval()</code> 仅对字符串表达式生效。</li>
+</ul>
+<p>如果你在 Chromium 浏览器中运行如下代码：</p>
+<pre><code class="language-javascript">var box = this.getPageBox(); // 将返回 undefined → 报错
+</code></pre>
+<p>会得到：</p>
+<pre><code>TypeError: Cannot read properties of undefined (reading 'join')
+</code></pre>
+<hr />
+<h2>🛡️ 如何规避 getPageBox() 在浏览器中无效的问题</h2>
+<p>解决思路是：<strong>提前在 Acrobat 中运行一次保存，将页面尺寸写入隐藏字段</strong>，之后动画运行时直接读取该值。</p>
+<p>你可以在“文档将保存时”触发以下脚本：</p>
+<pre><code class="language-javascript">// recovery.js 见文末
+</code></pre>
+<p>该脚本会：</p>
+<ol>
+<li>获取页面长宽；</li>
+<li>写入名为 <code>sizeInfo</code> 的隐藏字段；</li>
+<li>并将动画按钮归位（为下一次启动准备）。</li>
+</ol>
+<p>之后在动画脚本中你可以这样读取尺寸：</p>
+<pre><code class="language-javascript">var sizeField = this.getField("sizeInfo");
+var pageHeight = parseFloat(sizeField.value.split(",")[1]);
+</code></pre>
+<hr />
+<h2>🎉 惊喜：利用被禁止的 API 提示用户彩蛋信息</h2>
+<p>虽然浏览器禁止大多数 JS API，但 <strong><code>app.alert()</code> 居然被保留</strong>，因此你可以故意写一个：</p>
+<pre><code class="language-javascript">try {
+  this.getPageBox().join(", "); // 故意报错
+} catch (e) {
+  app.alert("Welcome! 🎉\nThis is a hidden Easter egg!", 3);
+}
+</code></pre>
+<p>这段代码会在不支持 <code>getPageBox()</code> 的 PDFium 中触发 <code>catch</code>，从而弹出你想要的提示窗口！</p>
+<p>这成为一种<strong>创造性使用不兼容行为</strong>来展示定制信息的方法！</p>
+<hr />
+<h2>📁 附录 · 代码链接</h2>
+<h3>slide.js – 动画按钮主脚本（文档级 JavaScript）</h3>
+<pre><code class="language-javascript">// 见文件 [181†slide.js]
+</code></pre>
+<h3>recovery.js – 保存时写入页面尺寸（文档动作）</h3>
+<pre><code class="language-javascript">// 见文件 [182†recovery.js]
+</code></pre>
+<h3>openingAlert.js – 打开时触发的彩蛋提示</h3>
+<pre><code class="language-javascript">// 见文件 [183†openingAlert.js]
+</code></pre>
+<hr />
+<h2>✅ 总结</h2>
+<ul>
+<li>PDF 是一个被严重低估的交互平台；</li>
+<li>JavaScript 和表单字段在 Adobe Acrobat 中有非常强的表达力；</li>
+<li>浏览器受限，但可以用策略性脚本兼容降级；</li>
+<li>创造性利用 API 失败回调，可以反向实现“彩蛋提示”；</li>
+<li>如果你对静态 PDF 不满足，完全可以让它动起来、活起来！</li>
+</ul>
+<p>欢迎你也试试让 PDF 变成一个更像网页的“离线交互容器”。</p>
+</details>
+    </section></p>
+</details>
     </section></p>
 <p><section class="block hide-metadata" data-taxon="">
       <details id="contents-Robotics-index" ><summary><header><h1><span class="taxon"> 2. </span>机器人学 <a class="slug" href="/contents/Robotics/index">[Robotics]</a></h1><div class="metadata"><ul><li class="meta-item">March 21, 2025</li><li class="meta-item"><span class="link local"><a href="/groove" title="groove [groove]">groove</a></span></li></ul></div></header></summary></details>
@@ -101,4 +215,4 @@
 </details>
     </section><footer></footer></article>
 
-<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class="item-summary"><a class="bullet" href="/contents/ComputerScience/index" title="计算机科学 [contents/ComputerScience/index]">■</a><span class="link"><a href="#contents-ComputerScience-index"><span class="taxon"> 1. </span>计算机科学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Robotics/index" title="机器人学 [contents/Robotics/index]">■</a><span class="link"><a href="#contents-Robotics-index"><span class="taxon"> 2. </span>机器人学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/QuadCopter/index" title="多旋翼无人机 [contents/QuadCopter/index]">■</a><span class="link"><a href="#contents-QuadCopter-index"><span class="taxon"> 3. </span>多旋翼无人机</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Cybernetics/index" title="控制学 [contents/Cybernetics/index]">■</a><span class="link"><a href="#contents-Cybernetics-index"><span class="taxon"> 4. </span>控制学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Math/index" title="数学 [contents/Math/index]">■</a><span class="link"><a href="#contents-Math-index"><span class="taxon"> 5. </span>数学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Projects/index" title="项目 [contents/Projects/index]">■</a><span class="link"><a href="#contents-Projects-index"><span class="taxon"> 6. </span>项目</a></span><ul class="block"><li class=""><a class="bullet" href="/contents/Projects/AeroPointer/index" title="AeroPointer [contents/Projects/AeroPointer/index]">■</a><span class="link"><a href="#contents-Projects-AeroPointer-index"><span class="taxon"></span>AeroPointer</a></span></li></ul></li></ul></div></nav></div></body></html>
+<nav id="toc"><div class="block"><h1>Table of Contents</h1><ul class="block"><li class="item-summary"><a class="bullet" href="/contents/ComputerScience/index" title="计算机科学 [contents/ComputerScience/index]">■</a><span class="link"><a href="#contents-ComputerScience-index"><span class="taxon"> 1. </span>计算机科学</a></span><ul class="block"><li class=""><a class="bullet" href="/contents/ComputerScience/TypesettingSystem/index" title="PDF的巧妙运用的探讨 [contents/ComputerScience/TypesettingSystem/index]">■</a><span class="link"><a href="#contents-ComputerScience-TypesettingSystem-index"><span class="taxon"></span>PDF的巧妙运用的探讨</a></span></li></ul></li><li class="item-summary"><a class="bullet" href="/contents/Robotics/index" title="机器人学 [contents/Robotics/index]">■</a><span class="link"><a href="#contents-Robotics-index"><span class="taxon"> 2. </span>机器人学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/QuadCopter/index" title="多旋翼无人机 [contents/QuadCopter/index]">■</a><span class="link"><a href="#contents-QuadCopter-index"><span class="taxon"> 3. </span>多旋翼无人机</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Cybernetics/index" title="控制学 [contents/Cybernetics/index]">■</a><span class="link"><a href="#contents-Cybernetics-index"><span class="taxon"> 4. </span>控制学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Math/index" title="数学 [contents/Math/index]">■</a><span class="link"><a href="#contents-Math-index"><span class="taxon"> 5. </span>数学</a></span></li><li class="item-summary"><a class="bullet" href="/contents/Projects/index" title="项目 [contents/Projects/index]">■</a><span class="link"><a href="#contents-Projects-index"><span class="taxon"> 6. </span>项目</a></span><ul class="block"><li class=""><a class="bullet" href="/contents/Projects/AeroPointer/index" title="AeroPointer [contents/Projects/AeroPointer/index]">■</a><span class="link"><a href="#contents-Projects-AeroPointer-index"><span class="taxon"></span>AeroPointer</a></span></li></ul></li></ul></div></nav></div></body></html>
