@@ -1,0 +1,177 @@
+/*
+  You can adjust the styles in this file to customize the appearance of your blog.
+  If you want to make more extensive changes, consider creating a custom CSS file and linking it in your HTML.
+  Belows are basic styles for the main content area, including typography, spacing, and layout.
+*/
+
+/* BASIC */
+
+.pages-container {
+  padding: 0rem var(--page-padding-x);
+}
+
+.pages-container .pages-container-inner {
+  max-width: 60rem;
+  margin: 2rem auto;
+}
+
+/* SCROLLBAR */
+
+.pages-container *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.pages-container *::-webkit-scrollbar-thumb {
+  background-color: var(--border-subtle0);
+}
+
+.pages-container pre > code::-webkit-scrollbar-thumb {
+  background-color: var(--border-subtle1);
+}
+
+/* TYPOGRAPHY */
+
+.pages-container h1 {
+  font-size: 2.25rem;
+  margin: 1.75em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h2 {
+  font-size: 1.75rem;
+  margin: 1.5em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h3 {
+  font-size: 1.5625rem;
+  margin: 1.25em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h4 {
+  font-size: 1.375rem;
+  margin: 1.15em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h5 {
+  font-size: 1.125rem;
+  margin: 1em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container p {
+  margin: 1em 0;
+}
+
+.pages-container strong {
+  font-weight: 600;
+}
+
+/* LINK */
+
+.pages-container a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.pages-container a:hover {
+  color: var(--link-hover);
+}
+
+.pages-container a:visited {
+  color: var(--link-visited);
+}
+
+/* POST CARD */
+
+.posts-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  flex-direction: column;
+  width: 100%;
+}
+
+.posts-grid .post-card {
+  border: 1px solid var(--border-tile);
+  padding: 1rem;
+  transition: background-color 0.25s ease;
+  background-color: var(--layer1);
+  color: var(--text-primary) !important;
+  text-decoration: none !important;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 12rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.posts-grid .post-card:hover {
+  background-color: var(--layer1-hover);
+}
+
+.posts-grid .post-card:has(.post-card-link:focus-visible) {
+  outline: 2px solid var(--focus) !important;
+  outline-offset: -2px;
+}
+
+.post-card .post-card-link:focus {
+  outline: none !important;
+}
+
+.post-card .post-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.post-card .post-card-link,
+.post-card .post-card-link:hover,
+.post-card .post-card-link:active {
+  color: var(--text-primary) !important;
+}
+
+.post-card .post-description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  flex: 1;
+  margin-bottom: 2rem;
+}
+
+.post-card .post-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.post-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--icon-interactive);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;%7D%3C/style%3E%3C/defs%3E%3Cpolygon points='18 6 16.57 7.393 24.15 15 4 15 4 17 24.15 17 16.57 24.573 18 26 28 16 18 6'/%3E%3Crect id='_Transparent_Rectangle_' data-name='&lt;Transparent Rectangle&gt;' class='cls-1' width='32' height='32'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.post-card-tags {
+  margin: 0 -0.25rem 0.5rem -0.25rem;
+}
+
+.post-card-link {
+  color: var(--text-primary) !important;
+  text-decoration: none;
+}
+
+.post-card-link:hover {
+  color: var(--link-hover) !important;
+}
