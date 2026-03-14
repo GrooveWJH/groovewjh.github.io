@@ -1,7 +1,8 @@
-#import "../../config.typ": template-page
+#import "../../config.typ": template-page, render-tag-link
 #let posts = json(sys.inputs.at("posts-json"))
-
-#let slugify(value) = str(value).trim().replace(" ", "-").replace("/", "-")
+#let slugs = json(sys.inputs.at("slugs-json"))
+#let tag-slugs = slugs.at("tags", default: (:))
+#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
 
 #let tag-counts = (:)
 #for post in posts [
@@ -20,12 +21,14 @@
 
 = 标签
 
-共 #all-tags.len() 个标签。
-
 #if all-tags.len() == 0 [
-  暂无标签。
+  #html.div(class: "tips-block", {
+    暂无标签
+  })
 ] else [
-  #for tag in all-tags [
-    - #link("/tag/" + slugify(tag) + "/")[#tag]（#tag-counts.at(tag)）
-  ]
+  #html.div(class: "page-tag-list", {
+    for tag in all-tags {
+      render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/", full: true)
+    }
+  })
 ]

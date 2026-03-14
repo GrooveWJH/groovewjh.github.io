@@ -1,6 +1,9 @@
-#import "../../../config.typ": template-page, format-post-date
+#import "../../../config.typ": template-page, format-post-date, category-intro-of, render-tag-link
 #let posts = json(sys.inputs.at("posts-json"))
 #let current = sys.inputs.at("route-category", default: "")
+#let slugs = json(sys.inputs.at("slugs-json"))
+#let tag-slugs = slugs.at("tags", default: (:))
+#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
 
 #show: template-page.with(
   title: if current == "" { "分类详情" } else { "分类：" + current },
@@ -8,6 +11,13 @@
 )
 
 = 分类：#current
+
+#let intro = category-intro-of(current)
+#if intro != "" {
+  html.div(class: "tips-block", {
+    intro
+  })
+}
 
 #let matched = posts.filter(post => post.category == current)
 
@@ -42,7 +52,7 @@
         if post.tags.len() != 0 {
           html.div(class: "post-card-tags", {
             for tag in post.tags {
-              html.a(class: "post-tag-item", href: "/tag/" + tag, tag)
+              render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/")
             }
           })
         }

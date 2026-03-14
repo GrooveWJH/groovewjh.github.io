@@ -1,5 +1,8 @@
-#import "../config.typ": template-page, format-post-date
+#import "../config.typ": template-page, format-post-date, render-tag-link
 #let posts = json(sys.inputs.at("posts-json"))
+#let slugs = json(sys.inputs.at("slugs-json"))
+#let tag-slugs = slugs.at("tags", default: (:))
+#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
 
 #show: template-page.with(
   title: "首页",
@@ -42,7 +45,7 @@
         if post.tags.len() != 0 {
           html.div(class: "post-card-tags", {
             for tag in post.tags {
-              html.a(class: "post-tag-item", href: "/tag/" + tag, tag)
+              render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/")
             }
           })
         }

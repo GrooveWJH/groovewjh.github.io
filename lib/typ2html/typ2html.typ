@@ -5,6 +5,7 @@
 #import "links.typ": template-links
 #import "figures.typ": template-figures
 #import "block.typ": quote, note, success, warning, error
+#import "tag.typ": render-tag-link
 
 #let make-theme-preload-script() = html.script(
   type: "text/javascript",
@@ -140,14 +141,14 @@
   }
 }
 
-#let render-meta(tags, category, date-string) = {
+#let render-meta(tags, category, date-string, tag-options: (:)) = {
   html.div(class: "post-meta", {
     if tags != none and tags.len() != 0 {
       html.div(class: "post-tag", {
         html.span(class: "post-tag-desc", "标签")
         html.span(class: "post-tag-group", {
           for tag in tags {
-            html.a(class: "post-tag-item", href: "/tag/" + tag, tag)
+            render-tag-link(tag, href: "/tag/" + tag, tag-options: tag-options)
           }
         })
       })
@@ -165,6 +166,96 @@
   })
 }
 
+#let typ2html-base(
+  header-links: none,
+  site-title: "Typst Blog",
+  title: "Carbon & Typst Blog",
+  lang: "en",
+  css: (
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "/assets/core/colors.css",
+    "/assets/core/main.css",
+  ),
+  deferred-css: (
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
+  ),
+  scripts: (),
+  custom-css: (),
+  custom-script: (),
+  description: "",
+  include-description-meta: false,
+  head-extra: none,
+  header-node: none,
+  main-node: none,
+  footer-node: none,
+) = {
+  show: template-raw
+  show: template-math
+  show: template-refs
+  show: template-notes
+  show: template-figures
+  show: template-links
+
+  set text(16pt, font: ("IBM Plex Serif", "IBM Plex Sans SC"), lang: "zh")
+  show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
+  show math.equation: set text(16pt)
+
+  set text(lang: lang)
+
+  html.html(
+    lang: lang,
+    {
+      html.head({
+        html.meta(charset: "utf-8")
+        html.meta(name: "viewport", content: "width=device-width, initial-scale=1")
+        html.meta(name: "color-scheme", content: "light dark")
+        if include-description-meta {
+          html.meta(name: "description", content: description)
+        }
+        if head-extra != none {
+          head-extra
+        }
+        html.title(title)
+
+        html.link(rel: "preconnect", href: "https://cdn.jsdelivr.net")
+        html.link(rel: "dns-prefetch", href: "https://cdn.jsdelivr.net")
+
+        make-theme-preload-script()
+
+        for (css-link) in css {
+          html.link(rel: "stylesheet", href: css-link)
+        }
+        for (css-link) in custom-css {
+          html.link(rel: "stylesheet", href: css-link)
+        }
+        for (css-link) in deferred-css {
+          make-deferred-stylesheet(css-link)
+        }
+        for (js-src) in scripts {
+          html.script(type: "module", src: js-src)
+        }
+        for (js-src) in custom-script {
+          html.script(type: "module", src: js-src)
+        }
+      })
+
+      html.body({
+        html.div(class: "page-shell", {
+          if header-node != none {
+            header-node
+          }
+          if main-node != none {
+            main-node
+          }
+          if footer-node != none {
+            footer-node
+          }
+        })
+      })
+    },
+  )
+}
+
 #let typ2html-post(
   header-links: none,
   site-title: "Typst Blog",
@@ -173,21 +264,22 @@
 
   css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
-    "/assets/required/colors.css",
-    "/assets/required/main.css",
+    "/assets/core/colors.css",
+    "/assets/core/main.css",
   ),
   deferred-css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
   ),
   scripts: (
-    "/assets/required/footnote.js",
-    "/assets/required/render-code.js",
-    "/assets/required/theme.js",
-    "/assets/required/post-nav-switch.js",
+    "/assets/core/footnote.js",
+    "/assets/core/render-code.js",
+    "/assets/core/theme.js",
+    "/assets/core/post-nav-switch.js",
   ),
   custom-css: (),
   custom-script: (),
   footer-content: none,
+  tag-options: (:),
 
   tags: (),
   category: "",
@@ -215,19 +307,6 @@
   if emit-post-meta != none {
     post-meta-json
   } else {
-    show: template-raw
-    show: template-math
-    show: template-refs
-    show: template-notes
-    show: template-figures
-    show: template-links
-
-    set text(16pt, font: ("IBM Plex Serif", "IBM Plex Sans SC"), lang: "zh")
-    show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
-    show math.equation: set text(16pt)
-
-    set text(lang: lang)
-
     let page-path = sys.inputs.at("page-path", default: "")
     let posts-json-path = sys.inputs.at("posts-json", default: none)
     let all-posts = if posts-json-path == none { () } else { json(posts-json-path) }
@@ -238,51 +317,25 @@
     let previous-post = if current-index == none or current-index == 0 { none } else { all-posts.at(current-index - 1) }
     let next-post = if current-index == none or current-index + 1 >= all-posts.len() { none } else { all-posts.at(current-index + 1) }
 
-    html.html(
+    typ2html-base(
+      header-links: header-links,
+      site-title: site-title,
+      title: title,
       lang: lang,
-      {
-        html.head({
-          html.meta(charset: "utf-8")
-          html.meta(name: "viewport", content: "width=device-width, initial-scale=1")
-          html.meta(name: "color-scheme", content: "light dark")
-          html.title(title)
-
-          html.link(rel: "preconnect", href: "https://cdn.jsdelivr.net")
-          html.link(rel: "dns-prefetch", href: "https://cdn.jsdelivr.net")
-
-          make-theme-preload-script()
-
-          for (css-link) in css {
-            html.link(rel: "stylesheet", href: css-link)
-          }
-          for (css-link) in custom-css {
-            html.link(rel: "stylesheet", href: css-link)
-          }
-          for (css-link) in deferred-css {
-            make-deferred-stylesheet(css-link)
-          }
-          for (js-src) in scripts {
-            html.script(type: "module", src: js-src)
-          }
-          for (js-src) in custom-script {
-            html.script(type: "module", src: js-src)
-          }
+      css: css,
+      deferred-css: deferred-css,
+      scripts: scripts,
+      custom-css: custom-css,
+      custom-script: custom-script,
+      header-node: make-post-header(header-links, site-title, title),
+      main-node: html.article({
+        html.section({
+          content
+          render-footnotes()
+          render-meta(tags, category, date-string-localized, tag-options: tag-options)
         })
-
-        html.body({
-          html.div(class: "page-shell", {
-            make-post-header(header-links, site-title, title)
-            html.article({
-              html.section({
-                content
-                render-footnotes()
-                render-meta(tags, category, date-string-localized)
-              })
-            })
-            make-post-footer(previous-post: previous-post, next-post: next-post, footer-content: footer-content)
-          })
-        })
-      },
+      }),
+      footer-node: make-post-footer(previous-post: previous-post, next-post: next-post, footer-content: footer-content),
     )
   }
 }
@@ -294,17 +347,17 @@
   lang: "en",
   css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
-    "/assets/required/colors.css",
-    "/assets/required/main.css",
-    "/assets/required/pages.css",
+    "/assets/core/colors.css",
+    "/assets/core/main.css",
+    "/assets/core/pages.css",
   ),
   deferred-css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
   ),
   scripts: (
-    "/assets/required/theme.js",
-    "/assets/required/post-nav-switch.js",
-    "/assets/required/post-card-click.js",
+    "/assets/core/theme.js",
+    "/assets/core/post-nav-switch.js",
+    "/assets/core/post-card-click.js",
   ),
   custom-css: (),
   custom-script: (),
@@ -315,68 +368,66 @@
   description: "",
   content,
 ) = {
-  show: template-raw
-  show: template-math
-  show: template-refs
-  show: template-notes
-  show: template-figures
-  show: template-links
-
-  set text(16pt, font: ("IBM Plex Serif", "IBM Plex Sans SC"), lang: "zh")
-  show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
-  show math.equation: set text(16pt)
-
-  set text(lang: lang)
-
-  html.html(
+  typ2html-base(
+    header-links: header-links,
+    site-title: site-title,
+    title: title,
     lang: lang,
-    {
-      html.head({
-        html.meta(charset: "utf-8")
-        html.meta(name: "viewport", content: "width=device-width, initial-scale=1")
-        html.meta(name: "color-scheme", content: "light dark")
-        html.meta(name: "tags", content: "none")
-        html.meta(name: "category", content: "")
-        html.meta(name: "description", content: description)
-        html.meta(name: "date", content: datetime.today().display("[year]-[month]-[day]"))
-        html.title(title)
-
-        html.link(rel: "preconnect", href: "https://cdn.jsdelivr.net")
-        html.link(rel: "dns-prefetch", href: "https://cdn.jsdelivr.net")
-
-        make-theme-preload-script()
-
-        for (css-link) in css {
-          html.link(rel: "stylesheet", href: css-link)
-        }
-        for (css-link) in custom-css {
-          html.link(rel: "stylesheet", href: css-link)
-        }
-        for (css-link) in deferred-css {
-          make-deferred-stylesheet(css-link)
-        }
-        for (js-src) in scripts {
-          html.script(type: "module", src: js-src)
-        }
-        for (js-src) in custom-script {
-          html.script(type: "module", src: js-src)
-        }
-      })
-
-      html.body({
-        html.div(class: "page-shell", {
-          make-header(header-links, site-title)
-          page-wrapper(content)
-          make-page-footer(footer-content: footer-content)
-        })
-      })
+    css: css,
+    deferred-css: deferred-css,
+    scripts: scripts,
+    custom-css: custom-css,
+    custom-script: custom-script,
+    description: description,
+    include-description-meta: true,
+    head-extra: {
+      html.meta(name: "tags", content: "none")
+      html.meta(name: "category", content: "")
+      html.meta(name: "date", content: datetime.today().display("[year]-[month]-[day]"))
     },
+    header-node: make-header(header-links, site-title),
+    main-node: page-wrapper(content),
+    footer-node: make-page-footer(footer-content: footer-content),
   )
 }
 
-#let template-post = typ2html-post
+#let make-templates(
+  header-links: none,
+  site-title: "Typst Blog",
+  title: "Carbon & Typst Blog",
+  lang: "en",
+  deferred-css: (
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
+  ),
+  custom-css: (),
+  custom-script: (),
+  footer-content: none,
+  description: "",
+  tag-options: (:),
 
-#let template-page = typ2html-page.with(
+  post-css: (
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "/assets/core/colors.css",
+    "/assets/core/main.css",
+  ),
+  post-scripts: (
+    "/assets/core/footnote.js",
+    "/assets/core/render-code.js",
+    "/assets/core/theme.js",
+    "/assets/core/post-nav-switch.js",
+  ),
+
+  page-css: (
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "/assets/core/colors.css",
+    "/assets/core/main.css",
+    "/assets/core/pages.css",
+  ),
+  page-scripts: (
+    "/assets/core/theme.js",
+    "/assets/core/post-nav-switch.js",
+    "/assets/core/post-card-click.js",
+  ),
   page-wrapper: content => html.main({
     html.div(class: "pages-container", {
       html.div(class: "pages-container-inner", {
@@ -384,5 +435,37 @@
       })
     })
   }),
-  footer-content: none,
+) = (
+  post: typ2html-post.with(
+    header-links: header-links,
+    site-title: site-title,
+    title: title,
+    lang: lang,
+    css: post-css,
+    deferred-css: deferred-css,
+    scripts: post-scripts,
+    custom-css: custom-css,
+    custom-script: custom-script,
+    footer-content: footer-content,
+    description: description,
+    tag-options: tag-options,
+  ),
+  page: typ2html-page.with(
+    header-links: header-links,
+    site-title: site-title,
+    title: title,
+    lang: lang,
+    css: page-css,
+    deferred-css: deferred-css,
+    scripts: page-scripts,
+    custom-css: custom-css,
+    custom-script: custom-script,
+    footer-content: footer-content,
+    page-wrapper: page-wrapper,
+    description: description,
+  ),
 )
+
+#let _default-templates = make-templates()
+#let template-post = _default-templates.post
+#let template-page = _default-templates.page

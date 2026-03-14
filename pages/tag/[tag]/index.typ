@@ -1,6 +1,19 @@
-#import "../../../config.typ": template-page, format-post-date
+#import "../../../config.typ": template-page, format-post-date, render-tag-link
 #let posts = json(sys.inputs.at("posts-json"))
 #let current = sys.inputs.at("route-tag", default: "")
+#let slugs = json(sys.inputs.at("slugs-json"))
+#let tag-slugs = slugs.at("tags", default: (:))
+#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
+
+#let tag-counts = (:)
+#for post in posts [
+  #for tag in post.tags [
+    #let current = tag-counts.at(tag, default: 0)
+    #tag-counts.insert(tag, current + 1)
+  ]
+]
+
+#let all-tags = tag-counts.keys().sorted()
 
 #show: template-page.with(
   title: if current == "" { "标签详情" } else { "标签：" + current },
@@ -42,7 +55,7 @@
         if post.tags.len() != 0 {
           html.div(class: "post-card-tags", {
             for tag in post.tags {
-              html.a(class: "post-tag-item", href: "/tag/" + tag, tag)
+              render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/")
             }
           })
         }
@@ -53,3 +66,9 @@
     }
   })
 }
+
+#html.div(class: "page-tag-list", {
+  for tag in all-tags {
+    render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/", full: true)
+  }
+})

@@ -1,7 +1,8 @@
-#import "../../config.typ": template-page
+#import "../../config.typ": template-page, category-intro-of
 #let posts = json(sys.inputs.at("posts-json"))
-
-#let slugify(value) = str(value).trim().replace(" ", "-").replace("/", "-")
+#let slugs = json(sys.inputs.at("slugs-json"))
+#let category-slugs = slugs.at("categories", default: (:))
+#let category-slug-of(value) = str(category-slugs.at(value, default: value))
 
 #let category-counts = (:)
 #for post in posts [
@@ -26,6 +27,7 @@
   暂无分类。
 ] else [
   #for category in all-categories [
-    - #link("/category/" + slugify(category) + "/")[#category]（#category-counts.at(category)）
+    #let intro = category-intro-of(category)
+    - #link("/category/" + category-slug-of(category) + "/")[#category]（#category-counts.at(category)）#if intro != "" { "：" + intro }
   ]
 ]
