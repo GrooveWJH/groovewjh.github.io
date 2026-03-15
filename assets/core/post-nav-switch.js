@@ -159,7 +159,7 @@ const updatePostNavCollapsedState = () => {
 
   if (!hasPostTitle) {
     header.classList.remove('nav-collapsed');
-    setTopNavButtonsFocusable(false);
+    setTopNavButtonsFocusable(true);
     setBackToTopButtonVisible(false);
     return;
   }

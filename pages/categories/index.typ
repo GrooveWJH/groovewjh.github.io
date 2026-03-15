@@ -21,8 +21,6 @@
 
 = 分类
 
-共 #all-categories.len() 个分类。
-
 #if all-categories.len() == 0 [
   暂无分类。
 ] else [

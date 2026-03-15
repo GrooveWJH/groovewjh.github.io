@@ -56,3 +56,37 @@
     },
   )
 }
+
+#let render-tag-card(tag, count, href: none, tag-options: (:)) = {
+  let target = if href == none { "/tag/" + str(tag) } else { href }
+  html.a(
+    class: "tag-card",
+    href: target,
+    style: tag-style-attr(tag, tag-options),
+    {
+      html.div(class: "tag-card-top", {
+        html.div(class: "tag-card-name", tag)
+        html.div(class: "tag-card-meta", str(count) + " 篇")
+      })
+      html.div(class: "tag-card-bottom", {
+        html.span(
+          class: "tag-card-icon",
+          style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
+        )
+        html.span(class: "tag-card-arrow")
+      })
+    },
+  )
+}
+
+#let render-tag-title-icon(tag, tag-options: (:)) = {
+  html.div(
+    class: "tag-title-icon",
+    style: tag-style-attr(tag, tag-options),
+    {
+      html.span(
+        style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
+      )
+    },
+  )
+}

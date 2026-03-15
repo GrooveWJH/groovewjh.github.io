@@ -4,8 +4,9 @@
 #import "notes.typ": template-notes
 #import "links.typ": template-links
 #import "figures.typ": template-figures
+#import "table.typ": template-table
 #import "block.typ": quote, note, success, warning, error
-#import "tag.typ": render-tag-link
+#import "tag.typ": render-tag-link, render-tag-card, render-tag-title-icon
 
 #let make-theme-preload-script() = html.script(
   type: "text/javascript",
@@ -195,6 +196,7 @@
   show: template-notes
   show: template-figures
   show: template-links
+  show: template-table
 
   set text(16pt, font: ("IBM Plex Serif", "IBM Plex Sans SC"), lang: "zh")
   show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))

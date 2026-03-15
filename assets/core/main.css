@@ -794,11 +794,6 @@ article a:visited {
   color: var(--link-visited);
 }
 
-:focus-visible {
-  outline: 2px solid var(--focus) !important;
-  outline-offset: -2px;
-}
-
 /* CODE */
 
 article code {
@@ -1069,12 +1064,24 @@ article figure img {
 
 /* TABLE */
 
+article .table-scroll {
+  margin: 1rem 0 0 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
 article table {
   border-collapse: collapse;
   margin: 1rem 0 0 0;
   width: 100%;
   box-sizing: border-box;
   font-size: 0.875em;
+}
+
+article .table-scroll > table {
+  margin: 0;
+  min-width: 100%;
+  width: max-content;
 }
 
 article tbody tr {
@@ -1672,6 +1679,7 @@ header .nav-sidebar .nav-sidebar-item {
   padding: 0.75rem 1rem;
   color: var(--text-primary);
   text-decoration: none;
+  user-select: none;
 }
 
 header .nav-sidebar .nav-sidebar-item:hover {
@@ -1871,4 +1879,15 @@ header.nav-menu-open .nav-sidebar {
 .page-tag-list {
   margin: 2rem 1rem;
   text-align: center;
+}
+
+/* ACCESSIBILITY */
+
+:focus-visible {
+  outline: 3px solid var(--focus) !important;
+  outline-offset: -3px;
+}
+
+article :focus-visible {
+  outline-offset: 0px;
 }

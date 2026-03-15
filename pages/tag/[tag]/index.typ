@@ -1,4 +1,4 @@
-#import "../../../config.typ": template-page, format-post-date, render-tag-link
+#import "../../../config.typ": template-page, format-post-date, render-tag-link, render-tag-title-icon
 #let posts = json(sys.inputs.at("posts-json"))
 #let current = sys.inputs.at("route-tag", default: "")
 #let slugs = json(sys.inputs.at("slugs-json"))
@@ -20,7 +20,11 @@
   description: "标签详情页面",
 )
 
-= 标签：#current
+// 展示 tag-icon
+= #{html.div(class: "title-with-icon", {
+  render-tag-title-icon(current)
+  html.div(current)
+})}
 
 #let matched = posts.filter(post => post.tags.any(tag => tag == current))
 
@@ -66,6 +70,8 @@
     }
   })
 }
+
+= 所有标签
 
 #html.div(class: "page-tag-list", {
   for tag in all-tags {

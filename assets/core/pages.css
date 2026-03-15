@@ -157,7 +157,7 @@
   width: 1.25rem;
   height: 1.25rem;
   background-color: var(--icon-interactive);
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:none;%7D%3C/style%3E%3C/defs%3E%3Cpolygon points='18 6 16.57 7.393 24.15 15 4 15 4 17 24.15 17 16.57 24.573 18 26 28 16 18 6'/%3E%3Crect id='_Transparent_Rectangle_' data-name='&lt;Transparent Rectangle&gt;' class='cls-1' width='32' height='32'/%3E%3C/svg%3E");
+  mask-image: url("../icons/arrow--right.svg");
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -174,4 +174,126 @@
 
 .post-card-link:hover {
   color: var(--link-hover) !important;
+}
+
+/* TAG PAGE */
+
+.title-with-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  overflow: hidden;
+}
+
+.title-with-icon > :first-child {
+  margin-top: calc((3 / 16) * 1rem);
+}
+
+.title-with-icon .tag-title-icon {
+  flex: 0 0 auto;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 9999px;
+  background-color: var(--tag-background);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+
+.title-with-icon .tag-title-icon > span {
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: var(--tag-color);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.title-with-icon > :last-child {
+  font-size: 1.75rem;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.tag-cards-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.tag-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 7rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--tag-border);
+  background-color: var(--tag-background);
+  color: var(--tag-color) !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tag-card:hover {
+  background-color: var(--tag-background-hover);
+  border-color: var(--tag-border-hover);
+}
+
+.tag-card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.tag-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.tag-card-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
+.tag-card-arrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  mask-image: url("../icons/arrow--right.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
+.tag-card-name {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.tag-card-meta {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  opacity: 0.75;
+}
+
+/* ACCESSIBILITY */
+
+.post-tag-item:focus-visible {
+  outline-offset: 0px;
 }
