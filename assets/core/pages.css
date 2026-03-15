@@ -257,15 +257,12 @@
 /* TAG PAGE */
 
 .title-with-icon {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  align-items: start;
+  column-gap: 0.75rem;
   width: 100%;
   overflow: hidden;
-}
-
-.title-with-icon > :first-child {
-  margin-top: 0.25rem;
 }
 
 .title-with-icon .tag-title-icon {
@@ -277,7 +274,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.75rem;
+  margin-top: 0;
+  margin-right: 0;
+}
+
+.title-with-icon > div:last-child {
+  min-width: 0;
+  line-height: 2rem;
+  display: flex;
+  align-items: center;
 }
 
 .title-with-icon .tag-title-icon > span {
