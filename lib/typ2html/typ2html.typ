@@ -14,13 +14,6 @@
   "(function(){var key='typ-blog-theme';var theme=null;try{var stored=localStorage.getItem(key);if(stored==='gray-10'||stored==='gray-90'||stored==='gray-100'||stored==='white'){theme=stored;}}catch(_){ }if(!theme){theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'gray-90':'gray-10';}document.documentElement.setAttribute('data-theme',theme);var bg=theme==='gray-90'?'#262626':theme==='gray-100'?'#161616':theme==='white'?'#ffffff':'#f4f4f4';document.documentElement.style.backgroundColor=bg;})();",
 )
 
-#let make-deferred-stylesheet(href) = html.elem("link", attrs: (
-  rel: "stylesheet",
-  href: href,
-  media: "print",
-  onload: "this.media='all'",
-))[]
-
 #let post-date-storage-format = "[year]-[month]-[day]"
 #let post-date-display-format = "[year] 年 [month padding:none] 月 [day padding:none] 日"
 #let format-post-date(date) = date.display(post-date-display-format)
@@ -174,12 +167,10 @@
   title: "Carbon & Typst Blog",
   lang: "en",
   css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/colors.css",
     "/assets/core/main.css",
-  ),
-  deferred-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
   ),
   scripts: (),
   custom-css: (),
@@ -231,9 +222,6 @@
         for (css-link) in custom-css {
           html.link(rel: "stylesheet", href: css-link)
         }
-        for (css-link) in deferred-css {
-          make-deferred-stylesheet(css-link)
-        }
         for (js-src) in scripts {
           html.script(type: "module", src: js-src)
         }
@@ -266,12 +254,10 @@
   lang: "en",
 
   css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/colors.css",
     "/assets/core/main.css",
-  ),
-  deferred-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
   ),
   scripts: (
     "/assets/core/footnote.js",
@@ -326,7 +312,6 @@
       title: title,
       lang: lang,
       css: css,
-      deferred-css: deferred-css,
       scripts: scripts,
       custom-css: custom-css,
       custom-script: custom-script,
@@ -349,13 +334,11 @@
   title: "Carbon & Typst Blog",
   lang: "en",
   css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/colors.css",
     "/assets/core/main.css",
     "/assets/core/pages.css",
-  ),
-  deferred-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
   ),
   scripts: (
     "/assets/core/theme.js",
@@ -377,7 +360,6 @@
     title: title,
     lang: lang,
     css: css,
-    deferred-css: deferred-css,
     scripts: scripts,
     custom-css: custom-css,
     custom-script: custom-script,
@@ -399,9 +381,6 @@
   site-title: "Typst Blog",
   title: "Carbon & Typst Blog",
   lang: "en",
-  deferred-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
-  ),
   custom-css: (),
   custom-script: (),
   footer-content: none,
@@ -409,7 +388,8 @@
   tag-options: (:),
 
   post-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/colors.css",
     "/assets/core/main.css",
   ),
@@ -421,7 +401,8 @@
   ),
 
   page-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans-sc@1.1.0/css/ibm-plex-sans-sc-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
+    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/colors.css",
     "/assets/core/main.css",
     "/assets/core/pages.css",
@@ -445,7 +426,6 @@
     title: title,
     lang: lang,
     css: post-css,
-    deferred-css: deferred-css,
     scripts: post-scripts,
     custom-css: custom-css,
     custom-script: custom-script,
@@ -459,7 +439,6 @@
     title: title,
     lang: lang,
     css: page-css,
-    deferred-css: deferred-css,
     scripts: page-scripts,
     custom-css: custom-css,
     custom-script: custom-script,
