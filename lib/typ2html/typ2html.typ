@@ -7,6 +7,7 @@
 #import "table.typ": template-table
 #import "block.typ": quote, note, success, warning, error
 #import "tag.typ": render-tag-link, render-tag-card, render-tag-title-icon
+#import "breadcrumb.typ": render-page-breadcrumb
 
 #let make-theme-preload-script() = html.script(
   type: "text/javascript",

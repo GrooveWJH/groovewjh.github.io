@@ -38,6 +38,7 @@
 #let render-tag-link = t2h.render-tag-link.with(tag-options: tag-options)
 #let render-tag-card = t2h.render-tag-card.with(tag-options: tag-options)
 #let render-tag-title-icon = t2h.render-tag-title-icon.with(tag-options: tag-options)
+#let render-page-breadcrumb = t2h.render-page-breadcrumb
 
 #let templates = t2h.make-templates(
   site-title: "Carbon Typst Blog",

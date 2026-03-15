@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page
+#import "../../config.typ": template-page, render-page-breadcrumb
 #let posts = json(sys.inputs.at("posts-json"))
 
 #let tags = (:)
@@ -18,6 +18,8 @@
   title: "关于",
   description: "关于页面",
 )
+
+#render-page-breadcrumb(items: (("/", "首页"),))
 
 = 关于
 

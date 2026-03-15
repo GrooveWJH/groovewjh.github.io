@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page, category-intro-of
+#import "../../config.typ": template-page, render-page-breadcrumb
 #let posts = json(sys.inputs.at("posts-json"))
 #let slugs = json(sys.inputs.at("slugs-json"))
 #let category-slugs = slugs.at("categories", default: (:))
@@ -19,13 +19,39 @@
   description: "分类页面",
 )
 
-= 分类
+#render-page-breadcrumb(items: (("/", "首页"),))
+
+= #{html.div(class: "title-with-icon", {
+  html.div(
+    class: "tag-title-icon",
+    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
+    {
+      html.span(style: "mask-image:url(\"/assets/icons/folders.svg\");")
+    },
+  )
+  html.div("所有分类")
+})}
 
 #if all-categories.len() == 0 [
-  暂无分类。
+  #html.div(class: "tips-block", {
+    暂无分类
+  })
 ] else [
-  #for category in all-categories [
-    #let intro = category-intro-of(category)
-    - #link("/category/" + category-slug-of(category) + "/")[#category]（#category-counts.at(category)）#if intro != "" { "：" + intro }
-  ]
+  #html.div(class: "category-list", {
+    for category in all-categories {
+      let count = category-counts.at(category, default: 0)
+
+      html.a(class: "category-list-item", href: "/category/" + category-slug-of(category) + "/", {
+        html.div(class: "category-tree-row", {
+          html.div(class: "category-tree-left", {
+            html.span(class: "category-tree-icon")
+            html.span(class: "category-list-name", category)
+          })
+          html.div(class: "category-list-meta", {
+            html.span(str(count) + " 篇")
+          })
+        })
+      })
+    }
+  })
 ]

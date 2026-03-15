@@ -1,4 +1,4 @@
-#import "../../../config.typ": template-page, format-post-date, category-intro-of, render-tag-link
+#import "../../../config.typ": template-page, format-post-date, category-intro-of, render-tag-link, render-page-breadcrumb
 #let posts = json(sys.inputs.at("posts-json"))
 #let current = sys.inputs.at("route-category", default: "")
 #let slugs = json(sys.inputs.at("slugs-json"))
@@ -10,7 +10,20 @@
   description: "分类详情页面",
 )
 
-= 分类：#current
+#render-page-breadcrumb(
+  items: (("/", "首页"), ("/categories/", "分类")),
+)
+
+= #{html.div(class: "title-with-icon", {
+  html.div(
+    class: "tag-title-icon",
+    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
+    {
+      html.span(style: "mask-image:url(\"/assets/icons/folder.svg\");")
+    },
+  )
+  html.div(current)
+})}
 
 #let intro = category-intro-of(current)
 #if intro != "" {

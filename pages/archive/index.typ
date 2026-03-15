@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page, format-post-date, render-tag-link
+#import "../../config.typ": template-page, format-post-date, render-tag-link, render-page-breadcrumb
 #let posts = json(sys.inputs.at("posts-json"))
 #let slugs = json(sys.inputs.at("slugs-json"))
 #let tag-slugs = slugs.at("tags", default: (:))
@@ -8,6 +8,8 @@
   title: "更新",
   description: "更新页面",
 )
+
+#render-page-breadcrumb(items: (("/", "首页"),))
 
 = 所有文章
 

@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page, render-tag-card
+#import "../../config.typ": template-page, render-tag-card, render-page-breadcrumb
 #let posts = json(sys.inputs.at("posts-json"))
 #let slugs = json(sys.inputs.at("slugs-json"))
 #let tag-slugs = slugs.at("tags", default: (:))
@@ -20,7 +20,18 @@
   description: "标签页面",
 )
 
-= 所有标签
+#render-page-breadcrumb(items: (("/", "首页"),))
+
+= #{html.div(class: "title-with-icon", {
+  html.div(
+    class: "tag-title-icon",
+    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
+    {
+      html.span(style: "mask-image:url(\"/assets/icons/double-integer.svg\");")
+    },
+  )
+  html.div("所有标签")
+})}
 
 #if all-tags.len() == 0 [
   #html.div(class: "tips-block", {

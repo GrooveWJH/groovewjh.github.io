@@ -1,4 +1,4 @@
-#import "../../../config.typ": template-page, format-post-date, render-tag-link, render-tag-title-icon
+#import "../../../config.typ": template-page, format-post-date, render-tag-link, render-tag-title-icon, render-page-breadcrumb
 #let posts = json(sys.inputs.at("posts-json"))
 #let current = sys.inputs.at("route-tag", default: "")
 #let slugs = json(sys.inputs.at("slugs-json"))
@@ -18,6 +18,10 @@
 #show: template-page.with(
   title: if current == "" { "标签详情" } else { "标签：" + current },
   description: "标签详情页面",
+)
+
+#render-page-breadcrumb(
+  items: (("/", "首页"), ("/tags/", "标签")),
 )
 
 // 展示 tag-icon
@@ -71,7 +75,7 @@
   })
 }
 
-= 所有标签
+== 更多标签
 
 #html.div(class: "page-tag-list", {
   for tag in all-tags {
