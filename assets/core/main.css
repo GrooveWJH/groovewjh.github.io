@@ -709,13 +709,13 @@ article {
   padding: 0 var(--page-padding-x);
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1584px) {
   html {
     font-size: 17.6px;
   }
 }
 
-@media (max-width: 840px) {
+@media (max-width: 768px) {
   :root {
     --page-padding-x: 1rem;
   }
@@ -1697,7 +1697,7 @@ header.nav-menu-open .nav-sidebar {
   transform: translateX(0);
 }
 
-@media (max-width: 840px) {
+@media (max-width: 768px) {
   header {
     padding: 0 calc(var(--page-padding-x) - 0.875rem);
   }
@@ -1759,7 +1759,7 @@ header.nav-menu-open .nav-sidebar {
   font-weight: 400;
 }
 
-@media (max-width: 840px) {
+@media (max-width: 768px) {
   .post-header .post-header-inner h1 {
     font-size: 2rem;
   }

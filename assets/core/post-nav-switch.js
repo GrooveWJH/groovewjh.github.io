@@ -64,7 +64,7 @@ const installSidebarSwitch = () => {
     }
   });
 
-  const desktopQuery = window.matchMedia('(min-width: 841px)');
+  const desktopQuery = window.matchMedia('(min-width: 769px)');
   desktopQuery.addEventListener('change', (event) => {
     if (event.matches) {
       closeSidebar();

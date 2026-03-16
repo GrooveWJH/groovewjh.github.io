@@ -11,7 +11,16 @@
 
 #let MAX_POST_LIST = 12
 
-= 最新文章
+= #{html.div(class: "title-with-icon", {
+  html.div(
+    class: "tag-title-icon",
+    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
+    {
+      html.span(style: "mask-image:url(\"/assets/icons/blog.svg\");")
+    },
+  )
+  html.div("最新文章")
+})}
 
 #if posts.len() == 0 {
   html.div(class: "tips-block", {
