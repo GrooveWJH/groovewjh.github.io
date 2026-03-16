@@ -1,23 +1,32 @@
-#import "../config.typ": template-page, format-post-date, render-tag-link, query-posts, query-tag-slug-of
+#import "../config.typ": template-page, format-post-date, render-tag-link, query-posts, query-tag-slug-of, query-route-page, query-route-page-size, query-page-bounds, render-pagination-nav
 #let posts = query-posts()
+#let route-page = query-route-page()
+#let route-page-size = query-route-page-size(default: 10)
+#let bounds = query-page-bounds(posts.len(), page: route-page, page-size: route-page-size)
+#let current-page = int(bounds.at("page", default: 1))
+#let total-pages = int(bounds.at("total-pages", default: 1))
+#let start-index = int(bounds.at("start-index", default: 0))
+#let end-index = int(bounds.at("end-index", default: -1))
 
 #show: template-page.with(
   title: "首页",
   description: "站点首页",
 )
 
-#let MAX_POST_LIST = 12
-
-= #{html.div(class: "title-with-icon", {
-  html.div(
-    class: "tag-title-icon",
-    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
-    {
-      html.span(style: "mask-image:url(\"/assets/icons/blog.svg\");")
-    },
-  )
-  html.div("最新文章")
-})}
+#if route-page != 1 [
+  = #{html.div(class: "title-with-icon", {
+    html.div(
+      class: "tag-title-icon",
+      style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
+      {
+        html.span(style: "mask-image:url(\"/assets/icons/blog.svg\");")
+      },
+    )
+    html.div("文章列表")
+  })}
+] else {
+  
+}
 
 #if posts.len() == 0 {
   html.div(class: "tips-block", {
@@ -25,8 +34,7 @@
   })
 } else {
   html.div(class: "posts-grid", {
-    let pos = calc.max(0, posts.len() - MAX_POST_LIST)
-    for i in range(posts.len() - 1, pos - 1, step: -1) {
+    for i in range(end-index, start-index - 1, step: -1) {
       let post = posts.at(i)
       let date-parts = post.date.split("-")
       let post-date-text = if date-parts.len() == 3 {
@@ -61,14 +69,6 @@
       })
     }
   })
+
+  render-pagination-nav("/", current-page, total-pages, aria-label: "首页分页")
 }
-
-// 共 #posts.len() 篇文章。
-
-// #if posts.len() == 0 [
-//   暂无文章。
-// ] else [
-//   #for post in posts [
-//     - #post.date #link(post.url)[#post.title]
-//   ]
-// ]

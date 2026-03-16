@@ -64,7 +64,12 @@
 #let query-slugs = t2h.query-slugs
 #let query-route-tag = t2h.query-route-tag
 #let query-route-category = t2h.query-route-category
+#let query-route-page = t2h.query-route-page
+#let query-route-page-size = t2h.query-route-page-size
 #let query-tag-slug-of = t2h.query-tag-slug-of
+#let query-category-slug-of = t2h.query-category-slug-of
+#let query-page-bounds = t2h.query-page-bounds
+#let render-pagination-nav = t2h.render-pagination-nav
 
 #let quote = t2h.quote
 #let note = t2h.note

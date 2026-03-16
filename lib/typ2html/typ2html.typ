@@ -8,6 +8,7 @@
 #import "block.typ": quote, note, success, warning, error
 #import "tag.typ": render-tag-link, render-tag-card, render-tag-title-icon
 #import "breadcrumb.typ": render-page-breadcrumb
+#import "pagination.typ": render-pagination-nav
 
 #let make-theme-preload-script() = html.script(
   type: "text/javascript",
@@ -39,10 +40,58 @@
 // 读取 category 动态路由参数。
 #let query-route-category(default: "") = str(query-input("route-category", default: default))
 
+// 读取分页参数（页码/每页条数）。
+#let query-route-page(default: 1) = {
+  let raw = str(query-input("route-page", default: str(default)))
+  calc.max(1, int(raw))
+}
+
+#let query-route-page-size(default: 10) = {
+  let raw = str(query-input("route-page-size", default: str(default)))
+  calc.max(1, int(raw))
+}
+
 // 根据当前构建输入查询 tag slug。
 #let query-tag-slug-of(value) = {
   let tag-slugs = query-slugs().at("tags", default: (:))
   str(tag-slugs.at(value, default: value))
+}
+
+#let query-category-slug-of(value) = {
+  let category-slugs = query-slugs().at("categories", default: (:))
+  str(category-slugs.at(value, default: value))
+}
+
+// 根据总数计算当前页的索引边界（用于倒序展示最新文章）。
+#let query-page-bounds(total, page: 1, page-size: 10) = {
+  let size = calc.max(1, int(page-size))
+  let pages = if total <= 0 {
+    1
+  } else {
+    int(calc.ceil(total / size))
+  }
+
+  let current = calc.min(calc.max(1, int(page)), pages)
+
+  if total <= 0 {
+    (
+      page: current,
+      page-size: size,
+      total-pages: pages,
+      start-index: 0,
+      end-index: -1,
+    )
+  } else {
+    let end-index = total - (current - 1) * size - 1
+    let start-index = calc.max(0, end-index - size + 1)
+    (
+      page: current,
+      page-size: size,
+      total-pages: pages,
+      start-index: start-index,
+      end-index: end-index,
+    )
+  }
 }
 
 #let make-nav(site-title, links, post-title: none) = if links != none {
@@ -170,7 +219,7 @@
         html.span(class: "post-tag-desc", "标签")
         html.span(class: "post-tag-group", {
           for tag in tags {
-            render-tag-link(tag, href: "/tags/" + tag, tag-options: tag-options)
+            render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/", tag-options: tag-options)
           }
         })
       })
@@ -182,7 +231,7 @@
     if category != none {
       html.div(class: "post-category", {
         html.span(class: "post-category-desc", "分类")
-        html.a(class: "post-category-link", href: "/categories/" + category, category)
+        html.a(class: "post-category-link", href: "/categories/" + query-category-slug-of(category) + "/", category)
       })
     }
   })

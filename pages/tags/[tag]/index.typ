@@ -1,6 +1,8 @@
-#import "../../../config.typ": template-page, format-post-date, render-tag-link, render-tag-title-icon, render-page-breadcrumb, query-posts, query-route-tag, query-tag-slug-of
+#import "../../../config.typ": template-page, format-post-date, render-tag-link, render-tag-title-icon, render-page-breadcrumb, query-posts, query-route-tag, query-tag-slug-of, query-route-page, query-route-page-size, query-page-bounds, render-pagination-nav
 #let posts = query-posts()
 #let current = query-route-tag()
+#let route-page = query-route-page()
+#let route-page-size = query-route-page-size(default: 10)
 
 #let tag-counts = (:)
 #for post in posts [
@@ -28,6 +30,11 @@
 })}
 
 #let matched = posts.filter(post => post.tags.any(tag => tag == current))
+#let bounds = query-page-bounds(matched.len(), page: route-page, page-size: route-page-size)
+#let current-page = int(bounds.at("page", default: 1))
+#let total-pages = int(bounds.at("total-pages", default: 1))
+#let start-index = int(bounds.at("start-index", default: 0))
+#let end-index = int(bounds.at("end-index", default: -1))
 
 #if matched.len() == 0 {
   html.div(class: "tips-block", {
@@ -35,7 +42,7 @@
   })
 } else {
   html.div(class: "posts-grid", {
-    for i in range(matched.len() - 1, -1, step: -1) {
+    for i in range(end-index, start-index - 1, step: -1) {
       let post = matched.at(i)
       let date-parts = post.date.split("-")
       let post-date-text = if date-parts.len() == 3 {
@@ -70,12 +77,11 @@
       })
     }
   })
+
+  render-pagination-nav(
+    "/tags/" + query-tag-slug-of(current) + "/",
+    current-page,
+    total-pages,
+    aria-label: "标签分页",
+  )
 }
-
-== 更多标签
-
-#html.div(class: "page-tag-list", {
-  for tag in all-tags {
-    render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/", full: true)
-  }
-})
