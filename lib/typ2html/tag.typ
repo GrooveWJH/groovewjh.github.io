@@ -42,7 +42,7 @@
 }
 
 #let render-tag-link(tag, href: none, tag-options: (:), full: false) = {
-  let target = if href == none { "/tag/" + str(tag) } else { href }
+  let target = if href == none { "/tags/" + str(tag) } else { href }
   html.a(
     class: "post-tag-item tag-item-with-icon" + (if full {" tag-full"} else {""}),
     href: target,
@@ -58,7 +58,7 @@
 }
 
 #let render-tag-card(tag, count, href: none, tag-options: (:)) = {
-  let target = if href == none { "/tag/" + str(tag) } else { href }
+  let target = if href == none { "/tags/" + str(tag) } else { href }
   html.a(
     class: "tag-card",
     href: target,

@@ -60,6 +60,12 @@
 
 #let format-post-date = t2h.format-post-date
 
+#let query-posts = t2h.query-posts
+#let query-slugs = t2h.query-slugs
+#let query-route-tag = t2h.query-route-tag
+#let query-route-category = t2h.query-route-category
+#let query-tag-slug-of = t2h.query-tag-slug-of
+
 #let quote = t2h.quote
 #let note = t2h.note
 #let success = t2h.success

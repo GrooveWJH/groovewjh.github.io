@@ -1,9 +1,6 @@
-#import "../../../config.typ": template-page, format-post-date, category-intro-of, render-tag-link, render-page-breadcrumb
-#let posts = json(sys.inputs.at("posts-json"))
-#let current = sys.inputs.at("route-category", default: "")
-#let slugs = json(sys.inputs.at("slugs-json"))
-#let tag-slugs = slugs.at("tags", default: (:))
-#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
+#import "../../../config.typ": template-page, format-post-date, category-intro-of, render-tag-link, render-page-breadcrumb, query-posts, query-route-category, query-tag-slug-of
+#let posts = query-posts()
+#let current = query-route-category()
 
 #show: template-page.with(
   title: if current == "" { "分类详情" } else { "分类：" + current },
@@ -36,7 +33,7 @@
 
 #if matched.len() == 0 {
   html.div(class: "tips-block", {
-    暂无文章
+    "暂无文章"
   })
 } else {
   html.div(class: "posts-grid", {
@@ -65,7 +62,7 @@
         if post.tags.len() != 0 {
           html.div(class: "post-card-tags", {
             for tag in post.tags {
-              render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/")
+              render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/")
             }
           })
         }

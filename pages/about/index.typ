@@ -1,5 +1,5 @@
-#import "../../config.typ": template-page, render-page-breadcrumb
-#let posts = json(sys.inputs.at("posts-json"))
+#import "../../config.typ": template-page, render-page-breadcrumb, query-posts
+#let posts = query-posts()
 
 #let tags = (:)
 #let categories = (:)
@@ -34,6 +34,14 @@
 - #link("/tags/")[标签]
 - #link("/categories/")[分类]
 - #link("/archive/")[归档]
+
+外部工具与服务：
+
+- #link("https://typst.app/")[Typst]：用于文章与页面的排版及 HTML 导出。
+- #link("https://nodejs.org/")[Node.js]：用于执行静态站点构建脚本（路由、元数据与页面生成）。
+- #link("https://shiki.matsu.io/")[Shiki]：用于代码高亮渲染（通过 #link("https://esm.sh/")[esm.sh] 在线模块加载）。
+- #link("https://www.jsdelivr.com/")[jsDelivr]：用于加载 IBM Plex 字体资源。
+- #link("https://carbondesignsystem.com/")[Carbon Design System]：用于界面设计语言参考。
 
 许可与版权说明：
 

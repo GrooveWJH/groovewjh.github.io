@@ -1,8 +1,5 @@
-#import "../../config.typ": template-page, render-tag-card, render-page-breadcrumb
-#let posts = json(sys.inputs.at("posts-json"))
-#let slugs = json(sys.inputs.at("slugs-json"))
-#let tag-slugs = slugs.at("tags", default: (:))
-#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
+#import "../../config.typ": template-page, render-tag-card, render-page-breadcrumb, query-posts, query-tag-slug-of
+#let posts = query-posts()
 
 #let tag-counts = (:)
 #for post in posts [
@@ -35,13 +32,13 @@
 
 #if all-tags.len() == 0 [
   #html.div(class: "tips-block", {
-    暂无标签
+    "暂无标签"
   })
 ] else [
   #html.div(class: "tag-cards-grid", {
     for tag in sorted-tags {
       let count = tag-counts.at(tag, default: 0)
-      render-tag-card(tag, count, href: "/tag/" + tag-slug-of(tag) + "/")
+      render-tag-card(tag, count, href: "/tags/" + query-tag-slug-of(tag) + "/")
     }
   })
 ]

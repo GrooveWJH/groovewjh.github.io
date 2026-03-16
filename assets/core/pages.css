@@ -78,10 +78,8 @@
 }
 
 .page-breadcrumb-link:active {
-  color: var(--text-primary);
+  color: var(--link-hover);
   text-decoration: underline;
-  outline: 1px solid var(--focus);
-  outline-offset: 2px;
 }
 
 .page-breadcrumb-current,

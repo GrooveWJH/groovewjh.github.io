@@ -1,6 +1,6 @@
-#import "../../config.typ": template-page, render-page-breadcrumb
-#let posts = json(sys.inputs.at("posts-json"))
-#let slugs = json(sys.inputs.at("slugs-json"))
+#import "../../config.typ": template-page, render-page-breadcrumb, query-posts, query-slugs
+#let posts = query-posts()
+#let slugs = query-slugs()
 #let category-slugs = slugs.at("categories", default: (:))
 #let category-slug-of(value) = str(category-slugs.at(value, default: value))
 
@@ -34,14 +34,14 @@
 
 #if all-categories.len() == 0 [
   #html.div(class: "tips-block", {
-    暂无分类
+    "暂无分类"
   })
 ] else [
   #html.div(class: "category-list", {
     for category in all-categories {
       let count = category-counts.at(category, default: 0)
 
-      html.a(class: "category-list-item", href: "/category/" + category-slug-of(category) + "/", {
+      html.a(class: "category-list-item", href: "/categories/" + category-slug-of(category) + "/", {
         html.div(class: "category-tree-row", {
           html.div(class: "category-tree-left", {
             html.span(class: "category-tree-icon")

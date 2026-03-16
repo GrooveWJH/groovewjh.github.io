@@ -1,5 +1,5 @@
-#import "../../config.typ": template-page, render-page-breadcrumb
-#let posts = json(sys.inputs.at("posts-json"))
+#import "../../config.typ": template-page, render-page-breadcrumb, query-posts
+#let posts = query-posts()
 
 #let posts-by-year = (:)
 #let years = ()
@@ -34,7 +34,7 @@
 
 #if posts.len() == 0 {
   html.div(class: "tips-block", {
-    暂无文章
+    "暂无文章"
   })
 } else {
   html.div(class: "archive-list", {

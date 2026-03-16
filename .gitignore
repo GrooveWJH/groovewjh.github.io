@@ -1,3 +1,4 @@
 _site/
 .vscode/
 .typ-blog-cache/
+node_modules/

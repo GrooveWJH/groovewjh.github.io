@@ -1,8 +1,5 @@
-#import "../config.typ": template-page, format-post-date, render-tag-link
-#let posts = json(sys.inputs.at("posts-json"))
-#let slugs = json(sys.inputs.at("slugs-json"))
-#let tag-slugs = slugs.at("tags", default: (:))
-#let tag-slug-of(value) = str(tag-slugs.at(value, default: value))
+#import "../config.typ": template-page, format-post-date, render-tag-link, query-posts, query-tag-slug-of
+#let posts = query-posts()
 
 #show: template-page.with(
   title: "首页",
@@ -24,7 +21,7 @@
 
 #if posts.len() == 0 {
   html.div(class: "tips-block", {
-    暂无文章
+    "暂无文章"
   })
 } else {
   html.div(class: "posts-grid", {
@@ -54,7 +51,7 @@
         if post.tags.len() != 0 {
           html.div(class: "post-card-tags", {
             for tag in post.tags {
-              render-tag-link(tag, href: "/tag/" + tag-slug-of(tag) + "/")
+              render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/")
             }
           })
         }

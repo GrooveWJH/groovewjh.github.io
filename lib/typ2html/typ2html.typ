@@ -18,6 +18,33 @@
 #let post-date-display-format = "[year] 年 [month padding:none] 月 [day padding:none] 日"
 #let format-post-date(date) = date.display(post-date-display-format)
 
+// 统一读取命令行输入参数，供 page/post 模板复用。
+#let query-input(key, default: none) = sys.inputs.at(key, default: default)
+
+// 读取 posts 元数据 JSON。
+#let query-posts() = {
+  let posts-json-path = query-input("posts-json", default: none)
+  if posts-json-path == none { () } else { json(posts-json-path) }
+}
+
+// 读取路由 slug 映射 JSON。
+#let query-slugs() = {
+  let slugs-json-path = query-input("slugs-json", default: none)
+  if slugs-json-path == none { (:) } else { json(slugs-json-path) }
+}
+
+// 读取 tag 动态路由参数。
+#let query-route-tag(default: "") = str(query-input("route-tag", default: default))
+
+// 读取 category 动态路由参数。
+#let query-route-category(default: "") = str(query-input("route-category", default: default))
+
+// 根据当前构建输入查询 tag slug。
+#let query-tag-slug-of(value) = {
+  let tag-slugs = query-slugs().at("tags", default: (:))
+  str(tag-slugs.at(value, default: value))
+}
+
 #let make-nav(site-title, links, post-title: none) = if links != none {
   let nav-lower-title = if post-title != none { post-title } else { site-title }
 
@@ -143,7 +170,7 @@
         html.span(class: "post-tag-desc", "标签")
         html.span(class: "post-tag-group", {
           for tag in tags {
-            render-tag-link(tag, href: "/tag/" + tag, tag-options: tag-options)
+            render-tag-link(tag, href: "/tags/" + tag, tag-options: tag-options)
           }
         })
       })
@@ -155,7 +182,7 @@
     if category != none {
       html.div(class: "post-category", {
         html.span(class: "post-category-desc", "分类")
-        html.a(class: "post-category-link", href: "/category/" + category, category)
+        html.a(class: "post-category-link", href: "/categories/" + category, category)
       })
     }
   })
@@ -274,7 +301,7 @@
   category: "",
   date: datetime.today(),
   description: "",
-  emit-post-meta: sys.inputs.at("emit-post-meta", default: none),
+  emit-post-meta: query-input("emit-post-meta", default: none),
 
   content,
 ) = {
@@ -296,9 +323,8 @@
   if emit-post-meta != none {
     post-meta-json
   } else {
-    let page-path = sys.inputs.at("page-path", default: "")
-    let posts-json-path = sys.inputs.at("posts-json", default: none)
-    let all-posts = if posts-json-path == none { () } else { json(posts-json-path) }
+    let page-path = query-input("page-path", default: "")
+    let all-posts = query-posts()
 
     let matched-indexes = range(all-posts.len()).filter(i => all-posts.at(i).slug == page-path)
     let current-index = matched-indexes.at(0, default: none)
