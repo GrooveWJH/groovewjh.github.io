@@ -1,4 +1,4 @@
-#import "../../../config.typ": template-page, format-post-date, category-intro-of, render-tag-link, render-page-breadcrumb, query-posts, query-route-category, query-tag-slug-of, query-category-slug-of, query-route-page, query-route-page-size, query-page-bounds, render-pagination-nav
+#import "../../../config.typ": *
 #let posts = query-posts()
 #let current = query-route-category()
 #let route-page = query-route-page()
@@ -13,23 +13,7 @@
   items: (("/", "首页"), ("/categories/", "分类")),
 )
 
-= #{html.div(class: "title-with-icon", {
-  html.div(
-    class: "tag-title-icon",
-    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
-    {
-      html.span(style: "mask-image:url(\"/assets/icons/folder.svg\");")
-    },
-  )
-  html.div(current)
-})}
-
-#let intro = category-intro-of(current)
-#if intro != "" {
-  html.div(class: "tips-block", {
-    intro
-  })
-}
+= #current
 
 #let matched = posts.filter(post => post.category == current)
 #let bounds = query-page-bounds(matched.len(), page: route-page, page-size: route-page-size)

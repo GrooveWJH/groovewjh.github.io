@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page, render-page-breadcrumb, query-posts, query-slugs
+#import "../../config.typ": *
 #let posts = query-posts()
 #let slugs = query-slugs()
 #let category-slugs = slugs.at("categories", default: (:))
@@ -21,16 +21,7 @@
 
 #render-page-breadcrumb(items: (("/", "首页"),))
 
-= #{html.div(class: "title-with-icon", {
-  html.div(
-    class: "tag-title-icon",
-    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
-    {
-      html.span(style: "mask-image:url(\"/assets/icons/folders.svg\");")
-    },
-  )
-  html.div("所有分类")
-})}
+= 所有分类
 
 #if all-categories.len() == 0 [
   #html.div(class: "tips-block", {

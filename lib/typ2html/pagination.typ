@@ -14,16 +14,18 @@
 
 #let render-pagination-page-item(base-path, page, current) = {
   if page == current {
-    html.elem("span", attrs: (
+    html.span(
       class: "pagination-nav-page is-current",
-      "aria-current": "page",
-    ), str(page))
+      aria-current: "page",
+      str(page)
+    )
   } else {
-    html.elem("a", attrs: (
+    html.a(
       class: "pagination-nav-page",
       href: pagination-page-href(base-path, page),
-      "aria-label": "转到第 " + str(page) + " 页",
-    ), str(page))
+      aria-label: "转到第 " + str(page) + " 页",
+      str(page)
+    )
   }
 }
 

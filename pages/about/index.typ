@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page, render-page-breadcrumb, query-posts
+#import "../../config.typ": *
 #let posts = query-posts()
 
 #let tags = (:)

@@ -1,12 +1,5 @@
-#import "raw.typ": template-raw
-#import "math.typ": template-math
-#import "refs.typ": template-refs
-#import "notes.typ": template-notes
-#import "links.typ": template-links
-#import "figures.typ": template-figures
-#import "table.typ": template-table
 #import "block.typ": quote, note, success, warning, error
-#import "tag.typ": render-tag-link, render-tag-card, render-tag-title-icon
+#import "tag.typ": render-tag-link, render-tag-card
 #import "breadcrumb.typ": render-page-breadcrumb
 #import "pagination.typ": render-pagination-nav
 
@@ -258,6 +251,14 @@
   main-node: none,
   footer-node: none,
 ) = {
+  import "raw.typ": template-raw
+  import "math.typ": template-math
+  import "refs.typ": template-refs
+  import "notes.typ": template-notes
+  import "links.typ": template-links
+  import "figures.typ": template-figures
+  import "table.typ": template-table
+
   show: template-raw
   show: template-math
   show: template-refs
@@ -522,7 +523,3 @@
     description: description,
   ),
 )
-
-#let _default-templates = make-templates()
-#let template-post = _default-templates.post
-#let template-page = _default-templates.page

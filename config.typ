@@ -1,18 +1,10 @@
-#import "lib/typ2html/typ2html.typ" as t2h
+#import "lib/typ2html/typ2html.typ" : *
 
 #let footer-content = [
   2026 \~ Present Carbon Typst Blog
 ]
 
-#let category-intros = (
-  :
-  // "开发": "记录前端与 Typst 的实现细节。",
-)
-
-#let category-intro-of(category) = category-intros.at(category, default: "")
-
 #let tag-options = (
-  // 全量 tag 随机分配 preset，icon 统一保持 hashtag.svg
   "CSS": ("preset": "teal", "icon": "/assets/icons/hashtag.svg"),
   "Hello": ("preset": "cyan", "icon": "/assets/icons/hashtag.svg"),
   "前端": ("preset": "red", "icon": "/assets/icons/hashtag.svg"),
@@ -35,12 +27,11 @@
   "随笔": ("preset": "gray", "icon": "/assets/icons/hashtag.svg"),
 )
 
-#let render-tag-link = t2h.render-tag-link.with(tag-options: tag-options)
-#let render-tag-card = t2h.render-tag-card.with(tag-options: tag-options)
-#let render-tag-title-icon = t2h.render-tag-title-icon.with(tag-options: tag-options)
-#let render-page-breadcrumb = t2h.render-page-breadcrumb
+#let render-tag-link = render-tag-link.with(tag-options: tag-options)
+#let render-tag-card = render-tag-card.with(tag-options: tag-options)
+#let render-page-breadcrumb = render-page-breadcrumb
 
-#let templates = t2h.make-templates(
+#let templates = make-templates(
   site-title: "Carbon Typst Blog",
   header-links: (
     "/": "首页",
@@ -57,22 +48,3 @@
 
 #let template-post = templates.post
 #let template-page = templates.page
-
-#let format-post-date = t2h.format-post-date
-
-#let query-posts = t2h.query-posts
-#let query-slugs = t2h.query-slugs
-#let query-route-tag = t2h.query-route-tag
-#let query-route-category = t2h.query-route-category
-#let query-route-page = t2h.query-route-page
-#let query-route-page-size = t2h.query-route-page-size
-#let query-tag-slug-of = t2h.query-tag-slug-of
-#let query-category-slug-of = t2h.query-category-slug-of
-#let query-page-bounds = t2h.query-page-bounds
-#let render-pagination-nav = t2h.render-pagination-nav
-
-#let quote = t2h.quote
-#let note = t2h.note
-#let success = t2h.success
-#let warning = t2h.warning
-#let error = t2h.error

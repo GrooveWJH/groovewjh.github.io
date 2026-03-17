@@ -1,5 +1,5 @@
-#import "../../config.typ": template-post,
-#import "@preview/cmarker:0.1.7"
+#import "../../config.typ": template-post
+
 #show: template-post.with(
   title: "Hello, World!",
   tags: ("Hello",),

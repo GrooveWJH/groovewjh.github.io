@@ -1,4 +1,4 @@
-#import "../../../config.typ": template-page, format-post-date, render-tag-link, render-tag-title-icon, render-page-breadcrumb, query-posts, query-route-tag, query-tag-slug-of, query-route-page, query-route-page-size, query-page-bounds, render-pagination-nav
+#import "../../../config.typ": * 
 #let posts = query-posts()
 #let current = query-route-tag()
 #let route-page = query-route-page()
@@ -24,10 +24,7 @@
 )
 
 // 展示 tag-icon
-= #{html.div(class: "title-with-icon", {
-  render-tag-title-icon(current)
-  html.div(current)
-})}
+= #current
 
 #let matched = posts.filter(post => post.tags.any(tag => tag == current))
 #let bounds = query-page-bounds(matched.len(), page: route-page, page-size: route-page-size)

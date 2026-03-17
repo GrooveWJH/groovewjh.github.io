@@ -78,15 +78,3 @@
     },
   )
 }
-
-#let render-tag-title-icon(tag, tag-options: (:)) = {
-  html.div(
-    class: "tag-title-icon",
-    style: tag-style-attr(tag, tag-options),
-    {
-      html.span(
-        style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
-      )
-    },
-  )
-}

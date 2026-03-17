@@ -1,4 +1,4 @@
-#import "../config.typ": template-page, format-post-date, render-tag-link, query-posts, query-tag-slug-of, query-route-page, query-route-page-size, query-page-bounds, render-pagination-nav
+#import "../config.typ": *
 #let posts = query-posts()
 #let route-page = query-route-page()
 #let route-page-size = query-route-page-size(default: 10)
@@ -14,18 +14,13 @@
 )
 
 #if route-page != 1 [
-  = #{html.div(class: "title-with-icon", {
-    html.div(
-      class: "tag-title-icon",
-      style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
-      {
-        html.span(style: "mask-image:url(\"/assets/icons/blog.svg\");")
-      },
-    )
-    html.div("文章列表")
-  })}
+  = 文章列表
 ] else {
-  
+  html.div(class: "homepage-header", {
+    html.div(class: "homepage-header-carbon", "Carbon")
+    html.div(class: "homepage-header-typst", "Typst")
+    html.div(class: "homepage-header-blog", "Blog")
+  })
 }
 
 #if posts.len() == 0 {

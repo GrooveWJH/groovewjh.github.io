@@ -1,4 +1,4 @@
-#import "../../config.typ": template-page, render-page-breadcrumb, query-posts
+#import "../../config.typ": *
 #let posts = query-posts()
 
 #let posts-by-year = (:)
@@ -29,7 +29,7 @@
       html.span(style: "mask-image:url(\"/assets/icons/box.svg\");")
     },
   )
-  html.div("所有文章")
+  html.div("文章归档")
 })}
 
 #if posts.len() == 0 {
