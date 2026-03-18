@@ -22,7 +22,7 @@
 = 所有标签
 
 #if all-tags.len() == 0 [
-  #html.div(class: "tips-block", {
+  #html.div(class: "error-block", {
     "暂无标签"
   })
 ] else [

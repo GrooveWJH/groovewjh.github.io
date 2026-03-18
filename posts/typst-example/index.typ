@@ -1,58 +1,149 @@
-#import "../../config.typ": template-post, quote, note, success, warning, error
+#import "../../config.typ": *
 #import "@preview/tablem:0.3.0": *
 #import "@preview/citegeist:0.2.0": load-bibliography
 #import "@preview/cmarker:0.1.8"
 #import "@preview/mitex:0.2.6": *
 
+#set page(height: auto, width: 24cm)
+#set text(16pt, font: ("IBM Plex Sans SC"), lang: "zh")
+#show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
+#show math.equation: set text(16pt)
+#set table(inset: 9pt)
+
 #show: template-post.with(
-  title: "Typst 功能速览与样例",
-  description: "精简版 Typst 示例文档，展示在当前网页模板下常用元素的渲染效果。",
-  tags: (),
-  category: "测试",
-  date: datetime(year: 2025, month: 9, day: 3),
+  title: "Typst 功能展示",
+  description: "本文主要展示了一些常用的 Typst 语法，并给出一些增强功能。",
+  tags: ("Typst", "写作指南"),
+  category: "如何编写博客文章",
+  date: datetime(year: 2026, month: 3, day: 18)
 )
 
-这是一份精简版示例，重点展示渲染效果，不再重复贴出对应的 Typst 源代码。
+= 基础功能
 
-#note(title: "说明")[
-  本页用于快速预览常见排版元素在当前主题下的实际样式。
-]
+Typst 内置了基础的文字修饰功能，对应的代码和效果如下表所示。
 
-= 基础排版
+#table(
+  columns: 2,
+  table.header(
+    [代码], [效果],
+  ),
+  [```typ *粗体*```], [*粗体*],
+  [```typ _斜体_```], [_斜体_],
+  [```typ #underline[下划线]```], [#underline[下划线]],
+  [```typ #strike[删除线]```], [#strike[删除线]],
+  [```typ #overline[上划线]```], [#overline[上划线]],
+  [```typ #super[上标]文本#sub[下标]```], [#super[上标]文本#sub[下标]],
+  [```typ #highlight[高亮标记]```], [#highlight[高亮标记]],
+)
 
-这里展示了 *粗体*、_斜体_、#underline[下划线]、#strike[删除线]、#overline[上划线]、上标 E=mc#super[2]、下标 H#sub[2]O，以及 #highlight[高亮标记]。
+你可以通过粘贴 URL 或者 ```typ #link``` 函数创建一个链接：
 
-你可以通过空行分段，也可以在行末使用 `\` 换行。\
-这是同一段中的新一行。
+#table(
+  columns: 2,
+  table.header(
+    [代码], [效果],
+  ),
+  [```typ https://typst.app/```], [https://typst.app/],
+  [```typ #link("/about/")[关于页面]```], [#link("/about/")[关于页面]],
+)
 
-如果需要分隔内容，可以使用下方横线：
-#html.hr()
+你可以使用 `#divider()` 创建分割线，效果如下：
 
-链接示例：
-- #link("https://typst.app/")[Typst 官网]
-- #link("https://github.com/Yousa-Mirage/Tufted-Blog-Template")[模板仓库]
-- #link("/about/")[站内页面链接]
+#divider()
 
-列表示例：
-- 无序列表项
-  - 支持多级缩进
-+ 有序列表项
-  + 自动编号
-/ 术语列表: 适合用于名词解释。
-/ Typst: 一个基于标记语法的排版系统。
+你可以通过如下代码创建一些列表：
+
+```typ
+- 文字
+- 数学公式
+- 代码块
+  - 内联代码块
+  - 块级代码块
+  
++ 这是有序列表的第 1 项。
+3. 可以使用任意数字创建一个新的有序列表，此时
++ 序号会从上次出现的有序列表项继续递增，这里就是 4。
+1. 这里的序号又回到了 1，但它依然会继续递增，所以
++ 这里的序号是 2。
+
+/ 连字: 合并的字形。
+/ 字距调整: 两个相邻字母之间的间距调整。
+```
+
+渲染效果如下：
+
+- 文字
+- 数学公式
+- 代码块
+  - 内联代码块
+  - 块级代码块
+  
++ 这是有序列表的第 1 项。
+3. 可以使用任意数字创建一个新的有序列表，此时
++ 序号会从上次出现的有序列表项继续递增，这里就是 4。
+1. 这里的序号又回到了 1，但它依然会继续递增，所以
++ 这里的序号是 2。
+
+/ 连字: 合并的字形。
+/ 字距调整: 两个相邻字母之间的间距调整。
 
 = 常用内容块
 
+除了基础的文字修饰功能，Carbon Typst Blog 提供了一些常用的内容块，例如引用块、注意块、表格和代码块等。你也可以通过 `#quote` 函数创建一个引用块，或者通过 `#note`、`#success`、`#warning` 和 `#error` 创建一些带有标题的强调块。
+
+```typ
 #quote[
-  这是一个引用块，支持较长文本、换行与嵌套内容。
+  这是一个引用块。
   #quote[这是引用块中的引用块。]
 ]
-
 #note(title: "提示")[这是一个注意块。]
 #success(title: "完成")[这是一个强调块。]
 #warning(title: "警告")[这是一个警告块。]
-#error(title: "注意")[这是一个带多段内容的块。\
-这一行用于展示换行效果。]
+#error(title: "注意")[
+  这是一个带多段内容的块。
+
+  这一行用于展示换行效果。
+]
+```
+
+对应的渲染效果如下：
+
+#quote[
+  这是一个引用块。
+  #quote[这是引用块中的引用块。]
+]
+#note(title: "提示")[这是一个注意块。]
+#success(title: "完成")[这是一个强调块。]
+#warning(title: "警告")[这是一个警告块。]
+#error(title: "注意")[
+  这是一个带多段内容的块。
+
+  这一行用于展示换行效果。
+]
+
+= 表格、代码块与图表
+
+Typst 内置了表格和代码块的支持，你可以通过 `#table` 和 #raw(lang: "typst", block: false, "```[lang] ```") （对于内联代码块，则使用 #raw(lang: "typst", block: false, "` `") 或 #raw(lang: "typst", block: false, "```[lang] ```")）来创建它们。另外，你可以通过 `#figure` 函数创建一个带有标题的内容块，并将表格、代码块或者图像等内容放在其中，从而让它们拥有一个标题。以下是一些示例：
+
+#raw(lang: "typst", block: true,
+"#figure(caption: [示例表格])[
+  #table(
+    columns: (1fr, 2fr, auto),
+    table.header([姓名], [简介], [状态]),
+    [Alice], [前端开发者，喜欢 Rust], [在线],
+    [Bob], [后端工程师，喜欢 Python], [离线],
+  )
+]<tbl1>
+
+#figure(caption: \"代码块样式示例\")[
+  ```rs
+  fn main() {
+    println!(\"Hello, Typst!\");
+  }
+  ```
+]<code1>")
+
+对应的渲染效果如下：
 
 #figure(caption: [示例表格])[
   #table(
@@ -63,24 +154,52 @@
   )
 ]<tbl1>
 
-#tablem[
-  | *Name* | *Location* | *Height* | *Score* |
-  | :----: | :--------: | :------: | :-----: |
-  | John   | Second St. | 180 cm   | 5       |
-  | Wally  | Third Av.  | 160 cm   | 10      |
-]
-
 #figure(caption: "代码块样式示例")[
   ```rs
   fn main() {
-      println!("Hello, Typst!");
+    println!("Hello, Typst!");
   }
   ```
-
-  ```rs
-  println!("Hello, Typst!");
-  ```
 ]<code1>
+
+需要注意，由于 Typst 的 HTML 导出问题，页面上表格的宽度和对齐方式暂时无法调整。
+
+你也可以使用外部的图像库绘制图像，并通过 SVG 格式将它们嵌入到页面中（*需要将图像变量包裹在 `auto-frame` 函数中*）
+
+```typ
+#import "@preview/lilaq:0.5.0" as lq
+#{
+  let diagram = lq.diagram(
+    width: 4cm, height: 4cm,
+    lq.colormesh(
+      lq.linspace(-4, 4, num: 10),
+      lq.linspace(-4, 4, num: 10),
+      (x, y) => x * y,
+      map: color.map.magma
+    )
+  )
+
+  figure(caption: [二维函数 $f(x, y) = x y$], auto-frame(diagram))
+}
+```
+
+上述代码绘制了一个简单的二维函数图像，并通过 `figure` 函数创建了一个带有标题的内容块来展示它。对应的渲染效果如下：
+
+#import "@preview/lilaq:0.5.0" as lq
+#{
+  let diagram = lq.diagram(
+    width: 4cm, height: 4cm,
+    lq.colormesh(
+      lq.linspace(-4, 4, num: 10),
+      lq.linspace(-4, 4, num: 10),
+      (x, y) => x * y,
+      map: color.map.magma
+    )
+  )
+
+  figure(caption: [二维函数 $f(x, y) = x y$], auto-frame(diagram))
+}
+
 
 = 数学、引用与交叉引用
 
@@ -92,48 +211,47 @@ $
        & = x^2 + 2x + 1
 $
 
-再看一个矩阵示例：
+较长的公式可以通过横向滚动查看：
+
+// 一元三次方程的根
+// 使用 Typst 风格给出
+
+#let over(a, b) = a / b
+
 $
-  mat(
-    1, 2;
-    3, 4
-  ) dot vec(x, y) = vec(5, 6)
-$
-
-文献引用示例：这是一条文献引用@tufte1973relationship，也可以用脚注补充说明#footnote[Tufte, E. R. (1973). The Relationship between Seats and Votes in Two-Party Systems. _American Political Science Review, 67_(2), 540～554. https://doi.org/10.2307/1958782]。
-
-#bibliography("papers.bib", title: none, style: "american-psychological-association")
-
-你现在看到的是交叉引用：表格见 @tbl1，代码块见 @code1。
-
-#import "@preview/lilaq:0.5.0" as lq
-#{
-  let diagram = html.frame(lq.diagram(
-    xaxis: (subticks: none),
-    yaxis: (subticks: none),
-    lq.bar(
-      range(-7, 8).map(x => x / 2.0),
-      range(-7, 8).map(x => {
-        let z = x / 2.0
-        calc.exp(-z * z / 2) / calc.sqrt(2 * calc.pi)
-      }),
-      fill: blue,
-    ),
-  ))
-
-  figure(caption: [Normal distribution], diagram)
-}
-
-最后，使用 `cmarker` 可以直接渲染 Markdown 文件内容：
-
-#html.hr()
-
-#let scope = (
-  image: (source, alt: none, format: auto) => figure(image(source, alt: alt, format: format)),
+x = frac(
+  -3b plus.minus ( 
+    sqrt(3 ( 3b^2 - 8a c + 2a root(3, 4 ( 2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e + sqrt((2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3) )) + 2a root(3, 4 ( 2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e - sqrt((2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3) )) )) 
+    plus.minus 
+    sqrt(3 ( 3b^2 - 8a c + 2a ((-1+sqrt(-3))/2) root(3, 4 ( 2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e + sqrt((2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3) )) + 2a ((-1-sqrt(-3))/2) root(3, 4 ( 2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e - sqrt((2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3) )) )) 
+  ) 
+  plus.minus 
+  "sgn" ( 
+    ( "sgn"(-b^3 + 4a b c - 8a^2 d) - 1/2 ) 
+    ( "sgn"( max( (2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3 , min( 3b^2 - 8a c , 3b^4 + 16a^2 c^2 + 16a^2 b d - 16a b^2 c - 64a^3 e ) ) ) - 1/2 ) 
+  ) 
+  sqrt(3 ( 3b^2 - 8a c + 2a ((-1-sqrt(-3))/2) root(3, 4 ( 2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e + sqrt((2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3) )) + 2a ((-1+sqrt(-3))/2) root(3, 4 ( 2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e - sqrt((2c^3 - 9b c d + 27a d^2 + 27b^2 e - 72a c e)^2 - 4(c^2 - 3b d + 12a e)^3) )) )), 
+  12a
 )
-#let md-content = read("tufted-titmouse.md")
+$
+
+你可以对外部文献或文中的标记进行引用，例如：
+
+```typ
+表格见 @tbl1，代码块见 @code1。
+```
+
+对应的渲染效果如下：
+
+表格见 @tbl1，代码块见 @code1。
+
+= Markdown 渲染
+
+最后，使用 `cmarker` 库可以渲染 Markdown 文件内容：
+
+```typ
+#let md-content = read("index.md")
 #cmarker.render(md-content, math: mitex, scope: scope)
+```
 
-#html.hr()
-
-`tufted-titmouse.md` 渲染完毕。
+更详细的使用示例请参考 `cmarker` 的官方文档。

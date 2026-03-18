@@ -1,6 +1,8 @@
+#import "html-guard.typ": html-guard
+
 #let template-raw(content) = {
   show raw.where(block: true): it => {
-    if target() == "html" {
+    html-guard(() => {
       let fields = it.fields()
       html.pre(
         html.code(
@@ -11,13 +13,11 @@
           fields.text
         )
       )
-    } else {
-      it
-    }
+    }, fallback: () => it)
   }
 
   show raw.where(block: false): it => {
-    if target() == "html" {
+    html-guard(() => {
       let fields = it.fields()
       html.code(
         class: {
@@ -26,9 +26,7 @@
         },
         fields.text
       )
-    } else {
-      it
-    }
+    }, fallback: () => it)
   }
   content
 }

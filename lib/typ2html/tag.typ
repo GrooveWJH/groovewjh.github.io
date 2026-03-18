@@ -1,3 +1,5 @@
+#import "html-guard.typ": html-guard
+
 #let tag-color-presets = (
   gray: (background: "tag-background-gray", color: "tag-color-gray", hover: "tag-hover-gray", border: "tag-border-gray"),
   cool-gray: (background: "tag-background-cool-gray", color: "tag-color-cool-gray", hover: "tag-hover-cool-gray", border: "tag-border-cool-gray"),
@@ -43,38 +45,42 @@
 
 #let render-tag-link(tag, href: none, tag-options: (:), full: false) = {
   let target = if href == none { "/tags/" + str(tag) } else { href }
-  html.a(
-    class: "post-tag-item tag-item-with-icon" + (if full {" tag-full"} else {""}),
-    href: target,
-    style: tag-style-attr(tag, tag-options),
-    {
-      html.span(
-        class: "tag-icon",
-        style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
-      )
-      html.span(class: "tag-content", html.span(tag))
-    },
-  )
+  html-guard(() => {
+    html.a(
+      class: "post-tag-item tag-item-with-icon" + (if full {" tag-full"} else {""}),
+      href: target,
+      style: tag-style-attr(tag, tag-options),
+      {
+        html.span(
+          class: "tag-icon",
+          style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
+        )
+        html.span(class: "tag-content", html.span(tag))
+      },
+    )
+  })
 }
 
 #let render-tag-card(tag, count, href: none, tag-options: (:)) = {
   let target = if href == none { "/tags/" + str(tag) } else { href }
-  html.a(
-    class: "tag-card",
-    href: target,
-    style: tag-style-attr(tag, tag-options),
-    {
-      html.div(class: "tag-card-top", {
-        html.div(class: "tag-card-name", tag)
-        html.div(class: "tag-card-meta", str(count) + " 篇")
-      })
-      html.div(class: "tag-card-bottom", {
-        html.span(
-          class: "tag-card-icon",
-          style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
-        )
-        html.span(class: "tag-card-arrow")
-      })
-    },
-  )
+  html-guard(() => {
+    html.a(
+      class: "tag-card",
+      href: target,
+      style: tag-style-attr(tag, tag-options),
+      {
+        html.div(class: "tag-card-top", {
+          html.div(class: "tag-card-name", tag)
+          html.div(class: "tag-card-meta", str(count) + " 篇")
+        })
+        html.div(class: "tag-card-bottom", {
+          html.span(
+            class: "tag-card-icon",
+            style: "mask-image:url(\"" + tag-icon-src(tag, tag-options) + "\");",
+          )
+          html.span(class: "tag-card-arrow")
+        })
+      },
+    )
+  })
 }

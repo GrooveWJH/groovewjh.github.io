@@ -33,7 +33,7 @@
 })}
 
 #if posts.len() == 0 {
-  html.div(class: "tips-block", {
+  html.div(class: "error-block", {
     "暂无文章"
   })
 } else {

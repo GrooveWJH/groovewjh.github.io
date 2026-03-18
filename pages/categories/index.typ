@@ -24,7 +24,7 @@
 = 所有分类
 
 #if all-categories.len() == 0 [
-  #html.div(class: "tips-block", {
+  #html.div(class: "error-block", {
     "暂无分类"
   })
 ] else [

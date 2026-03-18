@@ -1,3 +1,4 @@
+// 小尺寸设备下的导航切换
 const installSidebarSwitch = () => {
   const header = document.querySelector('header');
   const menuSwitch = header?.querySelector('.nav-menu-switch');
@@ -8,39 +9,18 @@ const installSidebarSwitch = () => {
     return;
   }
 
-  const SIDEBAR_ORIGINAL_TABINDEX_ATTR = 'data-sidebar-original-tabindex';
-  const sidebarFocusableElementsSelector = [
-    'a[href]',
-    'button',
-    'input',
-    'select',
-    'textarea',
-    '[tabindex]',
-  ].join(', ');
+  const sidebarLinks = sidebar.querySelectorAll('a[href]');
 
   const updateSidebarTabOrder = (isOpen) => {
     sidebar.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
     menuSwitch.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 
-    const focusableElements = sidebar.querySelectorAll(sidebarFocusableElementsSelector);
-    focusableElements.forEach((element) => {
-      if (!element.hasAttribute(SIDEBAR_ORIGINAL_TABINDEX_ATTR)) {
-        const originalTabIndex = element.getAttribute('tabindex');
-        element.setAttribute(SIDEBAR_ORIGINAL_TABINDEX_ATTR, originalTabIndex ?? '');
-      }
-
+    sidebarLinks.forEach((link) => {
       if (isOpen) {
-        const originalTabIndex = element.getAttribute(SIDEBAR_ORIGINAL_TABINDEX_ATTR);
-        if (originalTabIndex === '') {
-          element.removeAttribute('tabindex');
-        } else {
-          element.setAttribute('tabindex', originalTabIndex);
-        }
-
-        return;
+        link.removeAttribute('tabindex');
+      } else {
+        link.setAttribute('tabindex', '-1');
       }
-
-      element.setAttribute('tabindex', '-1');
     });
   };
 
@@ -72,6 +52,7 @@ const installSidebarSwitch = () => {
   });
 };
 
+// 回到顶部按钮
 const BACK_TO_TOP_BUTTON_CLASS = 'back-to-top-button';
 
 const getScrollToTopBehavior = () => {
@@ -117,6 +98,7 @@ const setBackToTopButtonVisible = (isVisible) => {
   }
 };
 
+// 文章顶部导航的切换
 const TOP_NAV_ORIGINAL_TABINDEX_ATTR = 'data-top-nav-original-tabindex';
 
 const setTopNavButtonsFocusable = (isFocusable) => {

@@ -4,16 +4,6 @@
 #let route-page = query-route-page()
 #let route-page-size = query-route-page-size(default: 10)
 
-#let tag-counts = (:)
-#for post in posts [
-  #for tag in post.tags [
-    #let current = tag-counts.at(tag, default: 0)
-    #tag-counts.insert(tag, current + 1)
-  ]
-]
-
-#let all-tags = tag-counts.keys().sorted()
-
 #show: template-page.with(
   title: if current == "" { "标签详情" } else { "标签：" + current },
   description: "标签详情页面",
@@ -23,7 +13,6 @@
   items: (("/", "首页"), ("/tags/", "标签")),
 )
 
-// 展示 tag-icon
 = #current
 
 #let matched = posts.filter(post => post.tags.any(tag => tag == current))
@@ -34,7 +23,7 @@
 #let end-index = int(bounds.at("end-index", default: -1))
 
 #if matched.len() == 0 {
-  html.div(class: "tips-block", {
+  html.div(class: "error-block", {
     "暂无文章"
   })
 } else {

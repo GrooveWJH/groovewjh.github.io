@@ -1,6 +1,8 @@
+#import "html-guard.typ": html-guard
+
 #let template-notes(content) = {
   show footnote: it => {
-    if target() == "html" {
+    html-guard(() => {
       let number = counter(footnote).display(it.numbering)
       let fn-id = "fn-" + number
       let ref-id = "fnref-" + number
@@ -11,7 +13,7 @@
         id: ref-id,
         number,
       ))
-    }
+    }, fallback: () => it)
   }
   content
 }
