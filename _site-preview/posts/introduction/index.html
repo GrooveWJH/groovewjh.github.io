@@ -143,15 +143,14 @@
               <p>进入仓库根目录（也就是包含 <code class="language-text">package.json</code> 的目录），然后运行构建命令。常用命令如下：</p>
               <ul>
                 <li><code class="language-text">npm run build</code> ：执行常规构建，输出目录为 <code class="language-text">_site/</code>；</li>
-                <li><code class="language-text">npm run build:force</code> ：强制刷新所有编译与复制任务；</li>
                 <li><code class="language-text">npm run build:fast</code> ：使用 <code class="language-text">--jobs 4</code> 并发构建；</li>
                 <li><code class="language-text">npm run build:preview</code> ：输出到 <code class="language-text">_site-preview/</code>，方便预览效果；</li>
-                <li><code class="language-text">npm run build:full</code> ：等价于 <code class="language-text">--force --jobs 4</code>。</li>
+                <li><code class="language-text">npm run build:full</code> ：等价于 <code class="language-text">--jobs 4</code>，用于完整构建。</li>
               </ul>
             </li>
             <li value="4">在本地启动 Live Server 进行预览，或者将生成的站点页面部署到云端。</li>
           </ol>
-          <p>目前，<code class="language-text">--force</code> 指令只会跳过未被修改的素材，而所有通过 <code class="language-text">index.typ</code> 编写的页面都会被重新编译。这主要是出于“上一篇/下一篇”功能的考量，在未来可能会进行优化。</p>
+          <p>目前构建流程会从 source 全量写入 staging 后再原子替换输出目录，不再复用旧 <code class="language-text">_site</code> 产物，因此一般情况下不需要额外的“强制刷新”开关。</p>
           <p>GitHub Actions 自动部署配置正在编写中，后续会补充完整的 CI/CD 示例（包括自动构建与发布流程）。</p>
           <h2>构建指令说明</h2>
           <p>除了 <code class="language-text">npm run build</code> 命令之外，你还可以使用下面这个入口命令进行构建：</p>
@@ -169,10 +168,6 @@
                 <tr>
                   <td><code class="language-text">-o</code> 或 <code class="language-text">--out &lt;目录></code></td>
                   <td>指定输出目录；不写时默认输出到 <code class="language-text">_site</code></td>
-                </tr>
-                <tr>
-                  <td><code class="language-text">-f</code> 或 <code class="language-text">--force</code></td>
-                  <td>强制刷新所有编译与复制任务，不再沿用旧结果</td>
                 </tr>
                 <tr>
                   <td><code class="language-text">-j</code> 或 <code class="language-text">--jobs &lt;数量></code></td>

@@ -1,7 +1,7 @@
 #import "lib/typ2html/typ2html.typ" : *
 
 #let footer-content = [
-  2026 \~ Present Carbon Typst Blog
+  2026 \~ Present    Carbon Typst Blog
 ]
 
 #let tag-options = (
