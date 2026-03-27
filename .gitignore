@@ -3,3 +3,15 @@ _site-preview/
 .vscode/
 .typ-blog-cache/
 node_modules/
+
+# macOS junk files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+.TemporaryItems
+.VolumeIcon.icns
