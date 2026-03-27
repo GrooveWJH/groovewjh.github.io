@@ -10,6 +10,7 @@
   blue: (background: "tag-background-blue", color: "tag-color-blue", hover: "tag-hover-blue", border: "tag-border-blue"),
   cyan: (background: "tag-background-cyan", color: "tag-color-cyan", hover: "tag-hover-cyan", border: "tag-border-cyan"),
   teal: (background: "tag-background-teal", color: "tag-color-teal", hover: "tag-hover-teal", border: "tag-border-teal"),
+  typst: (background: "tag-background-typst", color: "tag-color-typst", hover: "tag-hover-typst", border: "tag-border-typst"),
   green: (background: "tag-background-green", color: "tag-color-green", hover: "tag-hover-green", border: "tag-border-green"),
 )
 

@@ -1,12 +1,13 @@
 #import "lib/typ2html/typ2html.typ" : *
 
 #let footer-content = [
-如何成为大冒险家？
+闪光的大冒险家
 ]
 
 #let tag-options = (
   "博客搭建": (preset: "cyan", "icon": "/assets/icons/rocket.svg"),
   "Typst": ("preset": "teal", "icon": "/assets/icons/pen.svg"),
+  "诗歌": ("preset": "typst", "icon": "/assets/icons/volume--up--filled--alt.svg"),
   "写作指南": ("preset": "blue", "icon": "/assets/icons/edit.svg"),
   "配置指南": ("preset": "green", "icon": "/assets/icons/settings.svg"),
 )
@@ -31,7 +32,7 @@
     "/assets/custom.css",
   ),
   custom-script: (
-    
+    "/assets/custom.js",
   )
 )
 
