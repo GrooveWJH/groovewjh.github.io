@@ -3,6 +3,9 @@ _site-preview/
 .vscode/
 .typ-blog-cache/
 node_modules/
+posts/_hidden/
+posts/_draft/
+posts/_drafts/
 
 # macOS junk files
 .DS_Store
