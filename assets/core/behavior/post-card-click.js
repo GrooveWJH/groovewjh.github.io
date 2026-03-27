@@ -3,7 +3,7 @@ const isTextSelectionActive = () => {
   return Boolean(selection && !selection.isCollapsed && selection.toString().trim().length > 0);
 };
 
-const installPostCardClick = () => {
+export const installPostCardClick = () => {
   const cards = document.querySelectorAll('.posts-grid .post-card[data-post-url]');
   if (cards.length === 0) {
     return;
@@ -29,7 +29,3 @@ const installPostCardClick = () => {
     });
   });
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  installPostCardClick();
-});

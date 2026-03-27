@@ -99,28 +99,27 @@ const CARBON_DARK_THEME = {
   ],
 };
 
-document.addEventListener('DOMContentLoaded', async function() {
+export const installCodeRendering = async () => {
   let codeBlocks = document.querySelectorAll('code');
+  if (codeBlocks.length === 0) {
+    return;
+  }
 
-  await Promise.all(Array.from(codeBlocks).map(async function(codeBlock) {
-
+  await Promise.all(Array.from(codeBlocks).map(async (codeBlock) => {
     let language = 'plaintext';
-    codeBlock.classList.forEach(cls => {
+    codeBlock.classList.forEach((cls) => {
       if (cls.startsWith('language-')) {
         language = cls.replace('language-', '');
       }
     });
 
     const pre = codeBlock.parentElement;
-    if (!pre.matches('pre')) {
+    if (!pre?.matches('pre')) {
       if (codeBlock.querySelector('.shiki-inline')) return;
       codeBlock.innerHTML = await codeToHtml(codeBlock.textContent, {
         lang: language,
-        themes: {
-          light: CARBON_LIGHT_THEME,
-          dark: CARBON_DARK_THEME,
-        },
-        structure: 'inline'
+        themes: { light: CARBON_LIGHT_THEME, dark: CARBON_DARK_THEME },
+        structure: 'inline',
       });
       codeBlock.classList.add('shiki-inline');
       return;
@@ -129,22 +128,19 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (pre.querySelector('.shiki')) return;
     pre.outerHTML = await codeToHtml(codeBlock.textContent, {
       lang: language,
-      themes: {
-        light: CARBON_LIGHT_THEME,
-        dark: CARBON_DARK_THEME,
-      }
+      themes: { light: CARBON_LIGHT_THEME, dark: CARBON_DARK_THEME },
     });
   }));
 
   codeBlocks = document.querySelectorAll('pre > code');
 
-  codeBlocks.forEach(async function(codeBlock) {
+  codeBlocks.forEach((codeBlock) => {
     const pre = codeBlock.parentElement;
 
     const clone = codeBlock.cloneNode(true);
     const brs = clone.querySelectorAll('br');
-    brs.forEach(br => br.replaceWith('\n'));
-    
+    brs.forEach((br) => br.replaceWith('\n'));
+
     const text = clone.textContent;
     const cleanText = text.replace(/\n$/, '');
     const lineCount = cleanText.split(/\r\n|\r|\n/).length;
@@ -155,8 +151,8 @@ document.addEventListener('DOMContentLoaded', async function() {
       } else {
         const rows = document.createElement('span');
         rows.className = 'line-numbers-rows';
-        
-        for (let i = 1; i <= lineCount; i++) {
+
+        for (let i = 1; i <= lineCount; i += 1) {
           const span = document.createElement('span');
           span.textContent = i;
           rows.appendChild(span);
@@ -169,29 +165,24 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     if (pre.querySelector('.copy-button')) return;
-    
+
     const copyButton = document.createElement('button');
     copyButton.className = 'copy-button';
     copyButton.type = 'button';
     copyButton.setAttribute('aria-label', '复制代码');
-    
-    copyButton.addEventListener('click', async function() {
+
+    copyButton.addEventListener('click', async () => {
       const copied = await copyText(cleanText);
       if (copied) {
         copyButton.classList.add('copied');
-        setTimeout(function() {
-          copyButton.classList.remove('copied');
-        }, 1000);
+        setTimeout(() => copyButton.classList.remove('copied'), 1000);
       } else {
         copyButton.classList.add('error');
-        setTimeout(function() {
-          copyButton.classList.remove('error');
-        }, 1000);
+        setTimeout(() => copyButton.classList.remove('error'), 1000);
       }
     });
 
     pre.style.position = 'relative';
-    
     pre.appendChild(copyButton);
   });
-});
+};

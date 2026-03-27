@@ -1,0 +1,65 @@
+/*
+  Post metadata container and label rows.
+*/
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 4rem;
+}
+
+.post-time,
+.post-category {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5rem;
+}
+
+.post-time-desc,
+.post-category-desc,
+.post-tag-desc {
+  flex-shrink: 0;
+  user-select: none;
+  height: 1.5rem;
+  display: inline-block;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.post-tag-desc {
+  font-size: 0.875rem;
+  height: 2rem;
+  line-height: 2rem;
+  padding-right: 1.25rem;
+}
+
+.post-category-link {
+  text-decoration: none;
+  color: var(--link);
+}
+
+.post-category-link:hover {
+  color: var(--link-hover);
+}
+
+.post-category-link:visited {
+  color: var(--link);
+}
+
+.post-tag {
+  display: flex;
+  flex-direction: row;
+  color: var(--text-secondary);
+}
+
+.post-tag-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.page-tag-list {
+  margin: 2rem 1rem;
+  text-align: center;
+}

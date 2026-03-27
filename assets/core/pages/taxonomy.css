@@ -1,0 +1,154 @@
+/*
+  Tags and categories index/list pages.
+*/
+/* TAG PAGE */
+
+.tag-cards-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.tag-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 7rem;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--tag-border);
+  background-color: var(--tag-background);
+  color: var(--tag-color) !important;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tag-card:hover {
+  background-color: var(--tag-background-hover);
+  border-color: var(--tag-border-hover);
+}
+
+.tag-card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.tag-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.tag-card-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
+.tag-card-arrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  mask-image: url("/assets/icons/arrow--right.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
+.tag-card-name {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.tag-card-meta {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  opacity: 0.75;
+}
+
+/* CATEGORY PAGE */
+
+.category-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-subtle0);
+  width: 100%;
+}
+
+.category-list-item {
+  display: block;
+  border-bottom: 1px solid var(--border-subtle0);
+  color: var(--text-primary) !important;
+  text-decoration: none !important;
+  padding: 1rem;
+  transition: background-color 0.11s ease;
+}
+
+.category-list-item:hover {
+  background-color: var(--layer1-hover);
+}
+
+.category-list-item:visited {
+  color: var(--text-primary) !important;
+}
+
+.category-tree-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.category-tree-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.category-tree-icon {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  background-color: var(--text-secondary);
+  mask-image: url("/assets/icons/folder.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  flex-shrink: 0;
+}
+
+.category-list-name {
+  display: block;
+  min-width: 0;
+  font-size: 1rem;
+  line-height: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.category-list-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: var(--text-secondary);
+}
+

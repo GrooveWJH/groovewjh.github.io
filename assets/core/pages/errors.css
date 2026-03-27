@@ -1,0 +1,28 @@
+/*
+  Shared page-level empty and error states.
+*/
+/* ERROR BLOCK */
+
+.error-block {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.error-block[hidden] {
+  display: none !important;
+}
+
+.error-block::before {
+  content: "";
+  mask-image: url("/assets/icons/data--error.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--text-secondary);
+}

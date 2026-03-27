@@ -1,0 +1,131 @@
+/*
+  Shared page-shell and generic pages container / breadcrumb layout.
+*/
+/* BASIC */
+
+.pages-container {
+  padding: 0rem var(--page-padding-x);
+}
+
+.pages-container .pages-container-inner {
+  max-width: 60rem;
+  margin: 2rem auto;
+}
+
+/* BREADCRUMB */
+
+.page-breadcrumb {
+  margin: 0 0 1rem 0;
+}
+
+.page-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.page-breadcrumb-link,
+.page-breadcrumb-current,
+.page-breadcrumb-separator,
+.page-breadcrumb-overflow-trigger {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+}
+
+.page-breadcrumb-link,
+.page-breadcrumb-current,
+.page-breadcrumb-overflow-trigger {
+  margin: 0 0.5rem;
+}
+
+.page-breadcrumb-item:first-child .page-breadcrumb-link,
+.page-breadcrumb-item:first-child .page-breadcrumb-current {
+  margin-left: 0;
+}
+
+.page-breadcrumb-link {
+  color: var(--link);
+  text-decoration: none;
+  text-underline-offset: 0.125rem;
+}
+
+.page-breadcrumb .page-breadcrumb-link:visited {
+  color: var(--link);
+}
+
+.page-breadcrumb-link:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.page-breadcrumb-link:focus-visible {
+  color: var(--link);
+  text-decoration: underline;
+  outline: 1px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.page-breadcrumb-link:active {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+.page-breadcrumb-current,
+.page-breadcrumb-separator {
+  color: var(--text-primary);
+}
+
+.page-breadcrumb-separator {
+  user-select: none;
+}
+
+
+/* TYPOGRAPHY */
+
+.pages-container h1 {
+  font-size: 2.25rem;
+  margin: 1.75em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h2 {
+  font-size: 1.75rem;
+  margin: 1.5em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h3 {
+  font-size: 1.5625rem;
+  margin: 1.25em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h4 {
+  font-size: 1.375rem;
+  margin: 1.15em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container h5 {
+  font-size: 1.125rem;
+  margin: 1em 0 0 0;
+  font-weight: 400;
+}
+
+.pages-container p {
+  margin: 1em 0;
+}
+
+.pages-container strong {
+  font-weight: 600;
+}
+

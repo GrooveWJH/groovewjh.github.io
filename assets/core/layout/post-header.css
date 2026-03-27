@@ -1,0 +1,31 @@
+/*
+  Post page hero header.
+*/
+.post-header {
+  background-color: var(--layer1);
+  color: var(--text-primary);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem var(--page-padding-x);
+}
+
+.post-header .post-header-inner {
+  max-width: 60rem;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header .post-header-inner h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .post-header .post-header-inner h1 {
+    font-size: 2rem;
+  }
+}

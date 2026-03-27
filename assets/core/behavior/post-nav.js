@@ -1,4 +1,3 @@
-// 小尺寸设备下的导航切换
 const installSidebarSwitch = () => {
   const header = document.querySelector('header');
   const menuSwitch = header?.querySelector('.nav-menu-switch');
@@ -52,7 +51,6 @@ const installSidebarSwitch = () => {
   });
 };
 
-// 回到顶部按钮
 const BACK_TO_TOP_BUTTON_CLASS = 'back-to-top-button';
 
 const getScrollToTopBehavior = () => {
@@ -98,7 +96,6 @@ const setBackToTopButtonVisible = (isVisible) => {
   }
 };
 
-// 文章顶部导航的切换
 const TOP_NAV_ORIGINAL_TABINDEX_ATTR = 'data-top-nav-original-tabindex';
 
 const setTopNavButtonsFocusable = (isFocusable) => {
@@ -155,7 +152,8 @@ const updatePostNavCollapsedState = () => {
   setBackToTopButtonVisible(shouldCollapse);
 };
 
-const installPostNavSwitch = () => {
+export const installPostNavSwitch = () => {
+  installSidebarSwitch();
   ensureBackToTopButton();
   let ticking = false;
 
@@ -175,8 +173,3 @@ const installPostNavSwitch = () => {
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate);
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  installSidebarSwitch();
-  installPostNavSwitch();
-});

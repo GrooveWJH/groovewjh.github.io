@@ -1,4 +1,8 @@
 /*
+  Core tokens: Carbon palette + semantic design tokens.
+  Keep this file free of component/page selectors.
+*/
+/*
   The following CSS variables are based on the Carbon Design System's color palette. Each color is defined with a base value and a corresponding hover state for interactive elements. The colors are organized into categories such as yellow, orange, red, magenta, purple, blue, cyan, teal, green, cool gray, gray, and warm gray. This structure allows for consistent theming and easy maintenance across the application.
 */
 
@@ -249,4 +253,152 @@
   --warm-gray-80-hover: #4c4848;
   --warm-gray-90-hover: #343232;
   --warm-gray-100-hover: #2c2626;
+}
+
+/*
+  This file defines the base styles and color variables for the documentation site. It includes styles for typography, links, code blocks, math rendering, lists, figures, tables, and horizontal rules. The color variables are defined for different themes (gray-10, gray-90, gray-100) to allow for easy theming of the site.
+
+  The style is based on Carbon Design System, with some modifications to fit the needs of the documentation site. The color palette is adapted from Carbon's gray scale and primary colors, with adjustments for better contrast and readability in both light and dark themes.
+*/
+
+:root {
+  --page-padding-x: 3rem;
+  --font-sans-stack:
+    "IBM Plex Sans", "IBM Plex Sans SC", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono-stack:
+    "IBM Plex Mono", ui-monospace, "SFMono-Regular", "SF Mono", "Menlo",
+    "Consolas", "Liberation Mono", monospace;
+
+  --math-filter: none;
+  --background: var(--white);
+  --background-hover: rgba(141, 141, 141, 0.12);
+
+  --text-primary: var(--gray-100);
+  --text-secondary: var(--gray-70);
+  --text-disabled: color-mix(in srgb, var(--text-primary) 25%, transparent);
+
+  --link: var(--blue-60);
+  --link-hover: var(--blue-70);
+  --link-visited: var(--purple-60);
+
+  --layer1: var(--gray-10);
+  --layer2: var(--white);
+  --layer3: var(--gray-10);
+  --layer1-accent: var(--gray-20);
+  --layer2-accent: var(--gray-20);
+  --layer3-accent: var(--gray-20);
+
+  --layer1-hover: var(--gray-10-hover);
+  --layer2-hover: var(--white-hover);
+  --layer3-hover: var(--gray-10-hover);
+  --layer1-accent-hover: var(--gray-20-hover);
+  --layer2-accent-hover: var(--gray-20-hover);
+  --layer3-accent-hover: var(--gray-20-hover);
+  --layer1-accent-active: var(--gray-40);
+  --layer2-accent-active: var(--gray-40);
+  --layer3-accent-active: var(--gray-40);
+
+  --border-subtle0: var(--gray-20);
+  --border-subtle1: var(--gray-30);
+  --border-subtle2: var(--gray-20);
+  --border-subtle3: var(--gray-30);
+
+  --error: var(--red-60);
+  --success: var(--green-50);
+  --warning: var(--yellow-30);
+  --info: var(--blue-70);
+
+  --notification-background-error: var(--red-10);
+  --notification-background-success: var(--green-10);
+  --notification-background-info: var(--blue-10);
+  --notification-background-warning: var(--yellow-10);
+
+  --button-primary: var(--blue-60);
+  --button-primary-hover: var(--blue-60-hover);
+  --button-primary-active: var(--blue-80);
+  --button-secondary: var(--gray-80);
+  --button-secondary-hover: var(--gray-80-hover);
+  --button-secondary-active: var(--gray-60);
+  --button-tertiary: var(--blue-60);
+  --button-tertiary-hover: var(--blue-60-hover);
+  --button-tertiary-active: var(--blue-80);
+
+  --text-on-color: var(--white);
+
+  --footer-background: var(--black);
+  --footer-text: var(--white);
+
+  --tag-background: var(--gray-20);
+  --tag-color: var(--gray-100);
+  --tag-hover: var(--gray-20-hover);
+  --tag-border: var(--gray-40);
+
+  --tag-background-gray: var(--gray-20);
+  --tag-color-gray: var(--gray-100);
+  --tag-hover-gray: var(--gray-20-hover);
+  --tag-border-gray: var(--gray-40);
+
+  --tag-background-cool-gray: var(--cool-gray-20);
+  --tag-color-cool-gray: var(--cool-gray-100);
+  --tag-hover-cool-gray: var(--cool-gray-20-hover);
+  --tag-border-cool-gray: var(--cool-gray-40);
+
+  --tag-background-warm-gray: var(--warm-gray-20);
+  --tag-color-warm-gray: var(--warm-gray-100);
+  --tag-hover-warm-gray: var(--warm-gray-20-hover);
+  --tag-border-warm-gray: var(--warm-gray-40);
+
+  --tag-background-red: var(--red-20);
+  --tag-color-red: var(--red-70);
+  --tag-hover-red: var(--red-20-hover);
+  --tag-border-red: var(--red-40);
+
+  --tag-background-magenta: var(--magenta-20);
+  --tag-color-magenta: var(--magenta-70);
+  --tag-hover-magenta: var(--magenta-20-hover);
+  --tag-border-magenta: var(--magenta-40);
+
+  --tag-background-purple: var(--purple-20);
+  --tag-color-purple: var(--purple-70);
+  --tag-hover-purple: var(--purple-20-hover);
+  --tag-border-purple: var(--purple-40);
+
+  --tag-background-blue: var(--blue-20);
+  --tag-color-blue: var(--blue-70);
+  --tag-hover-blue: var(--blue-20-hover);
+  --tag-border-blue: var(--blue-40);
+
+  --tag-background-cyan: var(--cyan-20);
+  --tag-color-cyan: var(--cyan-70);
+  --tag-hover-cyan: var(--cyan-20-hover);
+  --tag-border-cyan: var(--cyan-40);
+
+  --tag-background-teal: var(--teal-20);
+  --tag-color-teal: var(--teal-70);
+  --tag-hover-teal: var(--teal-20-hover);
+  --tag-border-teal: var(--teal-40);
+
+  --tag-background-typst: color-mix(in srgb, var(--typst) 18%, transparent);
+  --tag-color-typst: var(--typst);
+  --tag-hover-typst: color-mix(in srgb, var(--typst) 26%, transparent);
+  --tag-border-typst: color-mix(in srgb, var(--typst) 55%, transparent);
+
+  --tag-background-green: var(--green-20);
+  --tag-color-green: var(--green-70);
+  --tag-hover-green: var(--green-20-hover);
+  --tag-border-green: var(--green-40);
+
+  --interactive-background: var(--gray-60);
+  --interactive-hover: var(--gray-60-hover);
+  --interactive-active: var(--gray-80);
+
+  --focus: var(--blue-60);
+  --border-tile: var(--gray-30);
+  --icon-interactive: var(--blue-60);
+  --border-interactive: var(--blue-60);
+
+  --carbon: #0f62fe;
+  --typst: #239dad;
 }

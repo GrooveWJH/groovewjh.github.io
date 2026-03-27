@@ -77,7 +77,6 @@
   css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
-    "/assets/core/colors.css",
     "/assets/core/main.css",
   ),
   scripts: (),
@@ -185,13 +184,10 @@
   css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
-    "/assets/core/colors.css",
     "/assets/core/main.css",
   ),
   scripts: (
-    "/assets/core/render-code.js",
-    "/assets/core/theme.js",
-    "/assets/core/post-nav-switch.js",
+    "/assets/core/app.js",
   ),
   custom-css: (),
   custom-script: (),
@@ -274,14 +270,11 @@
   css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
-    "/assets/core/colors.css",
     "/assets/core/main.css",
     "/assets/core/pages.css",
   ),
   scripts: (
-    "/assets/core/theme.js",
-    "/assets/core/post-nav-switch.js",
-    "/assets/core/post-card-click.js",
+    "/assets/core/app.js",
   ),
   custom-css: (),
   custom-script: (),
@@ -339,26 +332,20 @@
   post-css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
-    "/assets/core/colors.css",
     "/assets/core/main.css",
   ),
   post-scripts: (
-    "/assets/core/render-code.js",
-    "/assets/core/theme.js",
-    "/assets/core/post-nav-switch.js",
+    "/assets/core/app.js",
   ),
 
   page-css: (
     "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
     "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
-    "/assets/core/colors.css",
     "/assets/core/main.css",
     "/assets/core/pages.css",
   ),
   page-scripts: (
-    "/assets/core/theme.js",
-    "/assets/core/post-nav-switch.js",
-    "/assets/core/post-card-click.js",
+    "/assets/core/app.js",
   ),
   page-wrapper: content => html-guard(() => {
     html.main({

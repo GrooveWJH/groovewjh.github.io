@@ -1,0 +1,375 @@
+/*
+  Code rendering, math, figures, tables, lists, and footnotes in article content.
+*/
+/* CODE */
+
+article code {
+  background: var(--layer1);
+  padding: 0 0.5rem;
+  border-radius: 2px;
+  font-size: 0.875em;
+  font-family: var(--font-mono-stack);
+}
+
+article td > code {
+  background: var(--layer2);
+}
+
+article pre {
+  margin: 1rem 0 0 0;
+  padding: 1rem 3rem 1rem 1rem;
+  position: relative;
+  background: var(--layer1);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+article pre > code {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  padding-right: 2rem;
+  border-radius: 0;
+  mask-image: linear-gradient(
+    to right,
+    #000000 calc(100% - 2rem),
+    transparent 100%
+  );
+}
+
+article pre.has-line-numbers {
+  display: flex;
+  flex-direction: row;
+}
+
+article pre.has-line-numbers > code {
+  flex: 1;
+}
+
+article pre.has-line-numbers > .line-numbers-rows {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding-right: 0.5rem;
+
+  position: relative;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border-subtle1);
+  margin-right: 0.5rem;
+  user-select: none;
+
+  font-family: var(--font-mono-stack);
+}
+
+html[data-theme="gray-90"] article :is(.shiki, .shiki span, .shiki-inline span),
+html[data-theme="gray-100"] article :is(.shiki, .shiki span, .shiki-inline span) {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) article :is(.shiki, .shiki span, .shiki-inline span) {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+article pre.single-line {
+  padding: 0 3rem 0 1rem;
+  height: 2.5rem;
+}
+
+article pre.single-line > code {
+  display: flex;
+  align-items: center;
+}
+
+/* COPY BUTTON */
+
+article pre > .copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--layer1);
+  outline: none;
+  border: 0;
+  padding: 0;
+  transition: background-color 0.11s;
+  cursor: pointer;
+}
+
+article pre > .copy-button.copied,
+article pre > .copy-button.error {
+  cursor: default;
+}
+
+article pre > .copy-button::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--text-primary);
+  mask-image: url("/assets/icons/copy.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+article pre > .copy-button.copied::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--success);
+  mask-image: url("/assets/icons/checkmark.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+article pre > .copy-button.error::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--error);
+  mask-image: url("/assets/icons/error--filled.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+article pre.single-line > .copy-button {
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+article pre > .copy-button:hover {
+  background-color: var(--layer1-hover);
+}
+
+article pre > .copy-button:active {
+  background-color: var(--layer1-accent-active);
+}
+
+/* MATH */
+
+article span[role="math"] > svg,
+article figure[role="math"] > svg,
+article .typst-frame {
+  filter: var(--math-filter) !important;
+}
+
+article figure[role="math"] {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 1rem 0 0 0;
+  padding: 0.5rem 0;
+  font-size: 1.2em;
+  line-height: 1.2;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+article figure[role="math"] > * {
+  display: inline-block;
+  min-width: max-content;
+  text-align: center;
+}
+
+article span[role="math"] {
+  display: inline-block;
+  vertical-align: baseline;
+  text-indent: 0;
+  font-size: 1.2em;
+}
+
+/* LIST */
+
+article ul,
+article ol {
+  margin: 1rem 0 0 0.625rem;
+  padding: 0;
+}
+
+article dl {
+  margin: 1rem 0 0 0;
+}
+
+article dl dt {
+  margin: 1rem 0 0 0;
+  font-weight: 600;
+}
+
+article dl dd {
+  margin: 0 0 0 1rem;
+}
+
+article li {
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
+  padding: 0;
+}
+
+article ul li:not(:last-child),
+article ol li:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+article ul li p,
+article ol li p {
+  margin: 0.5rem 0;
+}
+
+/* FIGURE */
+
+article figure {
+  margin: 1rem 0 0 0;
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+
+article figure > *:first-child {
+  margin-top: 0 !important;
+}
+
+article figure figcaption {
+  margin-top: 1rem;
+  font-size: 0.875em;
+  color: var(--text-primary);
+}
+
+article figure img {
+  margin: 1rem 0 0 0;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* TABLE */
+
+article .table-scroll {
+  margin: 1rem 0 0 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+article table {
+  border-collapse: collapse;
+  margin: 1rem 0 0 0;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.875em;
+}
+
+article .table-scroll > table {
+  margin: 0;
+  min-width: 100%;
+  width: max-content;
+}
+
+article tbody tr {
+  transition:
+    background-color 0.11s,
+    border-color 0.11s;
+  background-color: var(--layer1);
+  border-bottom: 1px solid var(--border-subtle1);
+}
+
+article th {
+  background-color: var(--layer1-accent);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+article td {
+  transition:
+    background-color 0.11s,
+    border-color 0.11s;
+  color: var(--text-secondary);
+  padding: 0.75rem 1rem;
+}
+
+article tbody tr:hover {
+  background-color: var(--layer1-hover);
+  border-bottom: 1px solid var(--layer1-hover);
+}
+
+article tbody tr:hover td {
+  color: var(--text-primary);
+}
+
+/* HR */
+
+article hr {
+  margin: 1rem 0 0 0;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border-subtle0);
+}
+
+/* ANCHOR OFFSET */
+
+article :target {
+  scroll-margin-top: 3.5rem;
+}
+
+article li[id^="fn-"],
+article a[id^="fnref-"] {
+  scroll-margin-top: 3.5rem;
+}
+
+/* FOOTNOTE */
+article section[role="doc-endnotes"] {
+  margin-top: 3rem;
+  font-size: 0.875em;
+}
+
+article section[role="doc-endnotes"] a.footnote-ref-link {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5em;
+  width: 1em;
+  height: 1.5em;
+  vertical-align: middle;
+}
+
+article section[role="doc-endnotes"] a.footnote-ref-link::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1.5em;
+  background-color: var(--link);
+  mask-image: url("/assets/icons/return.svg");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  vertical-align: middle;
+}
+
+article section[role="doc-endnotes"] a:hover.footnote-ref-link::before {
+  background-color: var(--link-hover);
+}
+
+article section[role="doc-endnotes"] a:visited.footnote-ref-link::before {
+  background-color: var(--link-visited);
+}
+

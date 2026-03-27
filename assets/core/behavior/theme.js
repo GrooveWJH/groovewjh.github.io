@@ -49,7 +49,7 @@ const getInitialTheme = () => {
   return prefersDark ? 'gray-90' : 'gray-10';
 };
 
-const installThemeSwitch = () => {
+export const installThemeSwitch = () => {
   const themeSwitch = document.querySelector('.nav-theme-switch');
   if (!themeSwitch) {
     return;
@@ -64,7 +64,3 @@ const installThemeSwitch = () => {
     applyTheme(THEMES[nextIndex]);
   });
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  installThemeSwitch();
-});
