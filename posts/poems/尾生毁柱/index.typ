@@ -11,12 +11,12 @@
   description: "",
   tags: ("诗歌",),
   category: "诗歌-辑蜡烛",
-  date: datetime(year: 2026, month: 3, day: 18),
+  date: datetime(year: 2022, month: 10, day: 10),
 )
 
 #{
   let poem_body = {
-    set text(font: "Kai")
+    set text(font: ("Kai", "KaiTi", "Kaiti SC", "LXGW WenKai"))
     [
       浪花勾勒出她懊悔但已释然的形象 \ 
       行将灭顶的猛水却不令故事忧伤 \ 
