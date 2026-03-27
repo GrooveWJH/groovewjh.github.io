@@ -1,7 +1,7 @@
 #import "lib/typ2html/typ2html.typ" : *
 
 #let footer-content = [
-  2026 \~ Present    Carbon Typst Blog
+如何成为大冒险家？
 ]
 
 #let tag-options = (
@@ -15,16 +15,16 @@
 #let render-tag-card = render-tag-card.with(tag-options: tag-options)
 
 #let templates = make-templates(
-  site-title: "Carbon Typst Blog",
+  site-title: "Groove Blog",
   header-links: (
     "/": "首页",
-    "/categories/": "分类",
+    "/categories/": "合集",
     "/tags/": "标签",
-    "/archive/": "归档",
+    // "/archive/": "归档",
     "/about/": "关于",
   ),
   title: "Typst Blog",
-  lang: "zh",
+  lang: "en",
   footer-content: footer-content,
   tag-options: tag-options,
   custom-css: (

@@ -11,7 +11,9 @@
         "aria-label": "打开导航",
       ))[]
 
-      html.div(class: "nav-title", site-title)
+      html.div(class: "nav-title", {
+        html.a(class: "nav-title-link", href: "/", site-title)
+      })
 
       html.div(class: "nav-body has-post-title", {
         html.div(class: "nav-body-upper", {
@@ -26,11 +28,11 @@
         html.div(class: "nav-body-lower", nav-lower-title)
       })
 
-      html.elem("button", attrs: (
-        class: "nav-theme-switch",
-        type: "button",
-        "aria-label": "切换主题",
-      ))[]
+      // html.elem("button", attrs: (
+      //   class: "nav-theme-switch",
+      //   type: "button",
+      //   "aria-label": "切换主题",
+      // ))[]
     })
 
     html.div(class: "nav-sidebar-backdrop")

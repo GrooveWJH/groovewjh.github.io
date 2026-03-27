@@ -17,9 +17,9 @@
   = 文章列表
 ] else {
   html.div(class: "homepage-header", {
-    html.div(class: "homepage-header-carbon", "Carbon")
-    html.div(class: "homepage-header-typst", "Typst")
-    html.div(class: "homepage-header-blog", "Blog")
+    html.div(class: "homepage-header-carbon", "渐入佳境")
+    html.div(class: "homepage-header-typst", "凌空乱想")
+    html.div(class: "homepage-header-blog", "$>_Blog")
   })
 }
 

@@ -1391,6 +1391,21 @@ header .nav-title {
   margin-right: 1rem;
 }
 
+header .nav-title > .nav-title-link {
+  display: block;
+  height: 100%;
+  line-height: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+header .nav-title > .nav-title-link:visited,
+header .nav-title > .nav-title-link:hover,
+header .nav-title > .nav-title-link:active {
+  color: inherit;
+  text-decoration: none;
+}
+
 header .nav-title::after {
   position: absolute;
   content: "";

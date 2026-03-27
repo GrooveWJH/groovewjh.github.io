@@ -34,6 +34,7 @@ npm run build:full
 
 - 动态路由模板路径中，`[tag]` 和 `[category]` 各自最多出现一次。
 - 旧输出目录中的未保留文件会在发布阶段被移除。
+- `posts/_hidden/**` 与 `posts/_drafts/**` 会在构建时被忽略（包含文章编译与静态资源同步）。
 - 构建结束后会清理 `.typ-blog-cache/`。
 - 构建脚本已拆分为 `build/` 目录下多个模块（`cli`、`core`、`helpers`、`typst`、`pool`、`progress`）。
 - 并发阶段使用项目内置进度条实现，不依赖第三方包。
