@@ -1,0 +1,42 @@
+#import "../../../config.typ": *
+
+#set page(height: auto, width: 24cm)
+#set text(16pt, font: "IBM Plex Sans SC", lang: "zh")
+#show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
+#show math.equation: set text(16pt)
+#set table(inset: 9pt)
+
+#show: template-post.with(
+  title: "烁烁来信",
+  description: "",
+  tags: ("诗歌",),
+  category: "诗歌",
+  date: datetime(year: 2022, month: 9, day: 9),
+)
+
+#{
+  let poem_body = {
+    set text(font: ("Kai", "KaiTi", "Kaiti SC", "LXGW WenKai"))
+    [
+      信封上的殷红如巧色于玉雕 \ 
+      一划初妆代表 \ 
+      美人眼角正年轻 \ 
+      裙裾美妙 \ 
+      你在某个秋日收到 \ 
+      远方送来的本地蜜酿花瓣 \ 
+      寄托夜雨淋湿后的情何以堪 \ \
+      走吧，去春天滞留的地方 \ 
+      花红草绿清脆，月桂搂抱着情侣 \ 
+      光斑烁烁 \ 
+      烛火沿笔尖游走 \ 
+      曾摸索着 绘制着，我的等候 \ 
+      充盈字里行间 \ 
+      被提前安排的来意 \ 
+      晚风吹拂罂粟唏嘘 \ 
+      潜入 \ 
+      一个悲凉却如释重负的身体 \ 
+    ]
+  }
+
+  auto-frame(poem_body)
+}

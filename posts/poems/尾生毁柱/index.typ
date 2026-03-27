@@ -10,7 +10,7 @@
   title: "尾生毁柱",
   description: "",
   tags: ("诗歌",),
-  category: "诗歌-辑蜡烛",
+  category: "诗歌",
   date: datetime(year: 2022, month: 10, day: 10),
 )
 
