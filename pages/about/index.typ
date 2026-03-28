@@ -23,7 +23,7 @@
 
 = 关于
 
-我是吴建豪(2003)，你可以叫我Groove。
+我是吴建豪，你可以叫我Groove。联系我使用 #link("mailto:groove@z.org")[groove\@z.org]。
 
 // 这是 Typst Blog 的基础信息页。
 
