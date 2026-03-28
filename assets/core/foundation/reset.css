@@ -9,6 +9,13 @@ html {
   background: var(--background);
   overscroll-behavior-y: contain;
   overscroll-behavior-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 *,
@@ -25,10 +32,17 @@ body {
   background: var(--background);
   overscroll-behavior-y: contain;
   overscroll-behavior-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   font-family: var(--font-sans-stack);
   line-height: 1.5;
   color: var(--text-primary);
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .page-shell {
