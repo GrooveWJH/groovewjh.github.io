@@ -51,13 +51,6 @@
   color: var(--text-primary);
 }
 
-.homepage-filter-button:focus,
-.homepage-filter-button:focus-visible {
-  outline: none !important;
-  outline-offset: 0 !important;
-  box-shadow: none !important;
-}
-
 .homepage-filter-button.is-active,
 .homepage-filter-button[aria-pressed="true"] {
   border-color: var(--border-subtle1);

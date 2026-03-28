@@ -36,10 +36,6 @@
   outline-offset: -2px;
 }
 
-.post-card .post-card-link:focus {
-  outline: none !important;
-}
-
 .post-card .post-title {
   font-size: 1.125rem;
   font-weight: 600;
@@ -90,4 +86,3 @@
 .post-card-link:hover {
   color: var(--link-hover) !important;
 }
-

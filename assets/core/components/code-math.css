@@ -105,7 +105,6 @@ article pre > .copy-button {
   width: 2rem;
   height: 2rem;
   background-color: var(--layer1);
-  outline: none;
   border: 0;
   padding: 0;
   transition: background-color 0.11s;
@@ -372,4 +371,3 @@ article section[role="doc-endnotes"] a:hover.footnote-ref-link::before {
 article section[role="doc-endnotes"] a:visited.footnote-ref-link::before {
   background-color: var(--link-visited);
 }
-
