@@ -1,7 +1,7 @@
 #import "lib/typ2html/typ2html.typ" : *
 
 #let footer-content = [
-闪光的大冒险家
+人的群岛
 ]
 
 #let tag-options = (
