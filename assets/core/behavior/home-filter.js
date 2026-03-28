@@ -10,8 +10,7 @@ const setButtonState = (buttons, activeKind) => {
   }
 };
 
-const applyHomeFilter = (kind) => {
-  const cards = document.querySelectorAll(".posts-grid .post-card[data-post-kind]");
+const applyHomeFilter = (cards, kind) => {
   const emptyHint = document.querySelector(".homepage-filter-empty");
   let visibleCount = 0;
 
@@ -37,9 +36,19 @@ export const installHomeFilter = () => {
     return;
   }
 
+  const cards = Array.from(document.querySelectorAll(".posts-grid .post-card[data-post-url]"));
+  const cardsMissingKind = cards.filter((card) => !card.dataset.postKind);
+  if (cardsMissingKind.length > 0) {
+    const samples = cardsMissingKind
+      .slice(0, 5)
+      .map((card) => card.getAttribute("data-post-url") || "(unknown)")
+      .join(", ");
+    throw new Error(`home-filter requires data-post-kind on every post card; missing: ${samples}`);
+  }
+
   let activeKind = ARTICLE_KIND;
   setButtonState(buttons, activeKind);
-  applyHomeFilter(activeKind);
+  applyHomeFilter(cards, activeKind);
 
   for (const button of buttons) {
     button.addEventListener("click", () => {
@@ -49,7 +58,7 @@ export const installHomeFilter = () => {
       }
       activeKind = nextKind;
       setButtonState(buttons, activeKind);
-      applyHomeFilter(activeKind);
+      applyHomeFilter(cards, activeKind);
     });
   }
 };
