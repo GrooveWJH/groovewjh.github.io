@@ -8,6 +8,7 @@ const getStoredTheme = () => {
       return value;
     }
   } catch {
+    // localStorage may be blocked by browser privacy policy.
   }
 
   return null;
@@ -17,6 +18,7 @@ const saveTheme = (theme) => {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
+    // localStorage may be blocked by browser privacy policy.
   }
 };
 
