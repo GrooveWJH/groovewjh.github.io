@@ -1,64 +1,69 @@
-const POEM_KIND = "poem";
 const ARTICLE_KIND = "article";
+const POEM_KIND = "poem";
+const STORAGE_KEY_PREFIX = "typ-blog-home-page";
 
-const setButtonState = (buttons, activeKind) => {
-  for (const button of buttons) {
-    const kind = button.dataset.homeFilter;
-    const isActive = kind === activeKind;
-    button.classList.toggle("is-active", isActive);
-    button.setAttribute("aria-pressed", isActive ? "true" : "false");
+const normalizeKind = (value) => value === POEM_KIND ? POEM_KIND : ARTICLE_KIND;
+
+const readPositiveInt = (value, fallback = 1) => {
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  if (Number.isNaN(parsed) || parsed < 1) {
+    return fallback;
+  }
+  return parsed;
+};
+
+const clampPage = (page, totalPages) => {
+  const max = Math.max(1, readPositiveInt(totalPages, 1));
+  return Math.min(Math.max(1, readPositiveInt(page, 1)), max);
+};
+
+const buildHomeHref = (kind, page) => {
+  const normalizedKind = normalizeKind(kind);
+  const normalizedPage = Math.max(1, readPositiveInt(page, 1));
+  if (normalizedKind === POEM_KIND) {
+    return normalizedPage === 1 ? "/poems/" : `/poems/page/${normalizedPage}/`;
+  }
+  return normalizedPage === 1 ? "/" : `/page/${normalizedPage}/`;
+};
+
+const readStoredPage = (kind) => {
+  try {
+    const raw = localStorage.getItem(`${STORAGE_KEY_PREFIX}:${normalizeKind(kind)}`);
+    return readPositiveInt(raw, 1);
+  } catch {
+    return 1;
   }
 };
 
-const applyHomeFilter = (cards, kind) => {
-  const emptyHint = document.querySelector(".homepage-filter-empty");
-  let visibleCount = 0;
-
-  for (const card of cards) {
-    const cardKind = card.dataset.postKind;
-    const shouldShow = cardKind === kind;
-    card.classList.toggle("is-filter-hidden", !shouldShow);
-    card.hidden = !shouldShow;
-    if (shouldShow) {
-      visibleCount += 1;
-    }
-  }
-
-  if (emptyHint) {
-    emptyHint.hidden = visibleCount !== 0;
-    emptyHint.textContent = kind === POEM_KIND ? "暂无诗歌" : "暂无文章";
+const storePage = (kind, page) => {
+  try {
+    localStorage.setItem(`${STORAGE_KEY_PREFIX}:${normalizeKind(kind)}`, String(Math.max(1, readPositiveInt(page, 1))));
+  } catch {
   }
 };
 
 export const installHomeFilter = () => {
-  const buttons = Array.from(document.querySelectorAll(".homepage-filter-button[data-home-filter]"));
-  if (buttons.length === 0) {
+  const filter = document.querySelector(".homepage-filter[data-home-route-kind][data-home-route-page]");
+  if (!filter) {
     return;
   }
 
-  const cards = Array.from(document.querySelectorAll(".posts-grid .post-card[data-post-url]"));
-  const cardsMissingKind = cards.filter((card) => !card.dataset.postKind);
-  if (cardsMissingKind.length > 0) {
-    const samples = cardsMissingKind
-      .slice(0, 5)
-      .map((card) => card.getAttribute("data-post-url") || "(unknown)")
-      .join(", ");
-    throw new Error(`home-filter requires data-post-kind on every post card; missing: ${samples}`);
-  }
+  const currentKind = normalizeKind(filter.dataset.homeRouteKind);
+  const totalArticlePages = readPositiveInt(filter.dataset.homeTotalArticlePages, 1);
+  const totalPoemPages = readPositiveInt(filter.dataset.homeTotalPoemPages, 1);
+  const currentPage = clampPage(
+    readPositiveInt(filter.dataset.homeRoutePage, 1),
+    currentKind === POEM_KIND ? totalPoemPages : totalArticlePages,
+  );
 
-  let activeKind = ARTICLE_KIND;
-  setButtonState(buttons, activeKind);
-  applyHomeFilter(cards, activeKind);
+  storePage(currentKind, currentPage);
 
-  for (const button of buttons) {
-    button.addEventListener("click", () => {
-      const nextKind = button.dataset.homeFilter === POEM_KIND ? POEM_KIND : ARTICLE_KIND;
-      if (nextKind === activeKind) {
-        return;
-      }
-      activeKind = nextKind;
-      setButtonState(buttons, activeKind);
-      applyHomeFilter(cards, activeKind);
-    });
+  const links = Array.from(filter.querySelectorAll(".homepage-filter-button[data-home-filter]"));
+  for (const link of links) {
+    const kind = normalizeKind(link.dataset.homeFilter);
+    const totalPages = kind === POEM_KIND ? totalPoemPages : totalArticlePages;
+    const rememberedPage = clampPage(readStoredPage(kind), totalPages);
+    const targetPage = kind === currentKind ? currentPage : rememberedPage;
+    link.href = buildHomeHref(kind, targetPage);
   }
 };

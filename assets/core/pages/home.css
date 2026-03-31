@@ -32,7 +32,16 @@
   z-index: 2;
 }
 
+.homepage-filter-standalone {
+  position: static;
+  justify-content: flex-end;
+  margin: 1rem 0 0 0;
+}
+
 .homepage-filter-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 7.5rem;
   height: var(--hero-filter-height);
   padding: 0 1.25rem;
@@ -43,7 +52,12 @@
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
+  text-decoration: none;
   transition: background-color 0.11s ease, border-color 0.11s ease, color 0.11s ease;
+}
+
+.homepage-filter-button:visited {
+  color: var(--text-secondary);
 }
 
 .homepage-filter-button:hover {
@@ -58,16 +72,8 @@
   color: var(--text-primary);
 }
 
-.homepage-filter-empty.error-block {
-  margin: 1rem 0;
-}
-
 .homepage-header + .posts-grid {
   margin-top: 1rem;
-}
-
-.posts-grid .post-card.is-filter-hidden {
-  display: none !important;
 }
 
 .homepage-header-stage {
