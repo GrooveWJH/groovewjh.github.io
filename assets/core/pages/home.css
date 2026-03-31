@@ -72,7 +72,7 @@
   color: var(--text-primary);
 }
 
-.homepage-header + .posts-grid {
+.homepage-header + .homepage-list-shell {
   margin-top: 1rem;
 }
 

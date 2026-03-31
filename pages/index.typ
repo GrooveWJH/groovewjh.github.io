@@ -73,6 +73,62 @@
   })
 }
 
+#let render-home-list-shell() = {
+  html.elem("div", attrs: (
+    class: "homepage-list-shell",
+    "data-home-list-shell": "true",
+  ), {
+    if posts.len() == 0 {
+      html.div(class: "error-block", {
+        if route-kind == "poem" {
+          "暂无诗歌"
+        } else {
+          "暂无文章"
+        }
+      })
+    } else {
+      html.div(class: "posts-grid", {
+        for i in range(end-index, start-index - 1, step: -1) {
+          let post = posts.at(i)
+          let post-date-text = if post.date.split("-").len() == 3 {
+            let date-parts = post.date.split("-")
+            format-post-date(datetime(
+              year: int(date-parts.at(0)),
+              month: int(date-parts.at(1)),
+              day: int(date-parts.at(2)),
+            ))
+          } else {
+            post.date
+          }
+          html.elem("div", attrs: (
+            class: "post-card",
+            "data-post-url": post.url,
+          ), {
+            html.div(class: "post-title", {
+              html.a(class: "post-card-link", href: post.url, post.title)
+            })
+            html.div(class: "post-description", {
+              post.description
+            })
+            if post.tags.len() != 0 {
+              html.div(class: "post-card-tags", {
+                for tag in post.tags {
+                  render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/")
+                }
+              })
+            }
+            html.div(class: "post-date", {
+              post-date-text
+            })
+          })
+        }
+      })
+
+      render-pagination-nav(pagination-base-path, current-page, total-pages, aria-label: "首页分页")
+    }
+  })
+}
+
 #show: template-page.with(
   title: "首页",
   description: "站点首页",
@@ -92,51 +148,4 @@
   })
 }
 
-#if posts.len() == 0 {
-  html.div(class: "error-block", {
-    if route-kind == "poem" {
-      "暂无诗歌"
-    } else {
-      "暂无文章"
-    }
-  })
-} else {
-  html.div(class: "posts-grid", {
-    for i in range(end-index, start-index - 1, step: -1) {
-      let post = posts.at(i)
-      let post-date-text = if post.date.split("-").len() == 3 {
-        let date-parts = post.date.split("-")
-        format-post-date(datetime(
-          year: int(date-parts.at(0)),
-          month: int(date-parts.at(1)),
-          day: int(date-parts.at(2)),
-        ))
-      } else {
-        post.date
-      }
-      html.elem("div", attrs: (
-        class: "post-card",
-        "data-post-url": post.url,
-      ), {
-        html.div(class: "post-title", {
-          html.a(class: "post-card-link", href: post.url, post.title)
-        })
-        html.div(class: "post-description", {
-          post.description
-        })
-        if post.tags.len() != 0 {
-          html.div(class: "post-card-tags", {
-            for tag in post.tags {
-              render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/")
-            }
-          })
-        }
-        html.div(class: "post-date", {
-          post-date-text
-        })
-      })
-    }
-  })
-
-  render-pagination-nav(pagination-base-path, current-page, total-pages, aria-label: "首页分页")
-}
+#render-home-list-shell()
