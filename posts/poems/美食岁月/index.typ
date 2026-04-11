@@ -1,11 +1,5 @@
 #import "../../../config.typ": *
 
-#set page(height: auto, width: 24cm)
-#set text(16pt, font: "IBM Plex Sans SC", lang: "zh")
-#show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
-#show math.equation: set text(16pt)
-#set table(inset: 9pt)
-
 #show: template-post.with(
   title: "美食岁月",
   description: "",
@@ -16,7 +10,7 @@
 
 #{
   let poem_body = {
-    set text(font: ("Kai", "KaiTi", "Kaiti SC", "LXGW WenKai"))
+    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
     [
       当老人被晚风引荐，坐上门墩 \ 
       靠在云霞的阴影中 \ 

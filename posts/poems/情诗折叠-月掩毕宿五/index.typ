@@ -1,11 +1,5 @@
 #import "../../../config.typ": *
 
-#set page(height: auto, width: 24cm)
-#set text(16pt, font: "IBM Plex Sans SC", lang: "zh")
-#show raw: text.with(font: ("Zed Plex Mono", "IBM Plex Sans SC"))
-#show math.equation: set text(16pt)
-#set table(inset: 9pt)
-
 #show: template-post.with(
   title: "情诗折叠 月掩毕宿五",
   description: "",
@@ -16,7 +10,7 @@
 
 #{
   let poem_body = {
-    set text(font: ("Kai", "KaiTi", "Kaiti SC", "LXGW WenKai"))
+    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
     [
       走过金牛座上的秋高气爽 \
       衣裳鼓满昨夜星辰 \

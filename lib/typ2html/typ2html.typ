@@ -75,8 +75,6 @@
   title: "Carbon & Typst Blog",
   lang: "en",
   css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/main.css",
   ),
   scripts: (),
@@ -136,9 +134,6 @@
             head-extra
           }
 
-          html.link(rel: "preconnect", href: "https://cdn.jsdelivr.net")
-          html.link(rel: "dns-prefetch", href: "https://cdn.jsdelivr.net")
-
           make-theme-preload-script()
 
           for (css-link) in css {
@@ -182,8 +177,6 @@
   lang: "en",
 
   css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/main.css",
   ),
   scripts: (
@@ -223,6 +216,10 @@
     post-meta-json
   } else {
     let page-path = query-input("page-path", default: "")
+    let lang-head = str(lang).split("-").at(0, default: str(lang))
+    let post-lang-class = if lang-head == "zh" { "post-lang-zh" } else { "post-lang-nonzh" }
+    let post-category-class = if category == "诗歌" { "post-category-poem" } else { "" }
+    let article-class = "post-article " + post-lang-class + if post-category-class != "" { " " + post-category-class } else { "" }
     let all-posts = query-posts()
 
     let matched-indexes = range(all-posts.len()).filter(i => all-posts.at(i).slug == page-path)
@@ -246,9 +243,9 @@
       author: author,
       canonical-path: "/posts/" + page-path,
       date-meta: date,
-      header-node: make-post-header(header-links, site-title, title),
+      header-node: make-post-header(header-links, site-title, title, post-class: post-category-class),
       main-node: html-guard(() => {
-        html.article({
+        html.elem("article", attrs: (class: article-class), {
           html.section({
             content
             render-footnotes()
@@ -268,8 +265,6 @@
   title: "Carbon & Typst Blog",
   lang: "en",
   css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/main.css",
     "/assets/core/pages.css",
   ),
@@ -330,8 +325,6 @@
   tag-options: (:),
 
   post-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/main.css",
   ),
   post-scripts: (
@@ -339,8 +332,6 @@
   ),
 
   page-css: (
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-sans@1.1.0/css/ibm-plex-sans-all.min.css",
-    "https://cdn.jsdelivr.net/npm/@ibm/plex-mono@1.1.0/css/ibm-plex-mono-all.min.css",
     "/assets/core/main.css",
     "/assets/core/pages.css",
   ),
