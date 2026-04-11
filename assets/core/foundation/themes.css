@@ -162,6 +162,10 @@ html:not([data-theme]) {
   --border-interactive: var(--blue-60);
 }
 
+/*
+  OS dark-mode fallback is disabled while the site is intentionally light-only.
+  Keep the original block below for a future dark-theme restore.
+
 @media (prefers-color-scheme: dark) {
   html:not([data-theme]) {
     --math-filter: invert(1) hue-rotate(180deg);
@@ -286,6 +290,7 @@ html:not([data-theme]) {
     --border-interactive: var(--blue-50);
   }
 }
+*/
 
 
 html[data-theme="gray-90"] {
@@ -533,4 +538,3 @@ html[data-theme="gray-100"] {
   --icon-interactive: var(--white);
   --border-interactive: var(--blue-50);
 }
-

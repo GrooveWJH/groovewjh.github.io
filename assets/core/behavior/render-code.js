@@ -99,6 +99,8 @@ const CARBON_DARK_THEME = {
   ],
 };
 
+const ACTIVE_THEME = CARBON_LIGHT_THEME;
+
 export const installCodeRendering = async () => {
   let codeBlocks = document.querySelectorAll('code');
   if (codeBlocks.length === 0) {
@@ -118,7 +120,7 @@ export const installCodeRendering = async () => {
       if (codeBlock.querySelector('.shiki-inline')) return;
       codeBlock.innerHTML = await codeToHtml(codeBlock.textContent, {
         lang: language,
-        themes: { light: CARBON_LIGHT_THEME, dark: CARBON_DARK_THEME },
+        theme: ACTIVE_THEME,
         structure: 'inline',
       });
       codeBlock.classList.add('shiki-inline');
@@ -128,7 +130,7 @@ export const installCodeRendering = async () => {
     if (pre.querySelector('.shiki')) return;
     pre.outerHTML = await codeToHtml(codeBlock.textContent, {
       lang: language,
-      themes: { light: CARBON_LIGHT_THEME, dark: CARBON_DARK_THEME },
+      theme: ACTIVE_THEME,
     });
   }));
 

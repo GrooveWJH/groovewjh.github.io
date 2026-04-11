@@ -56,7 +56,7 @@
 ) = {
   html.meta(charset: "utf-8")
   html.meta(name: "viewport", content: "width=device-width, initial-scale=1")
-  html.meta(name: "color-scheme", content: "light dark")
+  html.meta(name: "color-scheme", content: "light")
   html.meta(name: "generator", content: "Typst")
 
   let page-title = if title != "" {
