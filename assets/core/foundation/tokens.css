@@ -264,12 +264,20 @@
 :root {
   --page-padding-x: 3rem;
   --font-sans-stack:
-    "IBM Plex Sans", "IBM Plex Sans SC", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif,
+    "Noto Sans CJK SC", "Noto Sans SC", "Noto Sans", "Noto Sans TC",
+    "Site Noto Sans", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif-stack:
+    "Noto Serif CJK SC", "Noto Serif SC", "Noto Serif", "Noto Serif TC",
+    "Site Noto Serif", "Source Han Serif SC", "Songti SC", "STSong", serif;
   --font-mono-stack:
-    "IBM Plex Mono", ui-monospace, "SFMono-Regular", "SF Mono", "Menlo",
+    "Noto Sans Mono CJK SC", "Noto Sans Mono", "Site Noto Mono", ui-monospace,
+    "SFMono-Regular", "SF Mono", "Menlo",
     "Consolas", "Liberation Mono", monospace;
+  --font-kai-stack:
+    "KaiTi", "Kaiti SC", "STKaiti", "Kai", "LXGW WenKai",
+    "Site Kai", "Site Noto Serif", serif;
 
   --math-filter: none;
   --background: var(--white);

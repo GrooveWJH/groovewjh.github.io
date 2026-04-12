@@ -1,107 +1,20 @@
 /*
-  You can add custom CSS here. It will be applied after all other CSS, so you can use it to override styles in the main CSS file.
-  To apply the custom CSS and script, add them in the #show rules in the theme configuration file (config.typ) like this:
-
-  #show: template-post.with(
-    ...
-    custom-css: ("/assets/custon.css", ),
-    custom-script: ("/assets/custom.js", )
-  )
+  Article typography overrides and page-specific font usage.
 */
-
-/*
-  Font fallback order by design:
-  1) local/system fonts
-  2) web fonts (subset, lower bandwidth)
-  3) self-hosted static fonts in /assets/fonts
-*/
-@import url("https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@400;700&family=Noto+Sans+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap");
-
-@font-face {
-  font-family: "Site Noto Sans";
-  src: url("/assets/fonts/NotoSansCJKsc-Regular.otf") format("opentype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Site Noto Sans";
-  src: url("/assets/fonts/NotoSansCJKsc-Bold.otf") format("opentype");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Site Noto Serif";
-  src: url("/assets/fonts/NotoSerifCJKsc-Regular.otf") format("opentype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Site Noto Serif";
-  src: url("/assets/fonts/NotoSerifCJKsc-Bold.otf") format("opentype");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Site Noto Mono";
-  src: url("/assets/fonts/NotoSansMonoCJKsc-Regular.otf") format("opentype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Site Noto Mono";
-  src: url("/assets/fonts/NotoSansMonoCJKsc-Bold.otf") format("opentype");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Site Kai";
-  src: url("/assets/fonts/Kaiti.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
 
 :root {
-  --font-sans-stack:
-    "Noto Sans CJK SC", "Noto Sans SC", "Noto Sans", "Noto Sans TC",
-    "Site Noto Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-serif-stack:
-    "Noto Serif CJK SC", "Noto Serif SC", "Noto Serif", "Noto Serif TC",
-    "Site Noto Serif", "Source Han Serif SC", "Songti SC", "STSong", serif;
-  --font-mono-stack:
-    "Noto Sans Mono CJK SC", "Noto Sans Mono", "Site Noto Mono", ui-monospace,
-    "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
-  --font-kai-stack:
-    "KaiTi", "Kaiti SC", "STKaiti", "Kai", "LXGW WenKai",
-    "Site Kai", "Site Noto Serif", serif;
   --article-line-height: 1.5;
 }
 
-/* Article content uses serif by default. */
 article,
 .post-header .post-header-inner h1 {
   font-family: var(--font-serif-stack);
 }
 
-/* Improve article readability: +1px body text. */
 article {
   font-size: 1.0625rem;
 }
 
-/* Reduce paragraph spacing to 75% of baseline (1em -> 0.75em). */
 article p {
   margin: 0.75em 0;
 }
@@ -110,14 +23,12 @@ article :is(p, li, dd, blockquote, td, th) {
   line-height: var(--article-line-height);
 }
 
-/* Lists: +2em per nesting level (ul/ol). */
 article :is(ul, ol) {
   margin-left: 0;
   padding-inline-start: 2em;
   line-height: var(--article-line-height);
 }
 
-/* Keep list item rhythm identical to paragraph rhythm. */
 article :is(ul, ol) > li {
   margin: 0;
   padding: 0;
@@ -132,18 +43,15 @@ article :is(ul, ol) > li > p {
   line-height: var(--article-line-height);
 }
 
-/* Poetry post pages use Kai for post title + content only. */
 .post-header.post-category-poem .post-header-inner h1,
 article.post-category-poem {
   font-family: var(--font-kai-stack);
 }
 
-/* Keep TOC links consistent after visit (avoid purple visited state). */
 article nav[role="doc-toc"] a:visited {
   color: var(--link);
 }
 
-/* Add a divider under TOC for HTML output, matching Typst preview intent. */
 article nav[role="doc-toc"]::after {
   content: "";
   display: block;

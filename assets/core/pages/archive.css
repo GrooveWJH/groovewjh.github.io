@@ -63,7 +63,7 @@
 
 .archive-entry-date {
   position: relative;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: var(--font-mono-stack);
   font-size: 0.875rem;
   line-height: 1.4;
   color: var(--text-secondary);
@@ -131,4 +131,3 @@
     left: -1.8rem;
   }
 }
-

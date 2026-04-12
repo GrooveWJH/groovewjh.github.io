@@ -19,6 +19,20 @@
 #let post-date-display-format = "[year] 年 [month padding:none] 月 [day padding:none] 日"
 #let format-post-date(date) = date.display(post-date-display-format)
 
+#let make-font-preload-link(href) = html.elem("link", attrs: (
+  rel: "preload",
+  href: href,
+  "as": "font",
+  "type": "font/woff2",
+  crossorigin: "anonymous",
+))
+
+#let make-post-font-preloads(category: "") = {
+  let family-slug = if category == "诗歌" { "site-kai" } else { "noto-serif-sc" }
+  make-font-preload-link("/assets/fonts/" + family-slug + "-basic-400.woff2")
+  make-font-preload-link("/assets/fonts/" + family-slug + "-site-cjk-400.woff2")
+}
+
 #let render-footnotes() = context {
   html-guard(() => {
     let footnotes = query(footnote)
@@ -243,6 +257,9 @@
       author: author,
       canonical-path: "/posts/" + page-path,
       date-meta: date,
+      head-extra: {
+        make-post-font-preloads(category: category)
+      },
       header-node: make-post-header(header-links, site-title, title, post-class: post-category-class),
       main-node: html-guard(() => {
         html.elem("article", attrs: (class: article-class), {

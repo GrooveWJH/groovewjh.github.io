@@ -53,6 +53,7 @@
   footer-content: footer-content,
   tag-options: tag-options,
   custom-css: (
+    "/assets/fonts.css",
     "/assets/custom.css",
   ),
   custom-script: (
