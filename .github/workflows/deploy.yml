@@ -33,6 +33,10 @@ jobs:
       - uses: typst-community/setup-typst@v4
         with:
           typst-version: "0.14.2"
+      - name: Install font build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y woff2 python3-fonttools python3-brotli
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build site
