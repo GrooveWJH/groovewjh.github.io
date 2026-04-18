@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build site
-        run: pnpm run build:fast
+        run: pnpm run build:release -- --jobs 4
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

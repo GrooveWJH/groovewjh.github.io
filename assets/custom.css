@@ -7,7 +7,12 @@
 }
 
 article,
-.post-header .post-header-inner h1 {
+.post-header .post-header-inner h1,
+.post-header .post-header-description {
+  font-family: var(--font-serif-stack);
+}
+
+article :is(h1, h2, h3, h4, h5) {
   font-family: var(--font-serif-stack);
 }
 
@@ -44,8 +49,46 @@ article :is(ul, ol) > li > p {
 }
 
 .post-header.post-category-poem .post-header-inner h1,
+.post-header.post-category-poem .post-header-description,
 article.post-category-poem {
   font-family: var(--font-kai-stack);
+}
+
+article .post-cover {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 2rem 0;
+}
+
+article .post-cover > * {
+  max-width: 100%;
+}
+
+article .post-cover img,
+article .post-cover svg {
+  max-width: 100%;
+  height: auto;
+}
+
+article.post-category-poem :is(h1, h2, h3, h4, h5) {
+  font-family: var(--font-kai-stack);
+}
+
+article > section {
+  margin-top: 1.25rem;
+}
+
+article nav[role="doc-toc"] {
+  margin-top: 0;
+}
+
+article nav[role="doc-toc"] > h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+article nav[role="doc-toc"] > :is(ol, ul) {
+  margin-top: 0;
 }
 
 article nav[role="doc-toc"] a:visited {

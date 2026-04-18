@@ -2,6 +2,7 @@ const ARTICLE_KIND = "article";
 const POEM_KIND = "poem";
 const STORAGE_KEY_PREFIX = "typ-blog-home-page";
 const HOME_HISTORY_MARK = "typ-blog-home-filter-state";
+const ROUTE_SHELL_SELECTOR = "[data-home-route-shell]";
 const FILTER_SELECTOR = ".homepage-filter[data-home-route-kind][data-home-route-page]";
 const LIST_SHELL_SELECTOR = "[data-home-list-shell]";
 const FILTER_LINK_SELECTOR = ".homepage-filter-button[data-home-filter]";
@@ -114,15 +115,17 @@ const readStateFromFilter = (filter) => {
 
 const createSnapshotFromDocument = (doc) => {
   const filter = doc.querySelector(FILTER_SELECTOR);
+  const routeShell = doc.querySelector(ROUTE_SHELL_SELECTOR);
   const listShell = doc.querySelector(LIST_SHELL_SELECTOR);
-  if (!filter || !listShell) {
+  const shell = routeShell || listShell;
+  if (!filter || !shell) {
     return null;
   }
 
   const state = readStateFromFilter(filter);
   return {
     ...state,
-    shellHtml: listShell.outerHTML,
+    shellHtml: shell.outerHTML,
   };
 };
 
@@ -147,22 +150,36 @@ const updateRouteHeading = (kind) => {
   heading.textContent = kind === POEM_KIND ? "诗歌列表" : "文章列表";
 };
 
-const writeHistoryState = (kind, page, mode = "push") => {
-  const payload = {
+const buildHistoryEntry = (kind, page) => {
+  const normalizedKind = normalizeKind(kind);
+  const normalizedPage = readPositiveInt(page, 1);
+  return {
+    payload: {
     [HOME_HISTORY_MARK]: true,
-    kind: normalizeKind(kind),
-    page: readPositiveInt(page, 1),
+      kind: normalizedKind,
+      page: normalizedPage,
+    },
+    url: buildHomeHref(normalizedKind, normalizedPage),
   };
+};
+
+const writeHistoryState = (kind, page, mode = "push") => {
+  const entry = buildHistoryEntry(kind, page);
   if (mode === "replace") {
-    history.replaceState(payload, "", window.location.pathname);
+    history.replaceState(entry.payload, "", entry.url);
   } else {
-    history.pushState(payload, "", window.location.pathname);
+    history.pushState(entry.payload, "", entry.url);
   }
+};
+
+export const __test__ = {
+  buildHistoryEntry,
+  createSnapshotFromDocument,
 };
 
 export const installHomeFilter = () => {
   const filter = document.querySelector(FILTER_SELECTOR);
-  const initialShell = document.querySelector(LIST_SHELL_SELECTOR);
+  const initialShell = document.querySelector(ROUTE_SHELL_SELECTOR) || document.querySelector(LIST_SHELL_SELECTOR);
   if (!filter) {
     return;
   }
@@ -180,12 +197,16 @@ export const installHomeFilter = () => {
   });
 
   const updateFilterUi = (snapshot) => {
-    filter.dataset.homeRouteKind = snapshot.kind;
-    filter.dataset.homeRoutePage = String(snapshot.page);
-    filter.dataset.homeTotalArticlePages = String(snapshot.totalArticlePages);
-    filter.dataset.homeTotalPoemPages = String(snapshot.totalPoemPages);
+    const currentFilter = document.querySelector(FILTER_SELECTOR);
+    if (!currentFilter) {
+      return;
+    }
+    currentFilter.dataset.homeRouteKind = snapshot.kind;
+    currentFilter.dataset.homeRoutePage = String(snapshot.page);
+    currentFilter.dataset.homeTotalArticlePages = String(snapshot.totalArticlePages);
+    currentFilter.dataset.homeTotalPoemPages = String(snapshot.totalPoemPages);
 
-    const links = Array.from(filter.querySelectorAll(FILTER_LINK_SELECTOR));
+    const links = Array.from(currentFilter.querySelectorAll(FILTER_LINK_SELECTOR));
     for (const link of links) {
       const kind = normalizeKind(link.dataset.homeFilter);
       const totalPages = kind === POEM_KIND ? snapshot.totalPoemPages : snapshot.totalArticlePages;
@@ -203,8 +224,8 @@ export const installHomeFilter = () => {
     }
   };
 
-  const replaceListShell = (snapshot) => {
-    const currentShell = document.querySelector(LIST_SHELL_SELECTOR);
+  const replaceRouteShell = (snapshot) => {
+    const currentShell = document.querySelector(ROUTE_SHELL_SELECTOR) || document.querySelector(LIST_SHELL_SELECTOR);
     const nextShell = cloneShellFromSnapshot(snapshot);
     if (!currentShell || !nextShell) {
       return false;
@@ -214,7 +235,7 @@ export const installHomeFilter = () => {
   };
 
   const applySnapshot = (snapshot) => {
-    const replaced = replaceListShell(snapshot);
+    const replaced = replaceRouteShell(snapshot);
     if (!replaced) {
       return false;
     }

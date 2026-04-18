@@ -129,23 +129,27 @@
   })
 }
 
+#let render-home-route-shell() = {
+  html.elem("div", attrs: (
+    class: "homepage-route-shell",
+    "data-home-route-shell": "true",
+  ), {
+    html.div(class: "homepage-header", {
+      html.div(class: "homepage-header-stage", {
+        html.div(class: "homepage-header-carbon", "渐入佳境")
+        html.div(class: "homepage-header-typst", "凌乱空想")
+        html.div(class: "homepage-header-blog", "$>_Blog")
+      })
+      render-home-filter()
+    })
+
+    render-home-list-shell()
+  })
+}
+
 #show: template-page.with(
   title: "首页",
   description: "站点首页",
 )
 
-#if route-page != 1 [
-  = #if route-kind == "poem" { "诗歌列表" } else { "文章列表" }
-  #render-home-filter(standalone: true)
-] else {
-  html.div(class: "homepage-header", {
-    html.div(class: "homepage-header-stage", {
-      html.div(class: "homepage-header-carbon", "渐入佳境")
-      html.div(class: "homepage-header-typst", "凌乱空想")
-      html.div(class: "homepage-header-blog", "$>_Blog")
-    })
-    render-home-filter()
-  })
-}
-
-#render-home-list-shell()
+#render-home-route-shell()

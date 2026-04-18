@@ -54,12 +54,13 @@
   })
 }
 
-#let make-post-header(links, site-title, title, post-class: none) = context {
+#let make-post-header(links, site-title, title, description: "", post-class: none) = context {
   let post-header-class = if post-class != none and post-class != "" {
     "post-header " + post-class
   } else {
     "post-header"
   }
+  let has-description = description != none and str(description) != ""
 
   html-guard(() => {
     html.header({
@@ -71,6 +72,9 @@
     html.div(class: post-header-class, {
       html.div(class: "post-header-inner", {
         html.h1(title)
+        if has-description {
+          html.p(class: "post-header-description", description)
+        }
       })
     })
   })

@@ -1,5 +1,6 @@
 {
   "siteTitle": "Carbon Typst Blog",
+  "localSiteUrl": "http://127.0.0.1:5500",
   "siteUrl": "https://groovewjh.github.io",
   "author": "Carbon Typst Blog",
   "description": "Carbon Typst Blog RSS Feed",

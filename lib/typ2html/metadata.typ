@@ -67,6 +67,11 @@
     "Untitled Page"
   }
   html.title(page-title)
+  html.link(
+    rel: "icon",
+    type: "image/png",
+    href: "/assets/favicon.png",
+  )
 
   if type(date) == datetime {
     html.meta(name: "date", content: date.display("[year]-[month]-[day]"))

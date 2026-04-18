@@ -19,13 +19,67 @@
 #let post-date-display-format = "[year] 年 [month padding:none] 月 [day padding:none] 日"
 #let format-post-date(date) = date.display(post-date-display-format)
 
-#let make-font-preload-link(href) = html.elem("link", attrs: (
-  rel: "preload",
-  href: href,
-  "as": "font",
-  "type": "font/woff2",
-  crossorigin: "anonymous",
-))
+#let normalize-project-path(path-text) = {
+  let normalized-parts = ()
+  for part in str(path-text).split("/") {
+    if part == "" or part == "." {
+      continue
+    }
+
+    if part == ".." {
+      if normalized-parts.len() > 0 {
+        normalized-parts.pop()
+      }
+      continue
+    }
+
+    normalized-parts.push(part)
+  }
+
+  "/" + normalized-parts.join("/")
+}
+
+#let is-image-cover-value(cover) = cover != none and type(cover) == content and cover.func() == image
+
+#let extract-cover-source(cover) = {
+  if cover == none {
+    none
+  } else if is-image-cover-value(cover) {
+    cover.fields().at("source", default: none)
+  } else if type(cover) == str {
+    cover
+  } else {
+    panic("cover must be a string path or an image(...) object")
+  }
+}
+
+#let resolve-cover-path(cover) = {
+  let source = extract-cover-source(cover)
+  let cover-text = if source == none { "" } else { str(source) }
+
+  if cover-text == "" {
+    cover-text
+  } else if cover-text.starts-with("/") {
+    normalize-project-path(cover-text)
+  } else {
+    let page-path = str(query-input("page-path", default: "")).trim("/")
+    if page-path == "" {
+      cover-text
+    } else {
+      normalize-project-path(page-path + "/" + cover-text)
+    }
+  }
+}
+
+#let make-font-preload-link(href) = html-guard(() => {
+  html.elem("link", attrs: (
+    rel: "preload",
+    href: href,
+    "as": "font",
+    "type": "font/woff2",
+    crossorigin: "anonymous",
+  ))
+})
 
 #let make-post-font-preloads(category: "") = {
   let family-slug = if category == "诗歌" { "site-kai" } else { "noto-serif-sc" }
@@ -205,6 +259,7 @@
   category: "",
   date: datetime.today(),
   description: "",
+  cover: "",
   website-url: query-input("website-url", default: none),
   author: query-input("author", default: none),
   emit-post-meta: query-input("emit-post-meta", default: none),
@@ -224,7 +279,10 @@
   let date-string = date.display(post-date-storage-format)
   let date-string-localized = format-post-date(date)
   let tags-json = "[" + tags.map(tag => json-string(tag)).join(",") + "]"
-  let post-meta-json = "{" + "\"title\":" + json-string(title) + "," + "\"description\":" + json-string(description) + "," + "\"category\":" + json-string(category) + "," + "\"tags\":" + tags-json + "," + "\"date\":" + json-string(date-string) + "}"
+  let cover-source = extract-cover-source(cover)
+  let cover-source-text = if cover-source == none { "" } else { str(cover-source) }
+  let resolved-cover-path = if cover-source-text != "" { resolve-cover-path(cover-source) } else { "" }
+  let post-meta-json = "{" + "\"title\":" + json-string(title) + "," + "\"description\":" + json-string(description) + "," + "\"cover\":" + json-string(cover-source-text) + "," + "\"resolvedCoverPath\":" + json-string(resolved-cover-path) + "," + "\"category\":" + json-string(category) + "," + "\"tags\":" + tags-json + "," + "\"date\":" + json-string(date-string) + "}"
 
   if emit-post-meta != none {
     post-meta-json
@@ -255,12 +313,18 @@
       include-description-meta: true,
       website-url: website-url,
       author: author,
-      canonical-path: "/posts/" + page-path,
+      canonical-path: page-path,
       date-meta: date,
       head-extra: {
         make-post-font-preloads(category: category)
       },
-      header-node: make-post-header(header-links, site-title, title, post-class: post-category-class),
+      header-node: make-post-header(
+        header-links,
+        site-title,
+        title,
+        description: description,
+        post-class: post-category-class,
+      ),
       main-node: html-guard(() => {
         html.elem("article", attrs: (class: article-class), {
           html.section({

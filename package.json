@@ -4,9 +4,11 @@
   "scripts": {
     "test": "node --test",
     "fonts:build": "node lib/node/build-fonts.mjs",
-    "build": "npm run fonts:build && node lib/node/build-html.mjs",
+    "build": "node lib/node/build-html.mjs --share-origin local",
+    "build:release": "node lib/node/build-html.mjs --font-mode release --share-origin prod",
     "build:fast": "npm run build -- --jobs 4",
     "build:preview": "npm run build -- --out _site-preview",
-    "build:preview_fast": "npm run build -- --jobs 4 --out _site-preview"
+    "build:preview_fast": "npm run build -- --jobs 4 --out _site-preview",
+    "build:preview_release": "npm run build:release -- --out _site-preview"
   }
 }
