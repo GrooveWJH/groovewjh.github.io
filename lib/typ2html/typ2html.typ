@@ -52,10 +52,10 @@
     include-rss-link: true,
     canonical-path: query-input("page-path", default: ""),
     date-meta: datetime.today(),
-    head-extra: {
+    head-extra: html-guard(() => {
       html.meta(name: "tags", content: "none")
       html.meta(name: "category", content: "")
-    },
+    }),
     header-node: html-guard(() => make-header(header-links, site-title)),
     main-node: html-guard(() => page-wrapper(content)),
     footer-node: html-guard(() => make-page-footer(footer-content: footer-content)),

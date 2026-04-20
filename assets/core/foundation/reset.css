@@ -7,8 +7,6 @@ html {
   font-size: 16px;
   height: 100%;
   background: var(--background);
-  overscroll-behavior-y: contain;
-  overscroll-behavior-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -28,10 +26,9 @@ body {
   margin: 0 auto;
   min-height: 100%;
   width: 100%;
+  overflow-y: hidden;
   overflow-x: hidden;
   background: var(--background);
-  overscroll-behavior-y: contain;
-  overscroll-behavior-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
@@ -47,9 +44,17 @@ body::-webkit-scrollbar {
 
 .page-shell {
   min-height: 100vh;
+  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: clip;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: auto;
+  background: var(--background);
 }
 
 .page-shell > main,
