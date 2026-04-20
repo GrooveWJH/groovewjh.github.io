@@ -33,7 +33,7 @@ jobs:
       - name: Install font build tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y woff2 python3-fonttools python3-brotli
+          sudo apt-get install -y woff2 python3-fonttools python3-brotli python3-pil
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build site
