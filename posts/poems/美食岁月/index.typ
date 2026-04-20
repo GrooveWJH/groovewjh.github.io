@@ -8,10 +8,7 @@
   date: datetime(year: 2022, month: 6, day: 20),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       当老人被晚风引荐，坐上门墩 \ 
       靠在云霞的阴影中 \ 
       畅饮二两黄酒 \ 
@@ -32,8 +29,4 @@
       我将米饭轻松入口 \ 
       然后 \ 
       下定决心 \ 
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

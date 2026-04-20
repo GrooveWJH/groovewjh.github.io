@@ -8,10 +8,7 @@
   date: datetime(year: 2021, month: 2, day: 6),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       你在四季中度过自己的一生 \ 
       你善于遗忘 \ 
       你善于在凹陷的地方遐想 \ \
@@ -28,8 +25,4 @@
       眼眸里闪烁的 \ 
       不是泪光 \ 
       是相隔万里的幻想 \ 
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

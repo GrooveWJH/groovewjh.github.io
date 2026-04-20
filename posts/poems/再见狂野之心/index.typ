@@ -8,10 +8,7 @@
   date: datetime(year: 2021, month: 12, day: 31),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       夜的窗帘是码头风景画 \
       简约的女郎，简约的夏天 \
       时过境迁 \
@@ -22,8 +19,4 @@
       酒宴过半，他举杯对我说 \
       相见的那天 \
       还很遥远 \
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

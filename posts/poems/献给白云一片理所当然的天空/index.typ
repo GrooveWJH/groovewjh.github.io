@@ -8,16 +8,9 @@
   date: datetime(year: 2023, month: 6, day: 30),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       无数个明天里哪儿我才能再次遇见 \
       缘悭一面的你 \
       唯独，留白的园地 \
       蓝马嘀嗒的声音 \
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

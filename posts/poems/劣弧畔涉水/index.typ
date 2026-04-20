@@ -8,10 +8,7 @@
   date: datetime(year: 2022, month: 8, day: 20),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       落暮时，阴雨的思绪进入荒漠 \ 
       困倦的风就扫过的金黄的麦子 \ 
       当我写到“自卑的青春” \ 
@@ -28,8 +25,4 @@
       原来折叠的人生并非如我所愿 \ 
       月台才是真切的广阔无垠 \ 
       而你为什么不去死？ \ 
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

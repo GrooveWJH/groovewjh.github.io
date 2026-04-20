@@ -8,10 +8,7 @@
   date: datetime(year: 2022, month: 9, day: 30),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       走过金牛座上的秋高气爽 \
       衣裳鼓满昨夜星辰 \
       眺望的西方学者在落山风里 \
@@ -23,8 +20,4 @@
       而同样在那儿 \
       曾经的她口述过夭灼的故事 \
       却用一种欲言不能的声音 \
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

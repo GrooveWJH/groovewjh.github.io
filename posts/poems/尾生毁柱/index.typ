@@ -8,10 +8,7 @@
   date: datetime(year: 2022, month: 10, day: 10),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       浪花勾勒出她懊悔但已释然的形象 \ 
       行将灭顶的猛水却不令故事忧伤 \ 
       忧伤的是，被误解、传颂为 \ 
@@ -22,8 +19,4 @@
       后世鳞次栉比的赌局 \ 
       与自己慷慨相拥，滚动在景观中 \ 
       点缀爱情的殿堂 \ 
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

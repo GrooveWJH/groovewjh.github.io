@@ -8,10 +8,7 @@
   date: datetime(year: 2022, month: 9, day: 9),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       信封上的殷红如巧色于玉雕 \ 
       一划初妆代表 \ 
       美人眼角正年轻 \ 
@@ -29,8 +26,4 @@
       晚风吹拂罂粟唏嘘 \ 
       潜入 \ 
       一个悲凉却如释重负的身体 \ 
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

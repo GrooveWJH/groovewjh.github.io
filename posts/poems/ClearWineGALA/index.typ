@@ -8,10 +8,7 @@
   date: datetime(year: 2021, month: 12, day: 9),
 )
 
-#{
-  let poem_body = {
-    set text(font: ("KaiTi", "Kaiti SC", "STKaiti", "LXGW WenKai", "Noto Serif CJK SC"))
-    [
+#poem-frame[
       树望着地上澄澈的云 \ 
       激动地欲飞 \ 
       绿叶 泥土 摄像头对准 \ 
@@ -31,8 +28,4 @@
       早晨是谦卑与后悔的时刻 \ 
       他们同时醒来 \ 
       窗外下雪了 \ 
-    ]
-  }
-
-  auto-frame(poem_body)
-}
+]

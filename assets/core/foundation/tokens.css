@@ -278,6 +278,7 @@
   --font-kai-stack:
     "KaiTi", "Kaiti SC", "STKaiti", "Kai", "LXGW WenKai",
     "Site Kai", "Site Noto Serif", serif;
+  --font-poem-stack: "Site Poem", "Site Noto Serif", serif;
 
   --math-filter: none;
   --background: var(--white);
