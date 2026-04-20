@@ -1,3 +1,5 @@
+#import "raw.typ": normalize-raw-block-text
+
 #let make-template-post(
   templates,
   is-html-target,
@@ -50,8 +52,13 @@
         if is-html-target() {
           it
         } else {
+          let fields = it.fields()
           set text(font: preview-raw-font-default)
-          preview-zebraw-default(it)
+          preview-zebraw-default(raw(
+            normalize-raw-block-text(fields.text),
+            lang: fields.lang,
+            block: true,
+          ))
         }
       }
       #show raw.where(block: false): it => {
