@@ -72,6 +72,13 @@
     type: "image/png",
     href: "/assets/favicon.png",
   )
+  html.link(rel: "manifest", href: "/manifest.webmanifest")
+  html.elem("link", attrs: (rel: "apple-touch-icon", href: "/assets/apple-touch-icon.png"))
+  html.meta(name: "application-name", content: "Groove Blog")
+  html.meta(name: "apple-mobile-web-app-title", content: "Groove Blog")
+  html.meta(name: "apple-mobile-web-app-capable", content: "yes")
+  html.meta(name: "mobile-web-app-capable", content: "yes")
+  html.meta(name: "theme-color", content: "#f4f4f4")
 
   if type(date) == datetime {
     html.meta(name: "date", content: date.display("[year]-[month]-[day]"))

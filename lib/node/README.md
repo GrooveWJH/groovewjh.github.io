@@ -9,6 +9,7 @@ npm run build
 npm run build:fast
 npm run build:preview
 npm run fonts:build
+npm run assets:webapp
 ```
 
 ## CLI Options
@@ -26,9 +27,10 @@ npm run fonts:build
 4. 基于 tag/category 执行 slugify，并对冲突（不同值映射到同一 slug）直接报错。
 5. 展开动态路由页面（`[tag]` / `[category]`），并校验每个路径 token 最多出现一次。
 6. 编译 `posts/` 与 `pages/` 的 `index.typ` 到临时站点目录；其中文章固定输出到 `/posts/<slug>/`，按 `updated` / `unchanged` 标记。
-7. 同步 `assets/`、`posts/`、`pages/` 下非 `.typ` 文件到临时目录；生成字体则从工件缓存复制到 `assets/fonts.css` 与 `assets/fonts/*.woff2`。
-8. 对比旧输出目录，计算不再保留的文件并标记 `deleted`。
-9. 将临时目录整体移动到目标输出目录。
+7. 生成并发布 Web App 资源：`assets/apple-touch-icon.png`、manifest 所需 icon，以及站点根目录的 `manifest.webmanifest`。
+8. 同步 `assets/`、`posts/`、`pages/` 下非 `.typ` 文件到临时目录；生成字体则从工件缓存复制到 `assets/fonts.css` 与 `assets/fonts/*.woff2`。
+9. 对比旧输出目录，计算不再保留的文件并标记 `deleted`。
+10. 将临时目录整体移动到目标输出目录。
 
 ## Notes
 

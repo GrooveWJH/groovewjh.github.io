@@ -23,7 +23,7 @@
 
 = 关于
 
-我是吴建豪，我是 #link("https://www.16personalities.com/ch/%E7%BB%93%E6%9E%9C/intj-a/m/dlqabid9")[INTJ]， 你可以叫我Groove。联系我使用 #link("mailto:groove@z.org")[groove\@z.org]。
+我是吴建豪，你可以叫我Groove，我是 #link("https://www.16personalities.com/ch/intj-%E4%BA%BA%E6%A0%BC")[INTJ]。 联系我使用 #link("mailto:groove@z.org")[groove\@z.org]。
 
 // 这是 Typst Blog 的基础信息页。
 

@@ -5,6 +5,8 @@
     "test": "node --test",
     "check:maxline:share": "node scripts/check-maxline.mjs --config check-maxline.share.json",
     "check:maxline:content": "node scripts/check-maxline.mjs --config check-maxline.content.json",
+    "assets:webapp": "node scripts/build-webapp-assets.mjs",
+    "assets:webappicon": "node scripts/build-webapp-assets.mjs",
     "fonts:build": "node lib/node/build-fonts.mjs",
     "build": "node lib/node/build-html.mjs --share-origin local",
     "build:release": "node lib/node/build-html.mjs --font-mode release --share-origin prod",
