@@ -2,6 +2,7 @@ _site/
 _site-preview/
 .vscode/
 .typ-blog-cache/
+/.tmp-*/
 assets/fonts/
 assets/fonts.css
 node_modules/

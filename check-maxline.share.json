@@ -1,0 +1,12 @@
+{
+  "maxLines": 300,
+  "targets": [
+    "lib/node/share",
+    "lib/node/share-preview",
+    "lib/node/share-preview.mjs",
+    "lib/node/build/share.mjs",
+    "scripts/share-card-preview.mjs"
+  ],
+  "extensions": [".mjs", ".js", ".css"],
+  "excludeDirs": ["_site", "node_modules", ".git", ".typ-blog-cache"]
+}

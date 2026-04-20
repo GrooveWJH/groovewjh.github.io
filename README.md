@@ -1,38 +1,70 @@
 # Carbon Typst Blog
 
-Carbon Typst Blog 是一个基于 Typst 的静态博客生成器，旨在提供一个简洁、高效的博客构建流程。通过使用 Node.js 脚本进行构建，支持多线程加速和预览构建，适合个人博客或小型项目使用。
+Carbon Typst Blog 是一个基于 Typst + Node.js 的静态博客项目。仓库内同时提供：
 
-## 如何使用
+- 站点构建
+- 本地 / 生产双 origin 的分享 metadata
+- 多平台社交卡片预览页与 PNG 导出工具
 
-1. 克隆仓库到本地：
+## 环境要求
 
-  ```bash
-  git clone https://github.com/tiger2005/carbon-typst-blog
-  cd carbon-typst-blog
-  ```
+- `Node.js`
+- `typst`
+- 一个本地静态文件服务工具
 
-2. 确认已安装 Node.js 和 Typst 环境，本模板目前无需用 `npm install` 安装依赖。
+这个仓库当前已经带有 `node_modules/`，一般不需要额外执行 `npm install`。
 
-3. 通过 `npm run build` 命令构建博客，生成的静态文件将输出到 `_site/` 目录。
+## 最短启动路径
 
-这样就完成了博客的安装和构建，接下来可以根据需要进行预览或部署。例如，你可以在本地启用 Live Server 来预览生成的站点，并查看已经编写好的博客指引文章。
+如果你只是想在本地启动站点并查看分享卡片：
 
-另外，本模板同时包含了简单的 GitHub Actions 工作流配置，可以在推送代码后自动构建并部署到 GitHub Pages，方便持续更新博客内容。
+1. 构建站点和分享预览工具
+
+```bash
+npm run share:preview
+```
+
+2. 用 `127.0.0.1:5500` 启动 `_site/`
+
+```bash
+npx http-server _site -a 127.0.0.1 -p 5500 -c-1
+```
+
+3. 在浏览器打开
+
+- 站点首页: [http://127.0.0.1:5500/](http://127.0.0.1:5500/)
+- 分享卡片预览器: [http://127.0.0.1:5500/__tools/share-preview/](http://127.0.0.1:5500/__tools/share-preview/)
+
+之所以推荐固定用 `127.0.0.1:5500`，是因为当前本地分享卡片 origin 就配置为这个地址，和 iMessage / 其他聊天软件本地预览时看到的 metadata 能保持一致。这里额外加了 `-c-1`，避免静态缓存干扰你反复调试分享卡片。
+
+## 常用命令
+
+- `npm run build`: 本地模式构建，输出到 `_site/`
+- `npm run build:release`: 生产模式构建，分享 origin 使用 `https://groovewjh.github.io`
+- `npm run build:preview`: 本地模式构建到 `_site-preview/`
+- `npm run build:preview_release`: 生产模式构建到 `_site-preview/`
+- `npm run share:preview`: 生成本地模式分享卡片预览页，输出到 `_site/__tools/share-preview/`
+- `npm run share:preview_release`: 生成生产模式分享卡片预览页，输出到 `_site-preview/__tools/share-preview/`
+- `npm run check:maxline:share`: 检查 share / share-preview 子系统源码都不超过 300 行
+- `npm test`: 运行全部测试
 
 ## 编写文章
 
-如果你需要添加或更改文章，对应的流程如下：
+- 在 `posts/` 下创建文章目录，并放入 `index.typ`
+- 用 Typst 预览插件先检查排版
+- 需要看完整 HTML 和分享卡片时，运行 `npm run share:preview`
+- 构建完成后，继续用本地静态服务打开 `_site/`
 
-- 在 `posts/` 目录下创建新的文章文件夹，例如 `posts/my-new-post/`，并在其中添加 `index.typ` 文件。
-- 在 `index.typ` 中编写文章内容，使用 Typst 语法进行格式化。**你可以在本地通过 Typst 预览插件查看大致的渲染效果。**
-- 完成编辑后，使用构建命令生成站点：
-  ```bash
-  npm run build:preview
-  ```
+文章封面、分享摘要、默认分享图、平台卡片近似渲染等行为，已经统一在构建期处理，不需要每篇文章手写一套 meta 标签。
 
-  生成的结果将输出到 `_site-preview/` 目录，方便你预览效果。
-- 当你对预览结果满意后，可以使用常规构建命令 `npm run build` 来生成最终的站点。
+## 分享卡片预览器
 
-## 其他问题
+详细说明见 [docs/guides/share-preview.md](/Users/groove/Project/code/Toolkit/groove-typst-blog/docs/guides/share-preview.md)。
 
-如果你对构建流程有任何疑问，或者在使用过程中遇到问题，可以参考博客指引文章，其中包含了更详细的说明和常见问题解答。此外，欢迎在 GitHub 仓库中提交 issue。
+这份文档包含：
+
+- 本地如何启动
+- 本地模式与生产模式的区别
+- 预览页如何切换页面 / 平台
+- PNG 导出怎么用
+- 为什么 iMessage 常不显示 description

@@ -3,12 +3,18 @@
   "private": true,
   "scripts": {
     "test": "node --test",
+    "check:maxline:share": "node scripts/check-maxline.mjs --config check-maxline.share.json",
     "fonts:build": "node lib/node/build-fonts.mjs",
     "build": "node lib/node/build-html.mjs --share-origin local",
     "build:release": "node lib/node/build-html.mjs --font-mode release --share-origin prod",
     "build:fast": "npm run build -- --jobs 4",
     "build:preview": "npm run build -- --out _site-preview",
     "build:preview_fast": "npm run build -- --jobs 4 --out _site-preview",
-    "build:preview_release": "npm run build:release -- --out _site-preview"
+    "build:preview_release": "npm run build:release -- --out _site-preview",
+    "share:preview": "node scripts/share-card-preview.mjs",
+    "share:preview_release": "node scripts/share-card-preview.mjs --out _site-preview --share-origin prod"
+  },
+  "dependencies": {
+    "colorthief": "^3.3.1"
   }
 }
