@@ -32,7 +32,7 @@
 
 #let preview-zebraw-default = zebraw.with(
   numbering-separator: true,
-  lang: false,
+  lang: true,
   radius: 0pt,
   background-color: luma(245),
   numbering-font-args: (
