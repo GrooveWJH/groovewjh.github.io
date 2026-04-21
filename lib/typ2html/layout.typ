@@ -58,10 +58,10 @@
 
     html.div(class: "nav-sidebar-backdrop")
     html.aside(class: "nav-sidebar", {
-      make-theme-toggle("sidebar", "sidebar")
       for (href, name) in links {
         html.a(class: "nav-sidebar-item", href: href, name)
       }
+      make-theme-toggle("sidebar", "sidebar")
     })
   })
 }

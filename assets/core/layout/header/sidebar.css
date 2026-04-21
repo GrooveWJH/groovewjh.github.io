@@ -28,6 +28,15 @@ header .nav-sidebar {
   overflow-y: auto;
 }
 
+header .nav-sidebar > p {
+  margin: 0;
+}
+
+header .nav-theme-toggle-sidebar {
+  margin: 0 1rem 1.25rem;
+  margin-top: auto;
+}
+
 header .nav-sidebar .nav-sidebar-item {
   display: block;
   padding: 0.75rem 1rem;
