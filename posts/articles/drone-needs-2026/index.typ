@@ -3,7 +3,7 @@
 #show: template-post.with(
   outline-enabled: true,
   title: "2026年从生产力需求扩大角度看待无人机发展",
-  description: "",
+  description: "时间的路上你孤独吗，尽头是如水的寂寞；你的原初是谁，你的未来何在；你的青春你的梦想这两片花翅膀啊",
   tags: ("无人机", "杂谈", "市场"),
   category: "机器人",
   cover: image("img/cover.png", width: 50%),
