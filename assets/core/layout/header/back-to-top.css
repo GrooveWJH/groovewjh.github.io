@@ -1,0 +1,46 @@
+.back-to-top-button {
+  position: fixed;
+  right: 2rem;
+  bottom: 3rem;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--interactive-background);
+  color: var(--text-on-color);
+  cursor: pointer;
+  z-index: 120;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.11s ease,
+    background-color 0.11s ease;
+}
+
+.back-to-top-button::before {
+  content: "";
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-image: url("/assets/icons/up-to-top.svg");
+}
+
+.back-to-top-button.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.back-to-top-button:hover {
+  background-color: var(--interactive-hover);
+}
+
+.back-to-top-button:active {
+  background-color: var(--interactive-active);
+}

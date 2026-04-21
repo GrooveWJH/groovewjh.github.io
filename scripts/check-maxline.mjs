@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { extname, relative, resolve } from "node:path";
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { extname, relative, resolve } from 'node:path';
 
 function parseArgs(argv) {
   const options = {
@@ -15,31 +15,31 @@ function parseArgs(argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
 
-    if (arg === "--config") {
+    if (arg === '--config') {
       options.configPath = argv[index + 1] || null;
       index += 1;
       continue;
     }
 
-    if (arg === "--target") {
-      options.targets.push(argv[index + 1] || "");
+    if (arg === '--target') {
+      options.targets.push(argv[index + 1] || '');
       index += 1;
       continue;
     }
 
-    if (arg === "--ext") {
-      options.extensions.push(argv[index + 1] || "");
+    if (arg === '--ext') {
+      options.extensions.push(argv[index + 1] || '');
       index += 1;
       continue;
     }
 
-    if (arg === "--exclude-dir") {
-      options.excludeDirs.push(argv[index + 1] || "");
+    if (arg === '--exclude-dir') {
+      options.excludeDirs.push(argv[index + 1] || '');
       index += 1;
       continue;
     }
 
-    if (arg === "--max-lines") {
+    if (arg === '--max-lines') {
       options.maxLines = Number(argv[index + 1] || 0);
       index += 1;
     }
@@ -54,11 +54,13 @@ function loadConfig(rootDir, configPath) {
   }
 
   const resolved = resolve(rootDir, configPath);
-  return JSON.parse(readFileSync(resolved, "utf8"));
+  return JSON.parse(readFileSync(resolved, 'utf8'));
 }
 
 function normalizeExtensions(extensions) {
-  return new Set(extensions.map((extension) => extension.startsWith(".") ? extension : `.${extension}`).filter(Boolean));
+  return new Set(
+    extensions.map((extension) => (extension.startsWith('.') ? extension : `.${extension}`)).filter(Boolean),
+  );
 }
 
 function shouldSkipPath(rootDir, absolutePath, excludeDirs) {
@@ -87,13 +89,13 @@ function walkTargetFiles(rootDir, targetPath, includeExts, excludeDirs, results)
 }
 
 function countLines(filePath) {
-  const text = readFileSync(filePath, "utf8");
+  const text = readFileSync(filePath, 'utf8');
   if (!text) {
     return 0;
   }
 
   const lines = text.split(/\r?\n/);
-  return lines.length - Number(lines.at(-1) === "");
+  return lines.length - Number(lines.at(-1) === '');
 }
 
 function buildSettings(rootDir, argv) {
@@ -103,8 +105,12 @@ function buildSettings(rootDir, argv) {
   return {
     maxLines: cli.maxLines || Number(config.maxLines || 300),
     targets: cli.targets.length > 0 ? cli.targets : Array.isArray(config.targets) ? config.targets : [],
-    includeExts: normalizeExtensions(cli.extensions.length > 0 ? cli.extensions : Array.isArray(config.extensions) ? config.extensions : []),
-    excludeDirs: new Set(cli.excludeDirs.length > 0 ? cli.excludeDirs : Array.isArray(config.excludeDirs) ? config.excludeDirs : []),
+    includeExts: normalizeExtensions(
+      cli.extensions.length > 0 ? cli.extensions : Array.isArray(config.extensions) ? config.extensions : [],
+    ),
+    excludeDirs: new Set(
+      cli.excludeDirs.length > 0 ? cli.excludeDirs : Array.isArray(config.excludeDirs) ? config.excludeDirs : [],
+    ),
   };
 }
 
@@ -113,11 +119,11 @@ function main() {
   const settings = buildSettings(rootDir, process.argv.slice(2));
 
   if (settings.targets.length === 0) {
-    throw new Error("No maxline targets configured");
+    throw new Error('No maxline targets configured');
   }
 
   if (settings.includeExts.size === 0) {
-    throw new Error("No maxline extensions configured");
+    throw new Error('No maxline extensions configured');
   }
 
   const files = [];
@@ -125,7 +131,9 @@ function main() {
     walkTargetFiles(rootDir, targetPath, settings.includeExts, settings.excludeDirs, files);
   }
 
-  const uniqueFiles = Array.from(new Set(files)).sort((a, b) => relative(rootDir, a).localeCompare(relative(rootDir, b)));
+  const uniqueFiles = Array.from(new Set(files)).sort((a, b) =>
+    relative(rootDir, a).localeCompare(relative(rootDir, b)),
+  );
   const violations = uniqueFiles
     .map((filePath) => ({ filePath, lineCount: countLines(filePath) }))
     .filter(({ lineCount }) => lineCount > settings.maxLines);

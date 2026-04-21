@@ -45,6 +45,7 @@ npx http-server _site -a 127.0.0.1 -p 5500 -c-1
 - `npm run build:preview_release`: 生产模式构建到 `_site-preview/`
 - `npm run share:preview`: 生成本地模式分享卡片预览页，输出到 `_site/__tools/share-preview/`
 - `npm run share:preview_release`: 生成生产模式分享卡片预览页，输出到 `_site-preview/__tools/share-preview/`
+- `npm run check:maxline:chrome`: 检查浏览器壳层相关源码都不超过 350 行
 - `npm run check:maxline:share`: 检查 share / share-preview 子系统源码都不超过 300 行
 - `npm test`: 运行全部测试
 

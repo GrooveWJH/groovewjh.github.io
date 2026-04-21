@@ -1,0 +1,19 @@
+@media (prefers-reduced-motion: reduce) {
+  header .nav-body.has-post-title {
+    transition: none;
+  }
+
+  header .nav-sidebar,
+  header .nav-sidebar-backdrop {
+    transition: none;
+  }
+
+  header .nav-theme-toggle-button,
+  header .nav-theme-toggle-button::after {
+    transition: none;
+  }
+
+  .back-to-top-button {
+    transition: background-color 0.11s;
+  }
+}

@@ -7,13 +7,7 @@ html {
   font-size: 16px;
   height: 100%;
   background: var(--background);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-html::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  overscroll-behavior-y: none;
 }
 
 *,
@@ -26,34 +20,21 @@ body {
   margin: 0 auto;
   min-height: 100%;
   width: 100%;
-  overflow-y: hidden;
   overflow-x: hidden;
   background: var(--background);
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overscroll-behavior-y: none;
 
   font-family: var(--font-sans-stack);
   line-height: 1.5;
   color: var(--text-primary);
 }
 
-body::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
 .page-shell {
   min-height: 100vh;
   min-height: 100dvh;
-  height: 100vh;
-  height: 100dvh;
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow-y: auto;
-  overflow-x: clip;
-  overscroll-behavior-y: none;
-  overscroll-behavior-x: auto;
   background: var(--background);
 }
 
@@ -62,11 +43,73 @@ body::-webkit-scrollbar {
   flex: 1 0 auto;
 }
 
-html.theme-switching *,
-html.theme-switching *::before,
-html.theme-switching *::after {
-  transition: none !important;
-  animation: none !important;
+html.theme-system-transition,
+html.theme-system-transition :is(
+  body,
+  .page-shell,
+  header,
+  footer,
+  article,
+  article > section,
+  .post-header,
+  .post-header .post-header-inner,
+  .post-header .post-header-inner h1,
+  .post-header .post-header-inner .post-header-description,
+  header .nav-title > .nav-title-link,
+  header .nav-body.has-post-title > .nav-body-lower,
+  header .nav-body.has-post-title > .nav-body-upper > .nav-body-upper-links > a,
+  article :is(h1, h2, h3, h4, h5, p, li, dd, blockquote, td, th, strong, em, figcaption, summary, a),
+  article :is(pre, code, blockquote, table, hr),
+  article nav[role="doc-toc"],
+  .post-card,
+  .post-card .post-title,
+  .post-card .post-desc,
+  .post-card .post-meta,
+  .tag,
+  button
+),
+html.theme-system-transition header .nav-title::after,
+html.theme-system-transition article nav[role="doc-toc"]::after {
+  transition-property:
+    color,
+    background-color,
+    border-color,
+    outline-color,
+    text-decoration-color !important;
+  transition-duration: 500ms !important;
+  transition-timing-function: ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-system-transition,
+  html.theme-system-transition :is(
+    body,
+    .page-shell,
+    header,
+    footer,
+    article,
+    article > section,
+    .post-header,
+    .post-header .post-header-inner,
+    .post-header .post-header-inner h1,
+    .post-header .post-header-inner .post-header-description,
+    header .nav-title > .nav-title-link,
+    header .nav-body.has-post-title > .nav-body-lower,
+    header .nav-body.has-post-title > .nav-body-upper > .nav-body-upper-links > a,
+    article :is(h1, h2, h3, h4, h5, p, li, dd, blockquote, td, th, strong, em, figcaption, summary, a),
+    article :is(pre, code, blockquote, table, hr),
+    article nav[role="doc-toc"],
+    .post-card,
+    .post-card .post-title,
+    .post-card .post-desc,
+    .post-card .post-meta,
+    .tag,
+    button
+  ),
+  html.theme-system-transition header .nav-title::after,
+  html.theme-system-transition article nav[role="doc-toc"]::after {
+    transition: none !important;
+  }
 }
 
 article {

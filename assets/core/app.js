@@ -1,7 +1,8 @@
-import { installThemeSwitch } from './behavior/theme.js';
-import { installPostNavSwitch } from './behavior/post-nav.js';
-import { installPostCardClick } from './behavior/post-card-click.js';
 import { installHomeFilter } from './behavior/home-filter.js';
+import { installPostCardClick } from './behavior/post-card-click.js';
+import { installPostNavSwitch } from './behavior/post-nav.js';
+import { installScrollbarChrome } from './behavior/scrollbar.js';
+import { installSystemThemeSync } from './behavior/theme.js';
 
 const runBehavior = (name, install) => {
   try {
@@ -21,7 +22,8 @@ const installCodeRenderingIfNeeded = async () => {
 };
 
 const installCoreBehaviors = () => {
-  runBehavior('theme-switch', installThemeSwitch);
+  runBehavior('system-theme-sync', installSystemThemeSync);
+  runBehavior('scrollbar-chrome', installScrollbarChrome);
   runBehavior('post-nav', installPostNavSwitch);
   runBehavior('post-card-click', installPostCardClick);
   runBehavior('home-filter', installHomeFilter);

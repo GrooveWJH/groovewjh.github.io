@@ -2,6 +2,7 @@
 @import url("./foundation/tokens.css");
 @import url("./foundation/themes.css");
 @import url("./foundation/reset.css");
+@import url("./foundation/scrollbar.css");
 
 @import url("./layout/shell.css");
 @import url("./layout/header.css");

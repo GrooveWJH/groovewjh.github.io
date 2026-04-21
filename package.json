@@ -3,6 +3,9 @@
   "private": true,
   "scripts": {
     "test": "node --test",
+    "biome:check": "biome check .",
+    "biome:format": "biome format --write .",
+    "check:maxline:chrome": "node scripts/check-maxline.mjs --config check-maxline.chrome.json",
     "check:maxline:share": "node scripts/check-maxline.mjs --config check-maxline.share.json",
     "check:maxline:content": "node scripts/check-maxline.mjs --config check-maxline.content.json",
     "assets:webapp": "node scripts/build-webapp-assets.mjs",
@@ -16,6 +19,9 @@
     "build:preview_release": "npm run build:release -- --out _site-preview",
     "share:preview": "node scripts/share-card-preview.mjs",
     "share:preview_release": "node scripts/share-card-preview.mjs --out _site-preview --share-origin prod"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.12"
   },
   "dependencies": {
     "colorthief": "^3.3.1"

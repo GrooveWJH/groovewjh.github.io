@@ -1,12 +1,12 @@
-const ARTICLE_KIND = "article";
-const POEM_KIND = "poem";
-const STORAGE_KEY_PREFIX = "typ-blog-home-page";
-const HOME_HISTORY_MARK = "typ-blog-home-filter-state";
-const ROUTE_SHELL_SELECTOR = "[data-home-route-shell]";
-const FILTER_SELECTOR = ".homepage-filter[data-home-route-kind][data-home-route-page]";
-const LIST_SHELL_SELECTOR = "[data-home-list-shell]";
-const FILTER_LINK_SELECTOR = ".homepage-filter-button[data-home-filter]";
-const PAGINATION_LINK_SELECTOR = ".pagination-nav a[href]";
+const ARTICLE_KIND = 'article';
+const POEM_KIND = 'poem';
+const STORAGE_KEY_PREFIX = 'typ-blog-home-page';
+const HOME_HISTORY_MARK = 'typ-blog-home-filter-state';
+const ROUTE_SHELL_SELECTOR = '[data-home-route-shell]';
+const FILTER_SELECTOR = '.homepage-filter[data-home-route-kind][data-home-route-page]';
+const LIST_SHELL_SELECTOR = '[data-home-list-shell]';
+const FILTER_LINK_SELECTOR = '.homepage-filter-button[data-home-filter]';
+const PAGINATION_LINK_SELECTOR = '.pagination-nav a[href]';
 const HOME_ROUTE_PATTERNS = [
   { pattern: /^\/$/, kind: ARTICLE_KIND, page: 1 },
   { pattern: /^\/page\/(\d+)\/$/, kind: ARTICLE_KIND },
@@ -14,10 +14,10 @@ const HOME_ROUTE_PATTERNS = [
   { pattern: /^\/poems\/page\/(\d+)\/$/, kind: POEM_KIND },
 ];
 
-const normalizeKind = (value) => value === POEM_KIND ? POEM_KIND : ARTICLE_KIND;
+const normalizeKind = (value) => (value === POEM_KIND ? POEM_KIND : ARTICLE_KIND);
 
 const readPositiveInt = (value, fallback = 1) => {
-  const parsed = Number.parseInt(String(value ?? ""), 10);
+  const parsed = Number.parseInt(String(value ?? ''), 10);
   if (Number.isNaN(parsed) || parsed < 1) {
     return fallback;
   }
@@ -33,22 +33,22 @@ const buildHomeHref = (kind, page) => {
   const normalizedKind = normalizeKind(kind);
   const normalizedPage = Math.max(1, readPositiveInt(page, 1));
   if (normalizedKind === POEM_KIND) {
-    return normalizedPage === 1 ? "/poems/" : `/poems/page/${normalizedPage}/`;
+    return normalizedPage === 1 ? '/poems/' : `/poems/page/${normalizedPage}/`;
   }
-  return normalizedPage === 1 ? "/" : `/page/${normalizedPage}/`;
+  return normalizedPage === 1 ? '/' : `/page/${normalizedPage}/`;
 };
 
 const normalizePathname = (pathname) => {
-  let normalized = String(pathname || "/").trim();
+  let normalized = String(pathname || '/').trim();
   if (normalized.length === 0) {
-    return "/";
+    return '/';
   }
-  if (!normalized.startsWith("/")) {
+  if (!normalized.startsWith('/')) {
     normalized = `/${normalized}`;
   }
-  normalized = normalized.replace(/\/{2,}/g, "/");
-  if (normalized !== "/" && !normalized.endsWith("/")) {
-    normalized += "/";
+  normalized = normalized.replace(/\/{2,}/g, '/');
+  if (normalized !== '/' && !normalized.endsWith('/')) {
+    normalized += '/';
   }
   return normalized;
 };
@@ -93,8 +93,7 @@ const readStoredPage = (kind) => {
 const storePage = (kind, page) => {
   try {
     localStorage.setItem(`${STORAGE_KEY_PREFIX}:${normalizeKind(kind)}`, String(Math.max(1, readPositiveInt(page, 1))));
-  } catch {
-  }
+  } catch {}
 };
 
 const stateKey = (kind, page) => `${normalizeKind(kind)}:${readPositiveInt(page, 1)}`;
@@ -131,23 +130,23 @@ const createSnapshotFromDocument = (doc) => {
 
 const parseSnapshotFromHtml = (htmlText) => {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlText, "text/html");
+  const doc = parser.parseFromString(htmlText, 'text/html');
   return createSnapshotFromDocument(doc);
 };
 
 const cloneShellFromSnapshot = (snapshot) => {
-  const template = document.createElement("template");
+  const template = document.createElement('template');
   template.innerHTML = snapshot.shellHtml.trim();
   const node = template.content.firstElementChild;
   return node || null;
 };
 
 const updateRouteHeading = (kind) => {
-  const heading = document.querySelector(".homepage-route-title");
+  const heading = document.querySelector('.homepage-route-title');
   if (!heading) {
     return;
   }
-  heading.textContent = kind === POEM_KIND ? "诗歌列表" : "文章列表";
+  heading.textContent = kind === POEM_KIND ? '诗歌列表' : '文章列表';
 };
 
 const buildHistoryEntry = (kind, page) => {
@@ -155,7 +154,7 @@ const buildHistoryEntry = (kind, page) => {
   const normalizedPage = readPositiveInt(page, 1);
   return {
     payload: {
-    [HOME_HISTORY_MARK]: true,
+      [HOME_HISTORY_MARK]: true,
       kind: normalizedKind,
       page: normalizedPage,
     },
@@ -163,12 +162,12 @@ const buildHistoryEntry = (kind, page) => {
   };
 };
 
-const writeHistoryState = (kind, page, mode = "push") => {
+const writeHistoryState = (kind, page, mode = 'push') => {
   const entry = buildHistoryEntry(kind, page);
-  if (mode === "replace") {
-    history.replaceState(entry.payload, "", entry.url);
+  if (mode === 'replace') {
+    history.replaceState(entry.payload, '', entry.url);
   } else {
-    history.pushState(entry.payload, "", entry.url);
+    history.pushState(entry.payload, '', entry.url);
   }
 };
 
@@ -215,11 +214,11 @@ export const installHomeFilter = () => {
       const active = kind === snapshot.kind;
 
       link.href = buildHomeHref(kind, targetPage);
-      link.classList.toggle("is-active", active);
+      link.classList.toggle('is-active', active);
       if (active) {
-        link.setAttribute("aria-current", "page");
+        link.setAttribute('aria-current', 'page');
       } else {
-        link.removeAttribute("aria-current");
+        link.removeAttribute('aria-current');
       }
     }
   };
@@ -266,7 +265,7 @@ export const installHomeFilter = () => {
     activeRequest = controller;
     try {
       const response = await fetch(href, {
-        credentials: "same-origin",
+        credentials: 'same-origin',
         signal: controller.signal,
       });
       if (!response.ok) {
@@ -275,7 +274,7 @@ export const installHomeFilter = () => {
       const htmlText = await response.text();
       const snapshot = parseSnapshotFromHtml(htmlText);
       if (!snapshot) {
-        throw new Error("home snapshot parse failed");
+        throw new Error('home snapshot parse failed');
       }
       cache.set(key, snapshot);
       return snapshot;
@@ -286,7 +285,7 @@ export const installHomeFilter = () => {
     }
   };
 
-  const moveToState = async (state, historyMode = "push") => {
+  const moveToState = async (state, historyMode = 'push') => {
     const kind = normalizeKind(state.kind);
     const totalPages = kind === POEM_KIND ? currentState.totalPoemPages : currentState.totalArticlePages;
     const page = clampPage(state.page, totalPages);
@@ -300,16 +299,16 @@ export const installHomeFilter = () => {
         window.location.href = buildHomeHref(kind, page);
         return;
       }
-      if (historyMode !== "none") {
+      if (historyMode !== 'none') {
         writeHistoryState(snapshot.kind, snapshot.page, historyMode);
       }
     } catch (error) {
       window.location.href = buildHomeHref(kind, page);
-      console.error("[core] home-filter fallback navigation", error);
+      console.error('[core] home-filter fallback navigation', error);
     }
   };
 
-  writeHistoryState(currentState.kind, currentState.page, "replace");
+  writeHistoryState(currentState.kind, currentState.page, 'replace');
   updateFilterUi({
     ...currentState,
     shellHtml: initialShell.outerHTML,
@@ -321,15 +320,22 @@ export const installHomeFilter = () => {
     currentState.kind === POEM_KIND ? currentState.totalPoemPages : currentState.totalArticlePages,
   );
   if (currentState.page === 1 && rememberPage > 1) {
-    void moveToState({ kind: currentState.kind, page: rememberPage }, "replace");
+    void moveToState({ kind: currentState.kind, page: rememberPage }, 'replace');
   }
 
-  document.addEventListener("click", (event) => {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+  document.addEventListener('click', (event) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
       return;
     }
 
-    const anchor = event.target.closest("a[href]");
+    const anchor = event.target.closest('a[href]');
     if (!anchor) {
       return;
     }
@@ -346,16 +352,16 @@ export const installHomeFilter = () => {
     }
 
     event.preventDefault();
-    void moveToState(state, "push");
+    void moveToState(state, 'push');
   });
 
-  window.addEventListener("popstate", (event) => {
+  window.addEventListener('popstate', (event) => {
     const state = event.state;
-    if (!state || !state[HOME_HISTORY_MARK]) {
+    if (!state?.[HOME_HISTORY_MARK]) {
       return;
     }
     const kind = normalizeKind(state.kind);
     const page = readPositiveInt(state.page, 1);
-    void moveToState({ kind, page }, "none");
+    void moveToState({ kind, page }, 'none');
   });
 };

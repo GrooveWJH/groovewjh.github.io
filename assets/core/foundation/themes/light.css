@@ -1,0 +1,167 @@
+html:not([data-color-scheme]),
+html[data-color-scheme="light"] {
+  color-scheme: light;
+}
+
+html[data-color-scheme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="white"] {
+  --math-filter: none;
+  --background: var(--white);
+  --background-hover: rgba(141, 141, 141, 0.12);
+
+  --text-primary: var(--gray-100);
+  --text-secondary: var(--gray-70);
+
+  --link: var(--blue-60);
+  --link-hover: var(--blue-70);
+  --link-visited: var(--purple-60);
+
+  --layer1: var(--gray-10);
+  --layer2: var(--white);
+  --layer3: var(--gray-10);
+  --layer1-accent: var(--gray-20);
+  --layer2-accent: var(--gray-20);
+  --layer3-accent: var(--gray-20);
+
+  --layer1-hover: var(--gray-10-hover);
+  --layer2-hover: var(--white-hover);
+  --layer3-hover: var(--gray-10-hover);
+  --layer1-accent-hover: var(--gray-20-hover);
+  --layer2-accent-hover: var(--gray-20-hover);
+  --layer3-accent-hover: var(--gray-20-hover);
+  --layer1-accent-active: var(--gray-40);
+  --layer2-accent-active: var(--gray-40);
+  --layer3-accent-active: var(--gray-40);
+
+  --border-subtle0: var(--gray-20);
+  --border-subtle1: var(--gray-30);
+  --border-subtle2: var(--gray-20);
+  --border-subtle3: var(--gray-30);
+
+  --error: var(--red-60);
+  --success: var(--green-50);
+  --warning: var(--yellow-30);
+  --info: var(--blue-70);
+
+  --notification-background-error: var(--red-10);
+  --notification-background-success: var(--green-10);
+  --notification-background-info: var(--blue-10);
+  --notification-background-warning: var(--yellow-10);
+
+  --button-primary: var(--blue-60);
+  --button-primary-hover: var(--blue-60-hover);
+  --button-primary-active: var(--blue-80);
+  --button-secondary: var(--gray-80);
+  --button-secondary-hover: var(--gray-80-hover);
+  --button-secondary-active: var(--gray-60);
+  --button-tertiary: var(--blue-60);
+  --button-tertiary-hover: var(--blue-60-hover);
+  --button-tertiary-active: var(--blue-80);
+
+  --text-on-color: var(--white);
+
+  --footer-background: var(--black);
+  --footer-text: var(--white);
+
+  --tag-background: var(--gray-20);
+  --tag-color: var(--gray-100);
+  --tag-hover: var(--gray-20-hover);
+  --tag-border: var(--gray-40);
+
+  --interactive-background: var(--gray-60);
+  --interactive-hover: var(--gray-60-hover);
+  --interactive-active: var(--gray-80);
+
+  --focus: var(--blue-60);
+  --border-tile: var(--gray-30);
+  --icon-interactive: var(--blue-60);
+  --border-interactive: var(--blue-60);
+}
+
+html[data-theme="gray-10"],
+html:not([data-theme]) {
+  --math-filter: none;
+  --background: var(--gray-10);
+  --background-hover: rgba(141, 141, 141, 0.12);
+
+  --text-primary: var(--gray-100);
+  --text-secondary: var(--gray-70);
+
+  --link: var(--blue-60);
+  --link-hover: var(--blue-70);
+  --link-visited: var(--purple-60);
+
+  --layer1: var(--white);
+  --layer2: var(--gray-10);
+  --layer3: var(--white);
+  --layer1-accent: var(--gray-20);
+  --layer2-accent: var(--gray-20);
+  --layer3-accent: var(--gray-20);
+
+  --layer1-hover: var(--white-hover);
+  --layer2-hover: var(--gray-10-hover);
+  --layer3-hover: var(--white-hover);
+  --layer1-accent-hover: var(--gray-20-hover);
+  --layer2-accent-hover: var(--gray-20-hover);
+  --layer3-accent-hover: var(--gray-20-hover);
+  --layer1-accent-active: var(--gray-40);
+  --layer2-accent-active: var(--gray-40);
+  --layer3-accent-active: var(--gray-40);
+
+  --border-subtle0: var(--gray-30);
+  --border-subtle1: var(--gray-20);
+  --border-subtle2: var(--gray-30);
+  --border-subtle3: var(--gray-20);
+
+  --error: var(--red-60);
+  --success: var(--green-50);
+  --warning: var(--yellow-30);
+  --info: var(--blue-70);
+
+  --notification-background-error: var(--red-10);
+  --notification-background-success: var(--green-10);
+  --notification-background-info: var(--blue-10);
+  --notification-background-warning: var(--yellow-10);
+
+  --button-primary: var(--blue-60);
+  --button-primary-hover: var(--blue-60-hover);
+  --button-primary-active: var(--blue-80);
+  --button-secondary: var(--gray-80);
+  --button-secondary-hover: var(--gray-80-hover);
+  --button-secondary-active: var(--gray-60);
+  --button-tertiary: var(--blue-60);
+  --button-tertiary-hover: var(--blue-60-hover);
+  --button-tertiary-active: var(--blue-80);
+
+  --text-on-color: var(--white);
+
+  --footer-background: var(--black);
+  --footer-text: var(--white);
+
+  --tag-background: var(--gray-20);
+  --tag-color: var(--gray-100);
+  --tag-hover: var(--gray-20-hover);
+  --tag-border: var(--gray-40);
+
+  --interactive-background: var(--gray-60);
+  --interactive-hover: var(--gray-60-hover);
+  --interactive-active: var(--gray-80);
+
+  --focus: var(--blue-60);
+  --border-tile: var(--gray-40);
+  --icon-interactive: var(--blue-60);
+  --border-interactive: var(--blue-60);
+}
+
+html[data-theme="white"],
+html[data-theme="gray-10"],
+html:not([data-theme]) {
+  --scrollbar-track: transparent;
+  --scrollbar-corner: transparent;
+  --scrollbar-thumb-rest: rgba(82, 82, 82, 0.18);
+  --scrollbar-thumb-active: rgba(82, 82, 82, 0.42);
+  --scrollbar-thumb-hover: rgba(82, 82, 82, 0.56);
+}

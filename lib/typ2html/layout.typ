@@ -1,5 +1,28 @@
 #import "html-guard.typ": html-guard
 
+#let make-theme-toggle-button(preference, label, tooltip-label) = html.elem("button", attrs: (
+  class: "nav-theme-toggle-button",
+  type: "button",
+  role: "radio",
+  "aria-checked": if preference == "auto" { "true" } else { "false" },
+  "aria-label": label,
+  tabindex: if preference == "auto" { "0" } else { "-1" },
+  "data-theme-toggle-button": "",
+  "data-theme-preference": preference,
+  "data-tooltip": tooltip-label,
+))[]
+
+#let make-theme-toggle(group-name, variant) = html.elem("div", attrs: (
+  class: "nav-theme-toggle nav-theme-toggle-" + variant,
+  role: "radiogroup",
+  "aria-label": "主题模式",
+  "data-theme-toggle-group": group-name,
+), {
+  make-theme-toggle-button("light", "切换到浅色主题", "浅色")
+  make-theme-toggle-button("dark", "切换到深色主题", "深色")
+  make-theme-toggle-button("auto", "跟随系统主题", "自动")
+})
+
 #let make-nav(site-title, links, post-title: none) = if links != none {
   let nav-lower-title = if post-title != none { post-title } else { site-title }
 
@@ -28,15 +51,14 @@
         html.div(class: "nav-body-lower", nav-lower-title)
       })
 
-      // html.elem("button", attrs: (
-      //   class: "nav-theme-switch",
-      //   type: "button",
-      //   "aria-label": "切换主题",
-      // ))[]
+      html.div(class: "nav-actions", {
+        make-theme-toggle("desktop", "desktop")
+      })
     })
 
     html.div(class: "nav-sidebar-backdrop")
     html.aside(class: "nav-sidebar", {
+      make-theme-toggle("sidebar", "sidebar")
       for (href, name) in links {
         html.a(class: "nav-sidebar-item", href: href, name)
       }
