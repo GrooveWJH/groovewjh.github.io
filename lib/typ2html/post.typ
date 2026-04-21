@@ -19,10 +19,15 @@
   ))
 })
 
-#let make-post-font-preloads(category: "") = {
-  let family-slug = if category == "诗歌" { "site-kai" } else { "noto-serif-sc" }
-  make-font-preload-link("/assets/fonts/" + family-slug + "-basic-400.woff2")
-  make-font-preload-link("/assets/fonts/" + family-slug + "-non-basic-400.woff2")
+#let make-post-font-preloads(font-mode: "release") = {
+  if font-mode == "dev" {
+    none
+  } else {
+    make-font-preload-link("/assets/fonts/noto-serif-sc-basic-400.woff2")
+    make-font-preload-link("/assets/fonts/noto-serif-sc-non-basic-400.woff2")
+    // Embedded poem-frame blocks need Kai on non-ASCII runs even inside normal articles.
+    make-font-preload-link("/assets/fonts/site-kai-non-basic-400.woff2")
+  }
 }
 
 #let render-footnotes() = context {
@@ -114,6 +119,7 @@
     post-meta-json
   } else {
     let page-path = query-input("page-path", default: "")
+    let font-mode = str(query-input("font-mode", default: "release"))
     let lang-head = str(lang).split("-").at(0, default: str(lang))
     let post-lang-class = if lang-head == "zh" { "post-lang-zh" } else { "post-lang-nonzh" }
     let post-category-class = if category == "诗歌" { "post-category-poem" } else { "" }
@@ -139,7 +145,7 @@
       author: author,
       canonical-path: page-path,
       date-meta: date,
-      head-extra: { make-post-font-preloads(category: category) },
+      head-extra: { make-post-font-preloads(font-mode: font-mode) },
       header-node: make-post-header(header-links, site-title, title, description: description, post-class: post-category-class),
       main-node: html-guard(() => {
         html.elem("article", attrs: (class: article-class), {
