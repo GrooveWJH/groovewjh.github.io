@@ -23,6 +23,7 @@ header .nav-theme-toggle-sidebar .nav-theme-toggle-button {
 }
 
 header .nav-theme-toggle-button {
+  -webkit-appearance: none;
   appearance: none;
   position: relative;
   display: inline-flex;
@@ -48,20 +49,26 @@ header .nav-theme-toggle-button::before {
   height: 1.125rem;
   display: inline-block;
   background: currentColor;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
 }
 
 header .nav-theme-toggle-button[data-theme-preference="light"]::before {
+  -webkit-mask-image: url("/assets/icons/sun.svg");
   mask-image: url("/assets/icons/sun.svg");
 }
 
 header .nav-theme-toggle-button[data-theme-preference="dark"]::before {
+  -webkit-mask-image: url("/assets/icons/moon.svg");
   mask-image: url("/assets/icons/moon.svg");
 }
 
 header .nav-theme-toggle-button[data-theme-preference="auto"]::before {
+  -webkit-mask-image: url("/assets/icons/automatic.svg");
   mask-image: url("/assets/icons/automatic.svg");
   width: 1.1875rem;
   height: 1.1875rem;

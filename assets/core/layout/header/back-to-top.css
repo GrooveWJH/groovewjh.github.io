@@ -26,6 +26,10 @@
   width: 1.25rem;
   height: 1.25rem;
   background-color: currentColor;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-image: url("/assets/icons/up-to-top.svg");
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
