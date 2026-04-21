@@ -4,7 +4,7 @@
 
 #let make-theme-preload-script() = html.script(
   type: "text/javascript",
-  "(function(){document.documentElement.setAttribute('data-theme','gray-10');document.documentElement.style.backgroundColor='#f4f4f4';})();",
+  "(function(){try{var pref=localStorage.getItem('typ-blog-theme-preference');var root=document.documentElement;var head=document.head;var color='';var systemDark=typeof window.matchMedia==='function'&&window.matchMedia('(prefers-color-scheme: dark)').matches;var scheme=systemDark?'dark':'light';if(pref==='light'){root.setAttribute('data-theme','gray-10');root.style.backgroundColor='#f4f4f4';color='#f4f4f4';scheme='light';}else if(pref==='dark'){root.setAttribute('data-theme','gray-90');root.style.backgroundColor='#262626';color='#262626';scheme='dark';}root.setAttribute('data-color-scheme',scheme);if(color&&head){var meta=document.createElement('meta');meta.setAttribute('name','theme-color');meta.setAttribute('content',color);meta.setAttribute('data-theme-color-override','true');head.appendChild(meta);}}catch(_error){}})();",
 )
 
 #let typ2html-base(

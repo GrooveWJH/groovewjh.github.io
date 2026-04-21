@@ -15,7 +15,7 @@
 )
 
 #let poem-content-font = poem-cjk-font
-#let poem-cjk-cluster-pattern = regex("[\\u{3000}-\\u{303F}\\u{3400}-\\u{4DBF}\\u{4E00}-\\u{9FFF}\\u{FF00}-\\u{FFEF}]")
+#let poem-basic-cluster-pattern = regex("[\\u{0009}\\u{000A}\\u{000D}\\u{0020}-\\u{007E}]")
 #let layout-align = align
 
 #let resolve-poem-frame-align(value, label: "align", allow-auto: false) = {
@@ -59,7 +59,7 @@
   }
 }
 
-#let is-poem-cjk-cluster(cluster) = cluster.matches(poem-cjk-cluster-pattern).len() > 0
+#let is-poem-nonbasic-cluster(cluster) = cluster.matches(poem-basic-cluster-pattern).len() == 0
 
 #let split-poem-line-runs(line-text) = {
   let runs = ()
@@ -67,7 +67,7 @@
   let current-text = ""
 
   for cluster in str(line-text).clusters() {
-    let next-kind = if is-poem-cjk-cluster(cluster) { "cjk" } else { "latin" }
+    let next-kind = if is-poem-nonbasic-cluster(cluster) { "cjk" } else { "latin" }
     if current-kind == none {
       current-kind = next-kind
       current-text = cluster
@@ -133,11 +133,15 @@
       {
         for line-text in lines {
           html.div(class: "poem-frame-line", {
-            for run in split-poem-line-runs(line-text) {
-              html.span(
-                class: "poem-frame-run poem-frame-run-" + run.at("kind"),
-                run.at("text"),
-              )
+            if line-text == "" {
+              html.elem("br", attrs: (aria-hidden: "true"))
+            } else {
+              for run in split-poem-line-runs(line-text) {
+                html.span(
+                  class: "poem-frame-run poem-frame-run-" + run.at("kind"),
+                  run.at("text"),
+                )
+              }
             }
           })
         }

@@ -269,16 +269,16 @@
     "Segoe UI", Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji";
   --font-serif-stack:
-    "Noto Serif CJK SC", "Noto Serif SC", "Noto Serif", "Noto Serif TC",
-    "Site Noto Serif", "Source Han Serif SC", "Songti SC", "STSong", serif;
+    "Site Noto Serif", "Noto Serif CJK SC", "Noto Serif SC", "Noto Serif",
+    "Noto Serif TC", "Source Han Serif SC", "Songti SC", "STSong", serif;
   --font-mono-stack:
     "Noto Sans Mono CJK SC", "Noto Sans Mono", "Site Noto Mono", ui-monospace,
     "SFMono-Regular", "SF Mono", "Menlo",
     "Consolas", "Liberation Mono", monospace;
   --font-kai-stack:
-    "KaiTi", "Kaiti SC", "STKaiti", "Kai", "LXGW WenKai",
-    "Site Kai", "Site Noto Serif", serif;
-  --font-poem-stack: "Site Poem", "Site Noto Serif", serif;
+    "Site Kai", "KaiTi", "Kaiti SC", "STKaiti", "Kai",
+    "LXGW WenKai", "Site Noto Serif", serif;
+  --font-poem-stack: "Site Poem", "Site Kai", "Site Noto Serif", serif;
 
   --math-filter: none;
   --background: var(--white);

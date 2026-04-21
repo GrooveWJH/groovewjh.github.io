@@ -22,7 +22,7 @@
 #let make-post-font-preloads(category: "") = {
   let family-slug = if category == "诗歌" { "site-kai" } else { "noto-serif-sc" }
   make-font-preload-link("/assets/fonts/" + family-slug + "-basic-400.woff2")
-  make-font-preload-link("/assets/fonts/" + family-slug + "-site-cjk-400.woff2")
+  make-font-preload-link("/assets/fonts/" + family-slug + "-non-basic-400.woff2")
 }
 
 #let render-footnotes() = context {

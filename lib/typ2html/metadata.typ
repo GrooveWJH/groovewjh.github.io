@@ -56,7 +56,7 @@
 ) = {
   html.meta(charset: "utf-8")
   html.meta(name: "viewport", content: "width=device-width, initial-scale=1")
-  html.meta(name: "color-scheme", content: "light")
+  html.meta(name: "color-scheme", content: "light dark")
   html.meta(name: "generator", content: "Typst")
 
   let page-title = if title != "" {
@@ -78,7 +78,8 @@
   html.meta(name: "apple-mobile-web-app-title", content: "Groove Blog")
   html.meta(name: "apple-mobile-web-app-capable", content: "yes")
   html.meta(name: "mobile-web-app-capable", content: "yes")
-  html.meta(name: "theme-color", content: "#f4f4f4")
+  html.elem("meta", attrs: (name: "theme-color", media: "(prefers-color-scheme: light)", content: "#f4f4f4"))
+  html.elem("meta", attrs: (name: "theme-color", media: "(prefers-color-scheme: dark)", content: "#262626"))
 
   if type(date) == datetime {
     html.meta(name: "date", content: date.display("[year]-[month]-[day]"))
