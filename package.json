@@ -5,16 +5,20 @@
     "test": "node --test",
     "biome:check": "biome check .",
     "biome:format": "biome format --write .",
-    "check:maxline:chrome": "node scripts/check-maxline.mjs --config check-maxline.chrome.json",
-    "check:maxline:share": "node scripts/check-maxline.mjs --config check-maxline.share.json",
-    "check:maxline:content": "node scripts/check-maxline.mjs --config check-maxline.content.json",
+    "check:maxline:chrome": "node .config/maxline/check.mjs --config .config/maxline/chrome.json",
+    "check:maxline:share": "node .config/maxline/check.mjs --config .config/maxline/share.json",
+    "check:maxline:content": "node .config/maxline/check.mjs --config .config/maxline/content.json",
+    "check:maxline:site-build": "node .config/maxline/check.mjs --config .config/maxline/site-build.json",
+    "check:maxline:font-pipeline": "node .config/maxline/check.mjs --config .config/maxline/font-pipeline.json",
+    "check:maxline:share-preview": "node .config/maxline/check.mjs --config .config/maxline/share-preview.json",
+    "check:maxline:typst-render": "node .config/maxline/check.mjs --config .config/maxline/typst-render.json",
     "assets:webapp": "node scripts/build-webapp-assets.mjs",
     "assets:webappicon": "node scripts/build-webapp-assets.mjs",
     "fonts:build": "node lib/node/build-fonts.mjs",
     "build": "node lib/node/build-html.mjs --share-origin local",
     "build:release": "node lib/node/build-html.mjs --font-mode release --share-origin prod",
     "build:fast": "npm run build -- --jobs 4",
-    "build:preview": "npm run build -- --out _site-preview",
+    "build:preview": "node scripts/share-card-preview.mjs --out _site-preview",
     "build:preview_fast": "npm run build -- --jobs 4 --out _site-preview",
     "build:preview_release": "npm run build:release -- --out _site-preview",
     "share:preview": "node scripts/share-card-preview.mjs",
@@ -24,6 +28,8 @@
     "@biomejs/biome": "2.4.12"
   },
   "dependencies": {
-    "colorthief": "^3.3.1"
+    "@carbon/icons": "^11.78.0",
+    "colorthief": "^3.3.1",
+    "figma-squircle": "^1.1.0"
   }
 }

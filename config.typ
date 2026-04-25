@@ -1,8 +1,8 @@
-#import "lib/typ2html/typ2html.typ": *
-#import "lib/typ2html/post.typ": format-post-date
-#import "lib/typ2html/poem-frame.typ": poem-frame, poem-latin-font, poem-cjk-font, poem-content-font, render-poem-line-typst
-#import "lib/typ2html/post-cover.typ": render-post-cover, has-cover-value
-#import "lib/typ2html/template-post.typ": make-template-post
+#import "lib/typst-render/index.typ": *
+#import "lib/typst-render/post/post.typ": format-post-date
+#import "lib/typst-render/post/poem-frame.typ": poem-frame, poem-latin-font, poem-cjk-font, poem-content-font, render-poem-line-typst
+#import "lib/typst-render/post/post-cover.typ": render-post-cover, has-cover-value
+#import "lib/typst-render/post/template-post.typ": make-template-post
 #import "@preview/zebraw:0.6.1": zebraw
 
 #let footer-content = [人的群岛]

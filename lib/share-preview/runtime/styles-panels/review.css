@@ -1,0 +1,155 @@
+
+.carbon-preview-review-hero,
+.carbon-preview-review-section {
+  border-bottom: 1px solid var(--carbon-border);
+}
+
+.carbon-preview-review-hero {
+  padding: 0 0 1rem;
+}
+
+.carbon-preview-review-hero h3 {
+  margin: 0.2rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.carbon-preview-review-hero__path {
+  margin: 0.4rem 0 0;
+  color: var(--carbon-text-helper);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.carbon-preview-review-hero__status {
+  margin-top: 1rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--carbon-border);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.carbon-preview-review-hero__status strong,
+.carbon-preview-review-note strong,
+.carbon-preview-issue-list__item strong,
+.carbon-preview-checklist__status {
+  display: block;
+}
+
+.carbon-preview-review-hero__status p,
+.carbon-preview-review-note p,
+.carbon-preview-issue-list__item p {
+  margin: 0.3rem 0 0;
+  color: var(--carbon-text-secondary);
+  line-height: 1.55;
+}
+
+.carbon-preview-review-hero__status.is-ready,
+.carbon-preview-review-note.is-ready {
+  border-color: rgba(25, 128, 56, 0.22);
+  background: rgba(25, 128, 56, 0.06);
+}
+
+.carbon-preview-review-hero__status.is-warning,
+.carbon-preview-review-note.is-warning {
+  border-color: rgba(241, 194, 27, 0.4);
+  background: rgba(241, 194, 27, 0.14);
+}
+
+.carbon-preview-review-section {
+  padding: 1rem 0;
+}
+
+.carbon-preview-review-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.carbon-preview-review-note,
+.carbon-preview-issue-list__item,
+.carbon-preview-checklist__item,
+.carbon-preview-diagnostics__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: start;
+}
+
+.carbon-preview-issue-list,
+.carbon-preview-checklist,
+.carbon-preview-diagnostics {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.carbon-preview-issue-list__item {
+  color: var(--carbon-text);
+}
+
+.carbon-preview-issue-list__item .carbon-preview-inline-icon {
+  color: var(--carbon-warning-text);
+}
+
+.carbon-preview-checklist__item {
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--carbon-border);
+  background: var(--carbon-surface-soft);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.35rem;
+}
+
+.carbon-preview-checklist__item.is-ready {
+  border-color: rgba(25, 128, 56, 0.2);
+}
+
+.carbon-preview-checklist__item.is-warning {
+  border-color: rgba(241, 194, 27, 0.4);
+}
+
+.carbon-preview-checklist__header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.carbon-preview-checklist__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.carbon-preview-checklist__status {
+  flex: 0 0 auto;
+}
+
+.carbon-preview-checklist__detail,
+.carbon-preview-diagnostics__item span {
+  margin: 0;
+  color: var(--carbon-text-secondary);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.carbon-preview-diagnostics__item.is-ready .carbon-preview-inline-icon {
+  color: var(--carbon-success);
+}
+
+.carbon-preview-diagnostics__item.is-warning .carbon-preview-inline-icon {
+  color: var(--carbon-warning-text);
+}
+
+.carbon-preview-diagnostics__item.is-info .carbon-preview-inline-icon {
+  color: var(--carbon-info);
+}
+

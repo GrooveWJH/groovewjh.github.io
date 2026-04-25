@@ -45,28 +45,26 @@ npx http-server _site -a 127.0.0.1 -p 5500 -c-1
 
 ## 预览页里能做什么
 
-左侧是页面列表。
+当前预览页是一个 desktop-only 的三栏校对台：
 
-顶部是平台切换。
+- 左侧：文章搜索与列表，同时显示每篇文章当前有多少个分享字段问题
+- 中间：卡片预览舞台，只保留预览相关状态，例如 smart colors 和 square canvas
+- 右侧：常驻 review / payload inspector
 
-右侧会同时展示两类信息：
+这套工具现在只针对 `iMessage+` 导出模板，不再做多平台切换演示页。
 
-- 卡片近似渲染结果
-- 当前页面真实输出的分享字段
+右侧 inspector 默认打开 `Review`：
 
-当前支持的平台模板有：
+- 当前页面标题与路径
+- 是否缺 description / cover / published date / canonical / QR
+- 显示字段开关、圆角、description break 等控制
+- 导出 PNG 与打开原页面
 
-- `iMessage`
-- `Slack`
-- `X`
-- `Discord`
-- `iMessage+`
-
-其中 `iMessage+` 是导出专用模板。它保留 iMessage 的视觉气质，但会主动补上 `description`，适合发到那些不会自动解析网页卡片的平台。
+次级 tab 是 `Payload`，用于核对当前页面真实输出的分享字段。
 
 ## 导出 PNG
 
-预览页顶部有 `Export PNG` 按钮。
+右侧 inspector 顶部有 `Export PNG` 按钮。
 
 它会导出当前激活平台的单张卡片 PNG，默认是 2x 像素密度。
 
@@ -110,13 +108,11 @@ npm run share:preview_release
 
 ## 常见疑问
 
-### 为什么 iMessage 预览里经常没有 description
+### 为什么现在只有 iMessage+
 
-这通常不是你页面少写了字段，而是平台的展示策略。
+这套页面现在定位成“导出前校对台”，不是泛平台展示台。
 
-本项目的分享字段仍然会输出 `description / og:description / twitter:description`。只是 `iMessage` 模板会刻意模拟它常见的“只看标题和图片”的效果。
-
-如果你需要一张“风格像 iMessage，但一定带描述”的附图，请用 `iMessage+` 模板导出。
+当前保留的唯一模板是 `iMessage+`。它保留 iMessage 的视觉气质，但在导出场景里更强调标题、description、封面和分享目标是否完整，适合做最终校对与 PNG 导出。
 
 ### 我只改了文章内容，需要每次都重跑吗
 

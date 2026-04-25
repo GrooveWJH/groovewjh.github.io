@@ -1,0 +1,30 @@
+{
+  "maxLines": 300,
+  "targets": [
+    "config.typ",
+    "lib/typst-render/index.typ",
+    "lib/typst-render/shell/base.typ",
+    "lib/typst-render/post/post.typ",
+    "lib/typst-render/post/post-cover.typ",
+    "lib/typst-render/post/poem-frame.typ",
+    "lib/typst-render/post/template-post.typ",
+    "lib/node/content-maxline.test.mjs",
+    "lib/typst-render/tests/poem-frame.test.mjs",
+    "lib/typst-render/tests/template-post.cover.test.mjs",
+    "lib/typst-render/tests/template-post.preview.test.mjs",
+    "lib/typst-render/tests/typography.test.mjs",
+    "lib/testing/typst.mjs"
+  ],
+  "extensions": [
+    ".typ",
+    ".mjs",
+    ".js",
+    ".css"
+  ],
+  "excludeDirs": [
+    "_site",
+    "node_modules",
+    ".git",
+    ".typ-blog-cache"
+  ]
+}

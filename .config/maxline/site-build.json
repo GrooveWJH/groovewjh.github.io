@@ -1,0 +1,24 @@
+{
+  "excludeDirs": ["_site", "_site-preview", "node_modules", ".git", ".typ-blog-cache"],
+  "groups": [
+    {
+      "name": "site-build-runtime",
+      "maxLines": 240,
+      "targets": [
+        "lib/site-build/cli",
+        "lib/site-build/pipeline",
+        "lib/site-build/publish",
+        "lib/site-build/webapp"
+      ],
+      "extensions": [".mjs"]
+    },
+    {
+      "name": "site-build-tests",
+      "maxLines": 220,
+      "targets": [
+        "lib/site-build/tests"
+      ],
+      "extensions": [".mjs"]
+    }
+  ]
+}

@@ -4,7 +4,9 @@
   preview-debug: false,
   outline-enabled: false,
   title: "Vibe Coding产出的代码，到底要不要深入消化？",
-  description: "为那荒芜了的岁月，为我的终于无法坚持，为所有终于枯萎了的蔷薇",
+  description: [为那荒芜了的岁月，\
+    为我的终于无法坚持，\
+    为所有终于枯萎了的蔷薇。],
   tags: ("软件工程", "Vibe Coding"),
   category: "技术杂谈",
   date: datetime(year: 2026, month: 4, day: 16),

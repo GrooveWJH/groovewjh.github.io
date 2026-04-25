@@ -1,0 +1,13 @@
+{
+  "excludeDirs": ["_site", "_site-preview", "node_modules", ".git", ".typ-blog-cache"],
+  "groups": [
+    {
+      "name": "font-pipeline",
+      "maxLines": 220,
+      "targets": [
+        "lib/font-pipeline"
+      ],
+      "extensions": [".mjs"]
+    }
+  ]
+}

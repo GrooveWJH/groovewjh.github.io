@@ -1,0 +1,37 @@
+.carbon-preview-payload-grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 128px) minmax(0, 1fr);
+  gap: 0.75rem 1rem;
+}
+
+.carbon-preview-payload-grid dt,
+.carbon-preview-payload-grid dd {
+  font-family: "IBM Plex Mono", "SF Mono", monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.carbon-preview-payload-grid dt {
+  color: var(--carbon-text-helper);
+}
+
+.carbon-preview-payload-grid dd {
+  margin: 0;
+  color: var(--carbon-text);
+  word-break: break-word;
+}
+
+.carbon-preview-empty-state {
+  width: 100%;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  border: 1px dashed var(--carbon-border-strong);
+  background: var(--carbon-surface);
+  color: var(--carbon-text-secondary);
+  line-height: 1.65;
+}

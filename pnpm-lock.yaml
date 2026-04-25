@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@carbon/icons':
+        specifier: ^11.78.0
+        version: 11.78.0
       colorthief:
         specifier: ^3.3.1
         version: 3.3.1
+      figma-squircle:
+        specifier: ^1.1.0
+        version: 1.1.0
     devDependencies:
       '@biomejs/biome':
         specifier: 2.4.12
@@ -75,6 +81,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@carbon/icons@11.78.0':
+    resolution: {integrity: sha512-EWqJbFSSpV0UTc8/9SiTzPcEcqmryKwospDyzC0+nFIrCtlZPFuma2jpdoiJ87TMCx/Bm1pD5lGqucxuMZkwnQ==}
+
+  '@ibm/telemetry-js@1.11.0':
+    resolution: {integrity: sha512-RO/9j+URJnSfseWg9ZkEX9p+a3Ousd33DBU7rOafoZB08RqdzxFVYJ2/iM50dkBuD0o7WX7GYt1sLbNgCoE+pA==}
+    hasBin: true
+
   colorthief@3.3.1:
     resolution: {integrity: sha512-a3qzYXy51h6p3725pV8rnJwUBGTtvYQge2pVhKJwL+vETUD5pCi6VKmQyu51pBHdUbu/BPEXbwFLS0GnxXNhGA==}
     hasBin: true
@@ -83,6 +96,9 @@ packages:
     peerDependenciesMeta:
       sharp:
         optional: true
+
+  figma-squircle@1.1.0:
+    resolution: {integrity: sha512-3aa6bOurrsybsuYo1TMRuasBpXgVjgnmOUtZ40il6e1dJF2lhTRq89z7oy1uzKDspbH3630rLZD2UvJqXDiktA==}
 
 snapshots:
 
@@ -121,4 +137,12 @@ snapshots:
   '@biomejs/cli-win32-x64@2.4.12':
     optional: true
 
+  '@carbon/icons@11.78.0':
+    dependencies:
+      '@ibm/telemetry-js': 1.11.0
+
+  '@ibm/telemetry-js@1.11.0': {}
+
   colorthief@3.3.1: {}
+
+  figma-squircle@1.1.0: {}

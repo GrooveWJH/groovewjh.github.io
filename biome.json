@@ -13,7 +13,7 @@
       "lib/**/*.mjs",
       "scripts/**/*.js",
       "scripts/**/*.mjs",
-      "!lib/node/share-preview/runtime/vendor",
+      "!lib/share-preview/runtime/vendor",
       "package.json"
     ]
   },

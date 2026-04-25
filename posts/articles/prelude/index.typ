@@ -2,7 +2,9 @@
 
 #show: template-post.with(
   title: "Prelude——美好祝愿的开始",
-  description: "那时候，你就会明白，一切我们爱过与恨过的，其实并没有什么不同。",
+  description: [那时候，你就会明白，\
+  一切我们爱过与恨过的，\
+  其实并没有什么不同。],
   cover: image("img/cover.jpeg"),
   outline-enabled: false,
   tags: ("正传",),

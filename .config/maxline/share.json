@@ -1,0 +1,33 @@
+{
+  "excludeDirs": ["_site", "_site-preview", "node_modules", ".git", ".typ-blog-cache", "vendor"],
+  "groups": [
+    {
+      "name": "share-preview-runtime",
+      "maxLines": 240,
+      "targets": [
+        "lib/share-preview/build",
+        "lib/share-preview/cli",
+        "lib/share-preview/index.mjs",
+        "lib/share-preview/manifest",
+        "lib/share-preview/runtime"
+      ],
+      "extensions": [".mjs"]
+    },
+    {
+      "name": "share-preview-styles",
+      "maxLines": 260,
+      "targets": [
+        "lib/share-preview/runtime"
+      ],
+      "extensions": [".css"]
+    },
+    {
+      "name": "share-preview-tests",
+      "maxLines": 220,
+      "targets": [
+        "lib/share-preview/tests"
+      ],
+      "extensions": [".mjs"]
+    }
+  ]
+}

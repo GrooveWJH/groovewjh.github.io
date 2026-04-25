@@ -1,0 +1,25 @@
+{
+  "excludeDirs": ["_site", "_site-preview", "node_modules", ".git", ".typ-blog-cache"],
+  "groups": [
+    {
+      "name": "typst-render",
+      "maxLines": 220,
+      "targets": [
+        "lib/typst-render/core",
+        "lib/typst-render/fragments",
+        "lib/typst-render/post",
+        "lib/typst-render/shell",
+        "lib/typst-render/index.typ"
+      ],
+      "extensions": [".typ"]
+    },
+    {
+      "name": "typst-render-tests",
+      "maxLines": 220,
+      "targets": [
+        "lib/typst-render/tests"
+      ],
+      "extensions": [".mjs"]
+    }
+  ]
+}
