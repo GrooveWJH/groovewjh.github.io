@@ -79,6 +79,12 @@
   align-items: start;
 }
 
+.carbon-preview-review-note {
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--carbon-border);
+  background: var(--carbon-surface-soft);
+}
+
 .carbon-preview-issue-list,
 .carbon-preview-checklist,
 .carbon-preview-diagnostics {
@@ -152,4 +158,3 @@
 .carbon-preview-diagnostics__item.is-info .carbon-preview-inline-icon {
   color: var(--carbon-info);
 }
-

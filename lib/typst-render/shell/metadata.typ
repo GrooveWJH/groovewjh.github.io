@@ -14,6 +14,7 @@
   title: "",
   author: none,
   description: none,
+  description-text: none,
   canonical-url: none,
   page-path: none,
 ) = {
@@ -26,6 +27,10 @@
   if description != none and str(description) != "" {
     html.meta(name: "description", content: description)
     html.elem("meta", attrs: (property: "og:description", content: description))
+  }
+
+  if description-text != none and str(description-text) != "" {
+    html.meta(name: "typ-blog:description-text", content: description-text)
   }
 
   if canonical-url != none and str(canonical-url) != "" {
@@ -46,6 +51,7 @@
   title: "",
   author: query-input("author", default: none),
   description: none,
+  description-text: none,
   lang: "zh",
   date: none,
   website-title: "",
@@ -117,6 +123,7 @@
     title: page-title,
     author: author,
     description: description,
+    description-text: description-text,
     page-path: resolved-page-path,
     canonical-url: canonical-url,
   )

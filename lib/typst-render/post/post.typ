@@ -93,6 +93,7 @@
   date: datetime.today(),
   description: "",
   description-text: none,
+  panel-intent: none,
   cover: "",
   website-url: query-input("website-url", default: none),
   author: query-input("author", default: none),
@@ -122,7 +123,8 @@
   } else {
     ""
   }
-  let post-meta-json = "{" + "\"title\":" + json-string(title) + "," + "\"description\":" + json-string(resolved-description-meta) + "," + "\"descriptionText\":" + json-string(resolved-description-text) + "," + "\"cover\":" + json-string(cover-source-text) + "," + "\"resolvedCoverPath\":" + json-string(resolved-cover-path) + "," + "\"resolvedPublicCoverPath\":" + json-string(resolved-public-cover-path) + "," + "\"category\":" + json-string(category) + "," + "\"tags\":" + tags-json + "," + "\"date\":" + json-string(date-string) + "}"
+  let resolved-panel-intent = if panel-intent == none { "" } else { str(panel-intent) }
+  let post-meta-json = "{" + "\"title\":" + json-string(title) + "," + "\"description\":" + json-string(resolved-description-meta) + "," + "\"descriptionText\":" + json-string(resolved-description-text) + "," + "\"panelIntent\":" + json-string(resolved-panel-intent) + "," + "\"cover\":" + json-string(cover-source-text) + "," + "\"resolvedCoverPath\":" + json-string(resolved-cover-path) + "," + "\"resolvedPublicCoverPath\":" + json-string(resolved-public-cover-path) + "," + "\"category\":" + json-string(category) + "," + "\"tags\":" + tags-json + "," + "\"date\":" + json-string(date-string) + "}"
 
   if emit-post-meta != none {
     post-meta-json
@@ -149,6 +151,7 @@
       custom-css: custom-css,
       custom-script: custom-script,
       description: resolved-description-meta,
+      description-text: resolved-description-text,
       include-description-meta: true,
       website-url: website-url,
       author: author,
