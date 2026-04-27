@@ -22,6 +22,7 @@
     "build:preview_fast": "npm run build -- --jobs 4 --out _site-preview",
     "build:preview_release": "npm run build:release -- --out _site-preview",
     "share:preview": "node scripts/share-card-preview.mjs",
+    "share:preview_attach": "node scripts/share-card-preview.mjs --no-build --out _site",
     "share:preview_release": "node scripts/share-card-preview.mjs --out _site-preview --share-origin prod"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 @import "./styles-panels/controls.css";
+@import "./styles-panels/custom-upload.css";
 @import "./styles-panels/tabs.css";
 @import "./styles-panels/review.css";
 @import "./styles-panels/payload.css";

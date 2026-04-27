@@ -38,6 +38,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build site
         run: pnpm run build:release -- --jobs 4
+      - name: Attach share preview
+        run: pnpm run share:preview_attach
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

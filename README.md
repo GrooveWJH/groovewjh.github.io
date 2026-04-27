@@ -33,7 +33,7 @@ npx http-server _site -a 127.0.0.1 -p 5500 -c-1
 3. 在浏览器打开
 
 - 站点首页: [http://127.0.0.1:5500/](http://127.0.0.1:5500/)
-- 分享卡片预览器: [http://127.0.0.1:5500/__tools/share-preview/](http://127.0.0.1:5500/__tools/share-preview/)
+- 分享卡片预览器: [http://127.0.0.1:5500/tools/share-preview/](http://127.0.0.1:5500/tools/share-preview/)
 
 之所以推荐固定用 `127.0.0.1:5500`，是因为当前本地分享卡片 origin 就配置为这个地址，和 iMessage / 其他聊天软件本地预览时看到的 metadata 能保持一致。这里额外加了 `-c-1`，避免静态缓存干扰你反复调试分享卡片。
 
@@ -43,8 +43,9 @@ npx http-server _site -a 127.0.0.1 -p 5500 -c-1
 - `npm run build:release`: 生产模式构建，分享 origin 使用 `https://groovewjh.github.io`
 - `npm run build:preview`: 本地模式构建到 `_site-preview/`
 - `npm run build:preview_release`: 生产模式构建到 `_site-preview/`
-- `npm run share:preview`: 生成本地模式分享卡片预览页，输出到 `_site/__tools/share-preview/`
-- `npm run share:preview_release`: 生成生产模式分享卡片预览页，输出到 `_site-preview/__tools/share-preview/`
+- `npm run share:preview`: 生成本地模式分享卡片预览页，输出到 `_site/tools/share-preview/`
+- `npm run share:preview_attach`: 把分享卡片预览页附着到现有 `_site/`，供 deploy 或复用既有构建使用
+- `npm run share:preview_release`: 生成生产模式分享卡片预览页，输出到 `_site-preview/tools/share-preview/`
 - `npm run check:maxline:chrome`: 检查浏览器壳层相关源码都不超过 350 行
 - `npm run check:maxline:share`: 检查 share / share-preview 子系统源码都不超过 300 行
 - `npm test`: 运行全部测试
@@ -65,6 +66,7 @@ npx http-server _site -a 127.0.0.1 -p 5500 -c-1
 这份文档包含：
 
 - 本地如何启动
+- 生产部署后的正式入口
 - 本地模式与生产模式的区别
 - 预览页如何切换页面 / 平台
 - PNG 导出怎么用

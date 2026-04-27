@@ -9,7 +9,7 @@
 完成后你应该能在本地看到两样东西：
 
 - 博客站点本身
-- 社交卡片预览器，地址是 `/__tools/share-preview/`
+- 社交卡片预览器，地址是 `/tools/share-preview/`
 
 ## 启动本地分享卡片预览
 
@@ -22,7 +22,7 @@ npm run share:preview
 这个命令会做两件事：
 
 1. 先按本地 origin 构建站点
-2. 再把分享卡片预览工具写入 `_site/__tools/share-preview/`
+2. 再把分享卡片预览工具写入 `_site/tools/share-preview/`
 
 当前本地 origin 固定是 `http://127.0.0.1:5500`。
 
@@ -41,7 +41,15 @@ npx http-server _site -a 127.0.0.1 -p 5500 -c-1
 浏览器打开：
 
 - 站点首页: [http://127.0.0.1:5500/](http://127.0.0.1:5500/)
-- 分享卡片预览器: [http://127.0.0.1:5500/__tools/share-preview/](http://127.0.0.1:5500/__tools/share-preview/)
+- 分享卡片预览器: [http://127.0.0.1:5500/tools/share-preview/](http://127.0.0.1:5500/tools/share-preview/)
+
+## 生产部署后的入口
+
+GitHub Pages 发布完成后，正式地址固定为：
+
+- [https://groovewjh.github.io/tools/share-preview/](https://groovewjh.github.io/tools/share-preview/)
+
+这个工具页会带 `noindex, nofollow`，因此它是站内工具，而不是对外索引内容页。
 
 ## 预览页里能做什么
 
@@ -106,6 +114,17 @@ npm run share:preview_release
 
 如果你要在本地打开生产模式结果，可以再起一个静态服务指向 `_site-preview/`。但它的分享字段会指向生产域名，这属于预期行为。
 
+### Deploy 如何附着 preview
+
+正式 deploy 不会单独重跑一套 preview build，而是在 release build 完成后把 preview 工具附着进现有 `_site/`：
+
+```bash
+npm run build:release -- --jobs 4
+npm run share:preview_attach
+```
+
+这样 GitHub Pages 最终上传的仍然是同一个 `_site/`，只是其中额外包含 `/tools/share-preview/`。
+
 ## 常见疑问
 
 ### 为什么现在只有 iMessage+
@@ -131,6 +150,7 @@ npm run share:preview
 - `npm run build:preview`
 - `npm run build:preview_release`
 - `npm run share:preview`
+- `npm run share:preview_attach`
 - `npm run share:preview_release`
 - `npm run check:maxline:share`
 - `npm test`
