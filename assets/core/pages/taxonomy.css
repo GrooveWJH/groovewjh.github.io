@@ -1,84 +1,6 @@
 /*
-  Tags and categories index/list pages.
+  Category index/list pages.
 */
-/* TAG PAGE */
-
-.tag-cards-grid {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: 0.75rem;
-  width: 100%;
-}
-
-.tag-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 7rem;
-  padding: 0.625rem 0.75rem;
-  border: 1px solid var(--tag-border);
-  background-color: var(--tag-background);
-  color: var(--tag-color) !important;
-  text-decoration: none !important;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.tag-card:hover {
-  background-color: var(--tag-background-hover);
-  border-color: var(--tag-border-hover);
-}
-
-.tag-card-top {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
-  min-width: 0;
-}
-
-.tag-card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-.tag-card-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  background-color: currentColor;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  flex-shrink: 0;
-}
-
-.tag-card-arrow {
-  width: 1.25rem;
-  height: 1.25rem;
-  background-color: currentColor;
-  mask-image: url("/assets/icons/arrow--right.svg");
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  flex-shrink: 0;
-}
-
-.tag-card-name {
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.35;
-  overflow-wrap: anywhere;
-}
-
-.tag-card-meta {
-  font-size: 0.75rem;
-  line-height: 1.2;
-  opacity: 0.75;
-}
-
-/* CATEGORY PAGE */
 
 .category-list {
   margin-top: 2rem;
@@ -151,4 +73,3 @@
   line-height: 1rem;
   color: var(--text-secondary);
 }
-

@@ -3,7 +3,6 @@
 #show: template-post.with(
   title: "Echo之死",
   description: "",
-  tags: ("诗歌",),
   category: "诗歌",
   date: datetime(year: 2022, month: 10, day: 31),
 )

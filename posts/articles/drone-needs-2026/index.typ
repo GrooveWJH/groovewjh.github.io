@@ -7,8 +7,7 @@
     尽头是如水的寂寞；\
     你的原初是谁，你的未来何在；\
     你的青春你的梦想这两片花翅膀啊。],
-  tags: ("无人机", "杂谈", "市场"),
-  category: "机器人",
+  category: "机器人与创业",
   cover: image("img/cover.png", width: 50%),
   date: datetime(year: 2026, month: 3, day: 10),
 )

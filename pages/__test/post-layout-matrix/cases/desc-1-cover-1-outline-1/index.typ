@@ -5,7 +5,6 @@
   description: "有 description，有 cover，有 outline。",
   cover: matrix-cover,
   outline-enabled: true,
-  tags: matrix-tags,
   category: matrix-category,
   date: matrix-date,
 )

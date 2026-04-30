@@ -1,14 +1,9 @@
 #import "../../config.typ": *
 #let posts = query-posts()
 
-#let tags = (:)
 #let categories = (:)
 
 #for post in posts [
-  #for tag in post.tags [
-    #tags.insert(tag, true)
-  ]
-
   #if post.category != "" [
     #categories.insert(post.category, true)
   ]
@@ -28,12 +23,10 @@
 // 这是 Typst Blog 的基础信息页。
 
 // - 文章数量：#posts.len()
-// - 标签数量：#tags.keys().len()
 // - 分类数量：#categories.keys().len()
 
 // 常用入口：
 // - #link("/")[首页]
-// - #link("/tags/")[标签]
 // - #link("/categories/")[分类]
 // - #link("/archive/")[归档]
 

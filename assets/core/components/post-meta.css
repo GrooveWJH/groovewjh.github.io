@@ -18,21 +18,13 @@
 }
 
 .post-time-desc,
-.post-category-desc,
-.post-tag-desc {
+.post-category-desc {
   flex-shrink: 0;
   user-select: none;
   height: 1.5rem;
   display: inline-block;
   position: relative;
   padding-right: 1.5rem;
-}
-
-.post-tag-desc {
-  font-size: 0.875rem;
-  height: 2rem;
-  line-height: 2rem;
-  padding-right: 1.25rem;
 }
 
 .post-category-link {
@@ -46,20 +38,4 @@
 
 .post-category-link:visited {
   color: var(--link);
-}
-
-.post-tag {
-  display: flex;
-  flex-direction: row;
-  color: var(--text-secondary);
-}
-
-.post-tag-group {
-  display: inline-flex;
-  flex-wrap: wrap;
-}
-
-.page-tag-list {
-  margin: 2rem 1rem;
-  text-align: center;
 }

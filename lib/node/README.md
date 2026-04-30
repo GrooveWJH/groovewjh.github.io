@@ -24,8 +24,8 @@ npm run assets:webapp
 1. 清空 `.typ-blog-cache/transient/`，保留 `.typ-blog-cache/artifacts/` 下的持久工件缓存。
 2. 检查字体工件 manifest；命中时复用缓存，未命中时仅重建受影响的字体子集。
 3. 逐个编译 `posts/**/index.typ` 的 metadata 输出，生成 `_posts-metadata.json`。
-4. 基于 tag/category 执行 slugify，并对冲突（不同值映射到同一 slug）直接报错。
-5. 展开动态路由页面（`[tag]` / `[category]`），并校验每个路径 token 最多出现一次。
+4. 基于 category 执行 slugify，并对冲突（不同值映射到同一 slug）直接报错。
+5. 展开动态路由页面（`[category]`），并校验路径 token 最多出现一次。
 6. 编译 `posts/` 与 `pages/` 的 `index.typ` 到临时站点目录；其中文章固定输出到 `/posts/<slug>/`，按 `updated` / `unchanged` 标记。
 7. 生成并发布 Web App 资源：`assets/apple-touch-icon.png`、manifest 所需 icon，以及站点根目录的 `manifest.webmanifest`。
 8. 同步 `assets/`、`posts/`、`pages/` 下非 `.typ` 文件到临时目录；生成字体则从工件缓存复制到 `assets/fonts.css` 与 `assets/fonts/*.woff2`。
@@ -34,7 +34,7 @@ npm run assets:webapp
 
 ## Notes
 
-- 动态路由模板路径中，`[tag]` 和 `[category]` 各自最多出现一次。
+- 动态路由模板路径中，`[category]` 最多出现一次；`[tag]` 不再受支持。
 - 旧输出目录中的未保留文件会在发布阶段被移除。
 - `posts/_hidden/**` 与 `posts/_drafts/**` 会在构建时被忽略（包含文章编译与静态资源同步）。
 - 构建结束后只会清理 `.typ-blog-cache/transient/`，字体工件缓存在 `.typ-blog-cache/artifacts/fonts/` 中保留。

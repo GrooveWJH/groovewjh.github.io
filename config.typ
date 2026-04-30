@@ -7,17 +7,6 @@
 
 #let footer-content = [人的群岛]
 
-#let tag-options = (
-  "博客搭建": (preset: "cyan", "icon": "/assets/icons/rocket.svg"),
-  "Typst": ("preset": "teal", "icon": "/assets/icons/pen.svg"),
-  "诗歌": ("preset": "typst", "icon": "/assets/icons/volume--up--filled--alt.svg"),
-  "写作指南": ("preset": "blue", "icon": "/assets/icons/edit.svg"),
-  "配置指南": ("preset": "green", "icon": "/assets/icons/settings.svg"),
-)
-
-#let render-tag-link = render-tag-link.with(tag-options: tag-options)
-#let render-tag-card = render-tag-card.with(tag-options: tag-options)
-
 #let is-html-target() = "target" in dictionary(std) and target() == "html"
 
 #let preview-raw-font-default = (
@@ -46,13 +35,11 @@
   header-links: (
     "/": "首页",
     "/categories/": "合集",
-    "/tags/": "标签",
     "/about/": "关于",
   ),
   title: "Typst Blog",
   lang: "en",
   footer-content: footer-content,
-  tag-options: tag-options,
   custom-css: (
     "/assets/fonts.css",
     "/assets/custom.css",

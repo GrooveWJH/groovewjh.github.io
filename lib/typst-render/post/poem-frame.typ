@@ -153,7 +153,7 @@
 #let poem-frame(
   align: "left",
   inner-align: auto,
-  inset: 0pt,
+  inset: 0em,
   width: auto,
   stroke: none,
   frame: true,

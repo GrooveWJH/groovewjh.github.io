@@ -4,6 +4,7 @@
 
 :root {
   --article-line-height: 1.5;
+  --post-cover-clearance: 1.25rem;
 }
 
 article,
@@ -54,18 +55,26 @@ article.post-category-poem {
   font-family: var(--font-poem-stack);
 }
 
-article .post-cover {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 2rem 0;
+article.post-article.has-cover > section {
+  margin-top: var(--post-cover-clearance);
 }
 
-article .post-cover > * {
+article.post-article.has-cover .post-cover {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 var(--post-cover-clearance) 0;
+}
+
+article.post-article.has-cover .post-cover + :where(p, h1, h2, h3, h4, h5, ul, ol, blockquote, figure, pre) {
+  margin-top: 0;
+}
+
+article.post-article.has-cover .post-cover > * {
   max-width: 100%;
 }
 
-article .post-cover img,
-article .post-cover svg {
+article.post-article.has-cover .post-cover img,
+article.post-article.has-cover .post-cover svg {
   max-width: 100%;
   height: auto;
 }

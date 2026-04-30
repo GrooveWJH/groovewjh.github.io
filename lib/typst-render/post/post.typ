@@ -1,31 +1,46 @@
 #import "../core/html-guard.typ": html-guard
-#import "../core/sys-input.typ": query-input, query-posts, query-tag-slug-of, query-category-slug-of
-#import "../fragments/tag.typ": render-tag-link
+#import "../core/sys-input.typ": query-input, query-posts, query-category-slug-of
 #import "../shell/base.typ": typ2html-base
 #import "../shell/description.typ": collapse-description-meta-text, resolve-description-plain-text
 #import "../shell/layout.typ": make-post-header, make-post-footer
-#import "./post-cover.typ": extract-cover-source, resolve-cover-path, resolve-public-cover-path
+#import "./post-cover.typ": extract-cover-source, has-cover-value, resolve-cover-path, resolve-public-cover-path
 
 #let post-date-storage-format = "[year]-[month]-[day]"
 #let post-date-display-format = "[year] 年 [month padding:none] 月 [day padding:none] 日"
 #let format-post-date(date) = date.display(post-date-display-format)
+
+#let font-preload-type(href) = {
+  if href.ends-with(".woff2") {
+    "font/woff2"
+  } else if href.ends-with(".otf") {
+    "font/otf"
+  } else if href.ends-with(".ttf") {
+    "font/ttf"
+  } else {
+    "font/*"
+  }
+}
 
 #let make-font-preload-link(href) = html-guard(() => {
   html.elem("link", attrs: (
     rel: "preload",
     href: href,
     "as": "font",
-    "type": "font/woff2",
+    "type": font-preload-type(href),
     crossorigin: "anonymous",
   ))
 })
 
 #let make-post-font-preloads(font-mode: "release") = {
   if font-mode == "dev" {
-    none
+    make-font-preload-link("/assets/fonts/NotoSerifCJKsc-Regular.otf")
+    make-font-preload-link("/assets/fonts/NotoSerifCJKsc-Bold.otf")
+    make-font-preload-link("/assets/fonts/Kaiti.ttf")
   } else {
     make-font-preload-link("/assets/fonts/noto-serif-sc-basic-400.woff2")
+    make-font-preload-link("/assets/fonts/noto-serif-sc-basic-700.woff2")
     make-font-preload-link("/assets/fonts/noto-serif-sc-non-basic-400.woff2")
+    make-font-preload-link("/assets/fonts/noto-serif-sc-non-basic-700.woff2")
     // Embedded poem-frame blocks need Kai on non-ASCII runs even inside normal articles.
     make-font-preload-link("/assets/fonts/site-kai-non-basic-400.woff2")
   }
@@ -50,19 +65,9 @@
   })
 }
 
-#let render-meta(tags, category, date-string, tag-options: (:)) = context {
+#let render-meta(category, date-string) = context {
   html-guard(() => {
     html.div(class: "post-meta", {
-      if tags != none and tags.len() != 0 {
-        html.div(class: "post-tag", {
-          html.span(class: "post-tag-desc", "标签")
-          html.span(class: "post-tag-group", {
-            for tag in tags {
-              render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/", tag-options: tag-options)
-            }
-          })
-        })
-      }
       html.div(class: "post-time", {
         html.span(class: "post-time-desc", "日期")
         html.span(date-string)
@@ -87,8 +92,6 @@
   custom-css: (),
   custom-script: (),
   footer-content: none,
-  tag-options: (:),
-  tags: (),
   category: "",
   date: datetime.today(),
   description: "",
@@ -114,7 +117,6 @@
   let date-string-localized = format-post-date(date)
   let resolved-description-text = resolve-description-plain-text(description, description-text: description-text)
   let resolved-description-meta = collapse-description-meta-text(resolved-description-text)
-  let tags-json = "[" + tags.map(tag => json-string(tag)).join(",") + "]"
   let cover-source = extract-cover-source(cover)
   let cover-source-text = if cover-source == none { "" } else { str(cover-source) }
   let resolved-cover-path = if cover-source-text != "" { resolve-cover-path(cover-source) } else { "" }
@@ -124,7 +126,7 @@
     ""
   }
   let resolved-panel-intent = if panel-intent == none { "" } else { str(panel-intent) }
-  let post-meta-json = "{" + "\"title\":" + json-string(title) + "," + "\"description\":" + json-string(resolved-description-meta) + "," + "\"descriptionText\":" + json-string(resolved-description-text) + "," + "\"panelIntent\":" + json-string(resolved-panel-intent) + "," + "\"cover\":" + json-string(cover-source-text) + "," + "\"resolvedCoverPath\":" + json-string(resolved-cover-path) + "," + "\"resolvedPublicCoverPath\":" + json-string(resolved-public-cover-path) + "," + "\"category\":" + json-string(category) + "," + "\"tags\":" + tags-json + "," + "\"date\":" + json-string(date-string) + "}"
+  let post-meta-json = "{" + "\"title\":" + json-string(title) + "," + "\"description\":" + json-string(resolved-description-meta) + "," + "\"descriptionText\":" + json-string(resolved-description-text) + "," + "\"panelIntent\":" + json-string(resolved-panel-intent) + "," + "\"cover\":" + json-string(cover-source-text) + "," + "\"resolvedCoverPath\":" + json-string(resolved-cover-path) + "," + "\"resolvedPublicCoverPath\":" + json-string(resolved-public-cover-path) + "," + "\"category\":" + json-string(category) + "," + "\"date\":" + json-string(date-string) + "}"
 
   if emit-post-meta != none {
     post-meta-json
@@ -134,7 +136,8 @@
     let lang-head = str(lang).split("-").at(0, default: str(lang))
     let post-lang-class = if lang-head == "zh" { "post-lang-zh" } else { "post-lang-nonzh" }
     let post-category-class = if category == "诗歌" { "post-category-poem" } else { "" }
-    let article-class = "post-article " + post-lang-class + if post-category-class != "" { " " + post-category-class } else { "" }
+    let post-cover-class = if has-cover-value(cover) { " has-cover" } else { "" }
+    let article-class = "post-article " + post-lang-class + post-cover-class + if post-category-class != "" { " " + post-category-class } else { "" }
     let all-posts = query-posts()
     let matched-indexes = range(all-posts.len()).filter(i => all-posts.at(i).slug == page-path)
     let current-index = matched-indexes.at(0, default: none)
@@ -164,7 +167,7 @@
           html.section({
             content
             render-footnotes()
-            render-meta(tags, category, date-string-localized, tag-options: tag-options)
+            render-meta(category, date-string-localized)
           })
         })
       }),

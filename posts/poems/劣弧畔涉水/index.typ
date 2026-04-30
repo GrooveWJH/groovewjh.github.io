@@ -3,7 +3,6 @@
 #show: template-post.with(
   title: "劣弧畔涉水",
   description: "",
-  tags: ("诗歌",),
   category: "诗歌",
   date: datetime(year: 2022, month: 8, day: 20),
 )

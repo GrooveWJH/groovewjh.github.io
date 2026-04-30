@@ -23,8 +23,7 @@
 
 = #{html.div(class: "title-with-icon", {
   html.div(
-    class: "tag-title-icon",
-    style: "--tag-background:var(--tag-background-gray);--tag-color:var(--tag-color-gray);",
+    class: "archive-title-icon",
     {
       html.span(style: "mask-image:url(\"/assets/icons/box.svg\");")
     },

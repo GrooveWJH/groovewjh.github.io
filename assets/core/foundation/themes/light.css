@@ -66,11 +66,6 @@ html[data-theme="white"] {
   --footer-background: var(--black);
   --footer-text: var(--white);
 
-  --tag-background: var(--gray-20);
-  --tag-color: var(--gray-100);
-  --tag-hover: var(--gray-20-hover);
-  --tag-border: var(--gray-40);
-
   --interactive-background: var(--gray-60);
   --interactive-hover: var(--gray-60-hover);
   --interactive-active: var(--gray-80);
@@ -140,11 +135,6 @@ html:not([data-theme]) {
 
   --footer-background: var(--black);
   --footer-text: var(--white);
-
-  --tag-background: var(--gray-20);
-  --tag-color: var(--gray-100);
-  --tag-hover: var(--gray-20-hover);
-  --tag-border: var(--gray-40);
 
   --interactive-background: var(--gray-60);
   --interactive-hover: var(--gray-60-hover);

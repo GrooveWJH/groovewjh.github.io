@@ -10,8 +10,6 @@
   if slugs-json-path == none { (:) } else { json(slugs-json-path) }
 }
 
-#let query-route-tag(default: "") = str(query-input("route-tag", default: default))
-
 #let query-route-category(default: "") = str(query-input("route-category", default: default))
 
 #let query-route-page(default: 1) = {
@@ -22,11 +20,6 @@
 #let query-route-page-size(default: 10) = {
   let raw = str(query-input("route-page-size", default: str(default)))
   calc.max(1, int(raw))
-}
-
-#let query-tag-slug-of(value) = {
-  let tag-slugs = query-slugs().at("tags", default: (:))
-  str(tag-slugs.at(value, default: value))
 }
 
 #let query-category-slug-of(value) = {

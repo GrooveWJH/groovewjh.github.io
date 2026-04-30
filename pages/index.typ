@@ -110,13 +110,6 @@
             html.div(class: "post-description", {
               post.description
             })
-            if post.tags.len() != 0 {
-              html.div(class: "post-card-tags", {
-                for tag in post.tags {
-                  render-tag-link(tag, href: "/tags/" + query-tag-slug-of(tag) + "/")
-                }
-              })
-            }
             html.div(class: "post-date", {
               post-date-text
             })

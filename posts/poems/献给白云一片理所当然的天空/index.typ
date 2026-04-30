@@ -3,7 +3,6 @@
 #show: template-post.with(
   title: "献给白云一片理所当然的天空",
   description: "",
-  tags: ("诗歌",),
   category: "诗歌",
   date: datetime(year: 2023, month: 6, day: 30),
 )

@@ -3,7 +3,6 @@
 #show: template-post.with(
   title: "ClearWineGALA",
   description: "",
-  tags: ("诗歌",),
   category: "诗歌",
   date: datetime(year: 2021, month: 12, day: 9),
 )

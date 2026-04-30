@@ -1,11 +1,10 @@
 #import "./core/html-guard.typ": html-guard
-#import "./core/sys-input.typ": query-input, query-posts, query-slugs, query-route-tag, query-route-category, query-route-page, query-route-page-size, query-tag-slug-of, query-category-slug-of, query-page-bounds
+#import "./core/sys-input.typ": query-input, query-posts, query-slugs, query-route-category, query-route-page, query-route-page-size, query-category-slug-of, query-page-bounds
 #import "./fragments/block.typ": quote, note, success, warning, error
 #import "./fragments/breadcrumb.typ": render-page-breadcrumb
 #import "./fragments/divider.typ": divider
 #import "./fragments/math.typ": auto-frame
 #import "./fragments/pagination.typ": render-pagination-nav
-#import "./fragments/tag.typ": render-tag-link, render-tag-card
 #import "./post/post.typ": typ2html-post
 #import "./shell/base.typ": typ2html-base
 #import "./shell/layout.typ": make-nav, make-header, make-post-header, make-post-footer, make-page-footer
@@ -53,7 +52,6 @@
     canonical-path: query-input("public-page-path", default: query-input("page-path", default: "")),
     date-meta: datetime.today(),
     head-extra: html-guard(() => {
-      html.meta(name: "tags", content: "none")
       html.meta(name: "category", content: "")
     }),
     header-node: html-guard(() => make-header(header-links, site-title)),
@@ -74,7 +72,6 @@
   description: "",
   website-url: query-input("website-url", default: none),
   author: query-input("author", default: none),
-  tag-options: (:),
   post-css: (
     "/assets/core/main.css",
   ),
@@ -111,7 +108,6 @@
     description: description,
     website-url: website-url,
     author: author,
-    tag-options: tag-options,
   ),
   page: typ2html-page.with(
     header-links: header-links,

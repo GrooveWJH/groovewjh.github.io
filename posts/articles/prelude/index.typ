@@ -7,7 +7,6 @@
   其实并没有什么不同。],
   cover: image("img/cover.jpeg"),
   outline-enabled: false,
-  tags: ("正传",),
   category: "正传",
   date: datetime(year: 2026, month: 3, day: 2),
 )
@@ -24,7 +23,7 @@
 
 人的生命短暂且有限，从而变得无比丰饶。
 
-#poem-frame(align: "center", inset: 1em)[
+#poem-frame(align: "center")[
   而如果轮回可以继续下去  \
   我还要做一头狮子，一只绵羊 \
   一棵树，以及一块石头 \

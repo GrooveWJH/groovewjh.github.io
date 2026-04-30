@@ -3,7 +3,6 @@
 #show: template-post.with(
   title: "烁烁来信",
   description: "",
-  tags: ("诗歌",),
   category: "诗歌",
   date: datetime(year: 2022, month: 9, day: 9),
 )

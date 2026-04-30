@@ -7,8 +7,7 @@
   description: [为那荒芜了的岁月，\
     为我的终于无法坚持，\
     为所有终于枯萎了的蔷薇。],
-  tags: ("软件工程", "Vibe Coding"),
-  category: "技术杂谈",
+  category: "技术与工程",
   date: datetime(year: 2026, month: 4, day: 16),
   cover: image("img/cover.webp", width: 40%),
 )

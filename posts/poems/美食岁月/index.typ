@@ -3,7 +3,6 @@
 #show: template-post.with(
   title: "美食岁月",
   description: "",
-  tags: ("诗歌",),
   category: "诗歌",
   date: datetime(year: 2022, month: 6, day: 20),
 )

@@ -5,7 +5,6 @@
   description: "",
   cover: matrix-cover,
   outline-enabled: true,
-  tags: matrix-tags,
   category: matrix-category,
   date: matrix-date,
 )
